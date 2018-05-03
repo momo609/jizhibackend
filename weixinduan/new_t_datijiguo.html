@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="js/Chart.js"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>答题结果</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link href="css/iconfont.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/tool.js"></script>
+		<style>
+			body{
+				background-color: #F3F3F3;
+			}
+			.header{
+	 background-color:#29c4b5;
+	 
+	padding-bottom: 5px;
+	 }
+.topper
+{
+	 font-size: 20px;
+	 margin:0;
+	 padding-top: 1px;
+	 padding-bottom: 1px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+.topper_inner{
+	margin-top: 8%;
+	padding-top:5px;
+	height: 100px;
+	padding-bottom: 6px;
+}
+.score
+{
+	margin-left: 40%;
+	margin-bottom: 5%;
+}
+.timer{
+	margin-left: 37%;
+	margin-bottom: 3%;
+}
+.chart {
+				height: 200px;
+				margin: 0px;
+				padding: 0px;
+			}
+.header{
+	height: 200px;
+}
+.mui-icon mui-icon-bars{
+	margin-left: 90%;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: white;
+	border:#5E5E5E solid 1px;
+	color:#5E5E5E;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.activee{	
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.own{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #E36D6D;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.title{
+	font-size: 20px;
+	font-weight: bold;
+	color: #FFFFFF;
+	margin-top: 2.5%;
+	width:90%;
+}
+h5 {
+	margin-left:20%;
+    font-weight: bold;
+   }
+   #test
+   {
+	border:1px solid #FFFFFF;
+	color:#FFFFFF;
+	font-size:15px;
+	font-weight:bolder;
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #29c4b5;
+    text-align: center;
+    line-height:25px;
+    text-decoration: none;
+   }
+#check{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	border:1px solid #1D7DB1;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#check:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}		
+#tag_check{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	border:1px solid #1D7DB1;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#tag_check:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}	
+.FF9900
+{
+	width: 20px;
+	height: 10px;
+	background-color: #FF9900;
+	border:#FF9900 solid 1px;
+	color:#FFFFFF;
+}
+.PAN{
+	width: 20px;
+	height: 10px;
+	background-color:#9ED99D;
+	color:#FFFFFF;
+	border:#9ED99D solid 1px;
+}
+.FF6699{
+	width: 20px;
+	height: 10px;
+	background-color: #FF6699;
+	color:#FFFFFF;
+	border:#FF6699 solid 1px;
+}
+.FF3300{
+	width: 20px;
+	height: 10px;
+	background-color: #FF3300;
+	color:#FFFFFF;
+	border:#FF3300 solid 1px;
+}	
+		</style>
+	</head>
+	<body>
+		<div class="header">
+	  <div class="topper"> 
+			<a href="test_done.html" style="width: 10%;height: 10%;"><img src="images/left_arrow.png" align="left" width="10%" height="10%" ></a> 
+			<div style="width:83%;float: right;" class="title">平均分
+			<a id="exportButton"  class="mui-icon mui-icon-upload" style=" width:20%;height:10%;float: right;background-color:#29c4b5;color:#FFFFFF;font-size: 16.5px;" >导出</a>
+			</div>
+			
+	</div>
+		<div class="topper_inner">
+			
+			<div class="score">
+				<h1 id="score"></h1>		 
+			</div>
+			<div class="timer">
+				 <a id="test">查看试题</a>
+			</div>
+		</div>
+		</div>
+		<div class="mui-card" style="margin: 10px;">
+	      <div id="div-space" style="width: 32%; height: 90px; background-color: #2DBFB0;padding: 10px;float:left;">
+	        	    <div style="font-size:large; margin-left: 13%; color:#B6F9FF">参考人数</div>
+	       			<div style="font-size:large ;margin-left: 40%; margin-top:10%;color:#FFFFFF;" id="countpeople">
+	       			</div>
+           </div>
+           <div style="height:90px;width: 36%;float:left;padding: 10px;">
+	        	   <div style="font-size:large; margin-left: 25%;">最高分</div>
+	       			<div style="font-size:large ;margin-left: 37%;color:#2DBFB0;margin-top:10%;" id="maxscore">
+	       			</div>
+           </div>
+	       <div style="height:90px;width:32%;float: right; padding: 15px;background-color: #2DBFB0">
+	       			<div style="font-size:large; margin-left: 30%; color: #B6F9FF;">总分</div>
+	       			<div style="font-size:large ;margin-left: 32%; margin-top:10%;color: #FFFFFF;" id="totalscore">100
+	       			</div>
+	       </div>
+		</div>
+		<div class="mui-content"  >
+			<div class="prodetail" id="pro"></div>
+			<div class="chart" id="score_barChart">
+			</div>
+			<div style="text-align:center;margin-bottom: 3%; display: none;"id="cc">
+				<span class="FF9900" >单选</span>
+			    <span class="PAN" >判断</span>
+			    <span class="FF6699" >填空</span>
+			    <span class="FF3300">多选</span>
+			</div>
+			<div class="chart" id="timeuse_barChart">
+			</div>
+			<div class="chart" id="correct_barChart">
+			</div>
+			<div class="chart" id="pieChart"></div>
+      </div>
+       <div style="margin-left:13%; padding:15px" id="Button" >
+       	<a id="check">查看学生测试结果</a>
+       	<a id="tag_check" style="margin-top:3%">知识点错误统计</a>
+       </div>
+       <a id="down" download></a>
+        <script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/GetUesridCookie.js"></script>
+	
+	<script>		
+	(function($,doc){
+				//mui.toast("正在加载，请稍候...");
+				var totalScore;
+				 jQuery.noConflict();
+				var userid = GetUseridCookie().get("userid");
+				var testid=UrlParm.parm("testid");
+				var title=UrlParm.parm("title");
+				var avg=document.getElementById("avg");
+				var time=document.getElementById("time");
+				var pro=document.getElementById("pro");
+				var use_paperid=UrlParm.parm("use_paperid");
+				var score=document.getElementById('score');
+				var mscore=document.getElementById('maxscore');
+				var tpeople=document.getElementById('countpeople');
+				var tscore=document.getElementById('totalscore');
+				var exportButton = document.getElementById("exportButton");
+				var d = document.getElementById("down");
+				answers=[];
+				correct=[];
+				qid=[];
+				str1='';
+				str='';
+				var part_l=0;
+				var part_m=0;
+				var part_h=0;
+				correct=[];
+				var t_total;
+				var type=[];
+				var s_correct=[];
+				document.getElementById('test').href='t_testdetail.html?paperid='+use_paperid+'&q_order=1'+'&testid='+testid+'&title='+title;
+				mui.ajax('http://'+url+'/jizhibackend/servlet/GetTestStatForTeacher',{
+						data:
+						{
+							userid:	userid ,
+							testid: testid ,
+							paperid:use_paperid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						beforeSend:function(){
+							
+						},
+						success: function(data) {
+							 data1=data.TestResults;
+							 data2 = data.TestStat;
+							 tpeople.innerHTML=''+data1.length;
+							 tscore.innerHTML =''+data.totalscore;
+							 totalScore = data.totalscore;
+							 if(data1.length>0)
+							{
+								countcorrect(data1);
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+				});
+				function trim(str){ //删除左右两端的空格
+　　                                      return str.replace(/(^\s*)|(\s*$)/g, "");
+　　                }
+				function countcorrect(data1){
+					 mui.ajax('http://'+url+'/jizhibackend/servlet/EnterTest',{
+						data:
+						{
+							userid:	userid ,
+						    testid:testid
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						dataType: 'json' ,//服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: 
+						function(data) {
+							data_m=data.MultipleChoiceQuestion;
+							data_s=data.SingleChoiceQuestion;
+							data_f=data.FillBlankQuestion;
+							data_j=data.JudgeQuestion;
+							for(var i=0;i<data_m.length;i++)
+							{
+								type[data_m[i].q_order-1]=4
+							}
+							for(i=0;i<data_s.length;i++)
+							{
+								type[data_s[i].q_order-1]=1
+							}
+							for(i=0;i<data_j.length;i++)
+							{
+								type[data_j[i].q_order-1]=2
+							}
+							for(i=0;i<data_f.length;i++)
+							{
+								type[data_f[i].q_order-1]=3
+							}
+     					    },
+						    error: function(xhr, type, errorThrown) {
+							    console.log(errorThrown);
+						    }
+					 });
+					 var total=data_m.length+data_s.length+data_f.length+data_j.length;
+					  var str;
+					  for(var i=0;i<total;i++)
+					  {
+					  	correct[i]=0;
+					  }
+					  pp=[];
+					  var ppstr;
+					  var studentid='';
+					  var studentname='';
+					  jQuery.each(data1,function(index,item){
+//					  	alert(item.studentname);
+						studentname = studentname+item.studentname+',';
+					  	studentid=studentid+item.studentid+',';
+					  	ppstr='';
+					     ppstr=item.proportion.substring(1,item.proportion.length-1);
+					     pp=ppstr.split(',');
+		    		    	part_l=part_l+parseInt(pp[0]);
+    				    	part_m=part_m+parseInt(pp[1]);
+    				    	part_h=part_h+parseInt(pp[2]);
+					  answer=[];
+					  str='';
+					  str=item.answers;
+					  var flag=0;
+					  answers=str.split("@@");
+					        for(var i=0;i<data_m.length;i++)
+							{
+								if(trim(data_m[i].answer)==trim(answers[data_m[i].q_order-1]))
+								{
+									correct[data_m[i].q_order-1]++;
+								}
+							}
+							for(i=0;i<data_s.length;i++)
+							{
+								if(trim(data_s[i].answer)==trim(answers[data_s[i].q_order-1]))
+								{
+									correct[data_s[i].q_order-1]++;
+								}
+								
+							}
+							for(i=0;i<data_j.length;i++)
+							{
+								if(trim(data_j[i].answer)==trim(answers[data_j[i].q_order-1]))
+								{
+									correct[data_j[i].q_order-1]++;
+								}
+								
+							}
+							for(i=0;i<data_f.length;i++)
+							{
+								s_correcrt=data_f[i].answer.split('**');
+								flag=0;
+								for(var j=0;j<s_correcrt.length;j++)
+								{
+									if(trim(s_correcrt[j])==trim(answers[data_f[i].q_order-1]))
+								    {
+								    	flag=1;
+								    	break;
+								    }
+								}
+								if(flag)
+								{
+									 correct[data_f[i].q_order-1]++;
+								}
+							}
+					});
+					for(i=0;i<total;i++)
+					{
+							correct[i]=(correct[i]/data1.length)*100;
+					}
+					document.getElementById('check').href='t_checkstudentlist.html?testid='+testid+'&studentid='+studentid+'&studentname='+studentname+'&use_paperid='+use_paperid+'&title='+title;
+				     t_total=total;
+				}
+				if(data1.length>0)
+				{   
+					var tag_p='';
+					var tag=[];
+					var number=[];
+					var t_proportion=[];
+					var t_tag='';
+					var t_number='';
+					jQuery.each(data1,function(index,item){
+						tag_p=item.tagproportion;
+						tag_p=tag_p.substring(1,tag_p.length-1);
+						t_proportion=tag_p.split(",");
+						for(i=0;i<t_proportion.length;i++)
+						{   
+							tag[i]=t_proportion[i].split('=')[0];
+							if(index==0)
+						    {
+							number[i]=parseFloat(t_proportion[i].split('=')[1]);
+						    }
+						    else{
+							number[i]=parseFloat(number[i])+parseFloat(t_proportion[i].split('=')[1]);
+							 //alert(i+':'+number[i]);
+							}
+						  
+						}
+					});
+					for(i=0;i<tag.length;i++)
+					{
+						number[i]=number[i]/data1.length;
+						t_tag=t_tag+tag[i]+'@@';
+						t_number=t_number+number[i]+'@@';
+					}
+					document.getElementById('tag_check').href='tag_check.html?tag='+t_tag+'&number='+t_number+'&testid='+testid+'&use_paperid='+use_paperid+'&title='+title;
+//					mui.ajax('http://'+url+'/jizhibackend/servlet/GetTestStatServlet',{
+//						data:
+//						{
+//							testid: testid ,
+//						},
+//						xhrFields: {
+//
+//							withCredentials: true
+//
+//						},
+//						crossDomain: true,
+//						dataType: 'json', //服务器返回json格式数据
+//						type: 'post', //HTTP请求类型
+//						timeout: 10000, //超时时间设置为10秒；
+//						 async: false,//同步
+//						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+//						success: function(data) { 
+							score.innerHTML=data2.avgscore+'分';
+							mscore.innerHTML=''+data2.maxscore;
+							testresult(data2);
+//						},
+//						error: function(xhr, type, errorThrown) {
+//							console.log(errorThrown);
+//						}
+//					});
+				    function testresult(data){
+				    	pro=[];
+				    	time=[];
+	                    var length=data.timeused.length;
+	                    for(var i=0;i<length;i++)
+				    	{
+				    		pro[i]=""+(i+1);
+				    	}
+				    	for(var j=0;j<data.timeused.length;j++)
+				    	{
+				    		time[j]=data.timeused[j]/1000;
+				    	}
+				        var pie={
+				        	tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b}: {c} ({d}%)"
+                           },                       
+					        series: [{
+						type: 'pie',
+						radius: '65%',
+						center: ['50%', '50%'],
+						
+						data: [{
+							value: 0,
+							name: '能力拓展错题数'
+						}, {
+							value: 0,
+							name: '知识应用错题数'
+						}, {
+							value: 0,
+							name: '基础知识错题数'
+						}],
+						itemStyle: {
+                          emphasis: {
+                          shadowBlur: 10,
+                          shadowOffsetX: 0,
+                           shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+            }
+					}]
+					};
+					var bar={
+						legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                              name:'分数统计',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        },]
+                        },
+						xAxis: [{
+						type: 'category',
+						data: ['最高分','最低分','平均分']
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+					name: '分数统计',
+					type: 'bar',
+					itemStyle: {
+                                  normal: {
+                                       label:  {
+                                          show: true,
+                                          textStyle: {
+                                                color: '#800080'
+                                                     }
+                                                }
+                                         }
+                        },
+					data: [data.maxscore,data.minscore,data.avgscore]
+					}]
+					}
+					var time={
+						legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                              name:'每道题所用时间',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        },]
+
+					    },
+					xAxis: [
+					{
+						type: 'category',
+						data: pro
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+						name: '每道题所用时间',
+						type: 'bar',
+						itemStyle: {
+                                  normal: {
+                                        color:function (params){
+                                        var colorList = ['#FF9900','#9ED99D','#FF6699','#FF3300'];
+                                          return colorList[type[params.dataIndex]-1];
+                                           }
+
+                                   }
+                        },
+						data: time
+					}],
+				};
+				var correctradio={
+						legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                              name:'每道题正确率',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        },]
+
+					    },
+					xAxis: [
+					{
+						type: 'category',
+						data: pro
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+						name: '每道题正确率',
+						type: 'bar',
+						itemStyle: {
+                                  normal: {
+                                        color:function (params){
+                                        var colorList = ['#FF9900','#9ED99D','#FF6699','#FF3300'];
+                                          return colorList[type[params.dataIndex]-1];
+                                           }
+
+                                   }
+                        },
+						data: correct
+					}],
+				};
+				var byId = function(id) {
+				return document.getElementById(id);
+			};
+			var barChart = echarts.init(byId('score_barChart'));
+			barChart.setOption(bar);
+			var barChart = echarts.init(byId('timeuse_barChart'));
+			barChart.setOption(time);
+			var barChart = echarts.init(byId('correct_barChart'));
+			barChart.setOption(correctradio);
+			var pieChart = echarts.init(byId('pieChart'));
+			pieChart.setOption(pie);
+			
+		}
+		  document.getElementById("cc").style.display='';
+		  document.getElementById("Button").style.display='';
+	}
+	else{
+				   document.getElementById("cc").style.display='none';
+				   document.getElementById("Button").style.display='none';
+			
+		}
+			exportButton.onclick = function(){
+				var r = confirm("确认导出学生成绩到本地？");
+				if(r){
+						mui.toast("正在生成Excel，请稍候...");
+						mui.ajax('http://'+url+'/jizhibackend/servlet/GetTestResultForExcel',{
+						data:
+						{
+							total: totalScore,
+							testid: testid ,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==0){
+								 mui.toast("生成成功，正在下载...");
+								downloadFile(data.path);
+							}else{
+								 mui.toast("生成Excel失败请重试");
+							}
+							 
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+				});
+				}
+				
+			};
+        	function downloadFile(url){
+                            var form=jQuery("<form>");//定义form表单,通过表单发送请求
+		   					form.attr("style","display:none");//设置为不显示
+	    					form.attr("target","");
+	    					form.attr("method","get");//设置请求类型  
+	    					form.attr("action",url);//设置请求路径
+	    					jQuery("body").append(form);//添加表单到页面(body)中
+	    					form.submit();//表单提交
+
+			}
+			}(mui.document));
+	</script>
+		</div>
+	</body>
+</html>

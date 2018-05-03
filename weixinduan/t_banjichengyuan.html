@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>班级成员</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+	<style>
+						body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+#div2{
+	width:80px;
+	height: 30px;
+	border-radius: 90px;
+	background-color: #EEA236;
+	color:#FFFFFF;
+	align:center;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" id="back" ></a>
+			<h1 class="mui-title">班级成员</h1>
+			<a href="#popover" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" ></a>
+	</header>
+		<div id="popover" style="position: absolute;width: 160px;" class="mui-popover">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell"><a id="import"><img src="images/excel.png" height="15px" /><span style="margin-left: 10px;">从Excel导入</span></a></li>
+                <li class="mui-table-view-cell"><a id="ad"><img src="images/manual.png"  height="15px"/><span style="margin-left: 10px;">手动添加</span></a></li>
+            </ul>
+        </div>
+        <nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="t_test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="t_tiku.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="t_banji.html">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="t_user.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+</nav>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" id="out">
+				<!--<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="images/userhead.png" width="60px" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name">&nbsp;</h4>
+								</div>
+								<p class="oa-contact-name">
+									测试2
+								</p>
+							</div>
+						</div>
+					</div>
+				</li>-->
+		    </ul>
+		
+		
+</div>
+	</body>
+
+<script>
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+
+			$(document).ready(function (){
+				 jQuery.noConflict();
+				 //var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				 var classid=UrlParm.parm("classid");
+				 var owner=UrlParm.parm("owner");
+				 var back=document.getElementById("back");
+				 var ad = document.getElementById("ad");
+				 back.href='t_banjixinxi.html?classid='+classid;
+				 ad.href = 'addclassmember.html?classid='+classid+'&owner='+owner;
+				 document.getElementById('import').href='importstudent.html?classid='+classid+'&owner='+owner;
+				 mui.ajax('http://'+url+'/jizhibackend/servlet/GetClassMember',{
+						data:
+						{
+							classid:classid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							banji(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				function banji(data){
+					var a=0;
+					    out=document.getElementById('out');
+                        var data1=data.classmembers;
+                        jQuery.each(data1,function(index,item){
+                 	var li = document.createElement('li');
+                 	li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";           	
+					if(item.id==owner)
+					{
+						li.innerHTML='<div class="mui-slider-cell">'+
+	                        '<div class="oa-contact-cell mui-table" style="padding:10px">'+
+							'<div class="oa-contact-avatar mui-table-cell">'+
+							'<img src="images/userhead.png" width="60px" />'+
+							'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+								'<p class="oa-contact-name">'+item.name+
+								'</p></div><div class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix">'+
+								'<h4 class="oa-contact-name" >&nbsp;</h4></div><p class="oa-contact-name" id="div2" style="line-height:30px;">&nbsp&nbsp&nbsp&nbsp;创建者</p></div></div></div>';
+					}
+					else
+					{
+	                    for(var i=0;i<data.managers.length;i++)
+	                    {
+	                    	
+	                    	if(item.id==data.managers[i].id)
+	                    	{
+	                    		a=1;
+	                    		break;
+	                    	}
+	                    }
+						if(a==1)
+	                    	{
+	                    		li.innerHTML='<div class="mui-slider-cell">'+
+	                        '<div class="oa-contact-cell mui-table" style="padding:10px">'+
+							'<div class="oa-contact-avatar mui-table-cell">'+
+							'<img src="images/userhead.png" width="60px" />'+
+							'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+								'<p class="oa-contact-name">'+item.name+
+								'</p></div><div class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix">'+
+								'<h4 class="oa-contact-name" >&nbsp;</h4></div><p class="oa-contact-name" id="div2" style="line-height:30px;>&nbsp&nbsp&nbsp&nbsp;管理员</p></div></div></div>';
+	                    	}
+	                    	else
+	                    	{
+	                    		li.innerHTML='<div class="mui-slider-cell">'+
+	                        '<div class="oa-contact-cell mui-table" style="padding:10px">'+
+							'<div class="oa-contact-avatar mui-table-cell">'+
+							'<img src="images/userhead.png" width="60px" />'+
+							'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+								'<p class="oa-contact-name">'+item.name+
+								'</p></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'<h4 class="oa-contact-name">&nbsp;</h4></div></div></div></div>';
+	                    	}
+					}
+							out.appendChild(li);	
+            });
+      }
+			});
+		</script>
+</html>

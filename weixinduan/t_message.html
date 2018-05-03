@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>消息</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+						body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+#jiaru{
+	height: 50px;
+}
+#login-form{
+	margin-top: 3%;
+}
+.oa-contact-name1{
+	font-size: 15px;
+}
+		</style>
+		<script>
+			function agree(studentid,classid)
+			{
+				var userid = GetUseridCookie().get("userid");
+				mui.ajax('http://'+url+'/jizhibackend/servlet/ApplyJoinClassServlet',{
+						data:
+						{
+							classid:classid,
+							result:1,
+							userid:userid,
+							studentid:studentid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==0)
+							{
+								document.getElementById('state').innerHTML='<h4 style="height:100%;text-align:center;padding:5px">已同意申请</h4>'
+						    }
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+			}
+			function refuse(studentid,classid)
+			{
+				var userid = GetUseridCookie().get("userid");
+				mui.ajax('http://'+url+'/jizhibackend/servlet/ApplyJoinClassServlet',{
+						data:
+						{
+							classid:classid,
+							result:2,
+							userid:userid,
+							studentid:studentid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==0)
+							{
+								document.getElementById('state').innerHTML='<h4 style="height:100%;text-align:center;padding:5px">已拒绝申请</h4>'
+						    }
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+			}
+		</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav ">
+			<a class="mui-icon mui-icon-arrowleft" href="t_user.html"></a>
+			<h1 class="mui-title">消息</h1>		
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="t_test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="t_tiku.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="t_banji.html">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="t_user.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+   </nav>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed " id="out">
+									
+		    </ul>							
+		
+	  </div>
+		
+	</body>
+        <script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/url.js"></script>
+		<script src="js/GetUesridCookie.js"></script>
+		<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+			mui('body').on('tap','a',function(){document.location.href=this.href;});
+			(function($,doc){
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+				if(userid=='undefined'){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+           }
+				 jQuery.noConflict();
+				  mui.ajax('http://'+url+'/jizhibackend/servlet/GetApplyJoinRequest',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'text', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							alert(data.toString());
+							message(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+					var name='';
+					var id='';
+					var n_str="";
+					function message(data){
+						jQuery.each(JSON.parse(data),function(index,item){
+			         out=document.getElementById('out');
+			         if(item.length>1)
+			         {
+			         	for(var i=0;i<item.length-1;i++)
+			            {
+			         	var li = document.createElement('li');
+			         	n_str=item[i];
+			         	id=n_str.substring(0,n_str.indexOf('@'));
+			         	name=n_str.substring(n_str.indexOf('@')+1,n_str.length)
+			         	if(name==null)
+			         	{
+			         		                 	         li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+                 	          li.innerHTML='<div style="width:36%;height:60px;float:left;text-align:center;font-size:20px;background-color:#ffffff;padding:20px">'+
+                 	                      name+'</div><div style="width:64%;height:60px;float:right;text-align:center;font-size:20px;background-color:#ffffff;padding:10px" id="state">'+
+								        	'<button style="background-color:#66CC00;color:#ffffff;text-align:center" onclick=agree("' + id + '","' + item[item.length-1] + '");>同意</button>&nbsp;<button style="background-color: #FF0033;color:#ffffff;" onclick=refuse("' + 
+								        	   id + '","' + item[item.length-1] + '");>拒绝</button></div>';
+			         	}
+			         	else{
+                 	         li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+                 	          li.innerHTML='<div style="width:36%;height:60px;float:left;text-align:center;font-size:20px;background-color:#ffffff;padding:20px">'+
+                 	                      name+'</div><div style="width:64%;height:60px;float:right;text-align:center;font-size:20px;background-color:#ffffff;padding:10px" id="state">'+
+								        	'<button style="background-color:#66CC00;color:#ffffff;text-align:center" onclick=agree("' + id + '","' + item[item.length-1] + '");>同意</button>&nbsp;<button style="background-color: #FF0033;color:#ffffff;" onclick=refuse("' + 
+								        	id + '","' + item[item.length-1] + '");>拒绝</button></div>';
+								}
+			         	out.appendChild(li);
+					    }
+			         }
+				  });
+              }
+			}(mui.document));
+		</script>
+</html>

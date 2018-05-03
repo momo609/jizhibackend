@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+		<title>导入学生</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+        <style>
+        	.file {
+　　position: relative;
+　　height: 40px;
+　　line-height: 40px;
+}
+.file {
+　　 position:absolute; 
+   top:0; right:80px; 
+   height:24px; 
+   filter:alpha(opacity:0);
+   opacity: 0;
+   width:260px ;
+}
+.mui-table-view{
+	margin-top: 5%;
+}
+#down{
+	margin-top: 5%;
+	margin-bottom: 5%;;
+}
+#stem{
+marker: 30%;
+}
+#choicess{
+	margin-bottom: 5%;;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	background-color: white;
+	color:#5E5E5E;
+}
+#list
+{
+	margin-right: 2%;
+	margin-left:2% ;
+	margin-bottom:3%;
+}
+       </style>
+  </head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+         <a class="mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+			<h1 class="mui-title">导入学生</h1>
+		<span class="mui-icon mui-icon-plus mui-pull-right" id="select" onclick="select()"></span>
+	    <input type="file" class="file" id="file" > 	
+    </header>
+	<div class="mui-content" id="content">
+    	  <div class="mui-slider-cell" id="up" >
+	                  <div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell" style="vertical-align: middle;padding:30px">
+							      <img id="images" width="40px"/>
+							</div>
+							<div class="oa-contact-content mui-table-cell" style="word-break：break-all;word-wrap:break-word;padding:10px">
+								<div class="mui-clearfix" >
+								    <h4 class="oa-contact-name">&nbsp;</h4>
+								</div>
+								       <p style="word-break：break-all;" id="filename">
+								       </p>
+							 </div>
+							 <div class="oa-contact-content mui-table-cell" style="float: right;padding:30px">
+								<button onclick="uploadFile()" style="display: none;float:right" id="load">导入</button>
+							</div>
+	                  </div>
+    	</div>
+    	<div id="att" style="text-align: center;"><h5>注意：只支持Excel文档格式！</h5></div>
+     </div>
+</body>
+
+   <script>
+       	var userid = GetUseridCookie().get("userid");
+       	document.getElementById("file").onchange = function() {
+     		var up=document.getElementById('up').style.display='';
+     		var file = document.getElementById("file").value;   
+     		var pos=file.lastIndexOf("\\");
+            document.getElementById("filename").innerHTML= file.substring(pos+1);                
+     	    if(file.indexOf('.doc')>=0||file.indexOf('.dot')>=0)
+            {
+            	document.getElementById("images").src='images/word.png';
+            }
+            else if(file.indexOf('.txt')>=0)
+            {
+            	document.getElementById("images").src='images/txt.png';
+            }
+            else if(file.indexOf('.pdf')>=0)
+            {
+            	document.getElementById("images").src='images/pdf.png';
+            }
+            else if(file.indexOf('.ppt')>=0)
+            {
+            	document.getElementById("images").src='images/ppt.png';
+            }
+            else if(file.indexOf('.mp3')>=0||file.indexOf('.wmv')>=0)
+            {
+            	document.getElementById("images").src='images/music.png';
+            }
+             else if(file.indexOf('.xls')>=0||file.indexOf('.xlt')>=0)
+            {
+            	document.getElementById("images").src='images/excel.png';
+            }
+             else 
+            {
+            	document.getElementById("images").src='images/folder.png';
+            }
+            var load=document.getElementById('load');
+            load.style.display='';
+     	}
+     	
+         mui('body').on('tap','a',function(){document.location.href=this.href;});
+               var count=0;
+               var data;
+               var classid=UrlParm.parm("classid");
+                var owner=UrlParm.parm("owner");
+                document.getElementById('back').href='t_banjichengyuan.html?classid='+classid+'&owner='+owner;
+                 function select()
+            		{
+            			document.getElementById('file').click();
+            			document.getElementById("att").style.display='none';
+            			
+            		}
+				   function uploadFile()
+                   { 
+            		    var fname=document.getElementById("file").files[0];
+                   	    var formData = new FormData();
+                        formData.append("file",fname);
+                        var xhr = new XMLHttpRequest();      
+                        xhr.open("post", 'http://'+url+'/jizhibackend/servlet/ImportStudentServletBefore', true); 
+                        xhr.responseType = 'json';
+                        xhr.onload = function () {
+                        	 if(this.status == 200||this.status == 304){
+                        	 	data=xhr.response;
+                                  read(xhr.response);
+                            
+                             }
+                        };
+                        xhr.send(formData);
+                      
+                    
+				 }
+                  
+                   var div=new Array();
+                   qids=[];
+				   type=[];
+                   function read(data)
+                   {
+                   	var content=document.getElementById('content');
+                   	content.innerHTML='';
+                      jQuery.each(data,function(index,item){
+                      	     var div=document.createElement('div');
+                      	     div.style.backgroundColor='#FFFFFF';
+                      	     div.innerHTML='<div style="width:62%;height:50px;text-align:center;padding:10px;float:left;background-color:#ffffff;border:1px;">'+item.id+'</div>'+
+                      	                   '<div style="width:38%;height:50px;text-align:center;padding:10px;float:right;background-color:#ffffff;">'+item.name+'</div>';
+                      	     content.appendChild(div);
+                      });
+//                    var c_div=document.createElement('div');
+//                    c_div.innerHTML='<button onclick="confirm()">确认导入</button>';
+//                    content.appendChild(c_div);
+                      data1=JSON.stringify(data);
+                      data1=data1.substring(1,data1.length-1);
+                      data1='{"Students":['+data1+'],"classid":'+classid+'}';
+                        var xhr1 = new XMLHttpRequest(); 
+                        xhr1.open("post", 'http://'+url+'/jizhibackend/servlet/ImportStudentServlet', true); 
+                        xhr1.responseType = 'text';
+                        xhr1.onload = function () {  
+                        if(this.status == 200||this.status == 304){
+                                 mui.toast('插入成功');
+                               
+                            }
+                        };
+                        xhr1.send(data1);
+                   }
+                    function confrim()
+                   {
+                   	     data1=JSON.stringify(data);
+	                    data1=data1.substring(1,data1.length-1);
+                        data1='{"Students"'+data1+',"classid":'+'10101'+'}';
+                        var xhr1 = new XMLHttpRequest(); 
+                        xhr1.open("post", 'http://'+url+'/jizhibackend/servlet/ImportStudentServlet', true); 
+                        xhr1.responseType = 'text';
+                        xhr1.onload = function () {  
+                        if(this.status == 200||this.status == 304){
+                        	if(xhr.response==0)
+                                 {
+                                 	mui.toast("插入成功");
+                                 }
+                                 else if(xhr.response==104)
+                                 {
+                                 	mui.toast('文档解析失败');
+                                 }
+                               
+                            }
+                        };
+                        xhr1.send(data1);
+                   }
+ </script>
+</html>

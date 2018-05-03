@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>添加班级成员</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+			body {
+				background-color: #EFEFF4;
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+		
+			
+.login_btn{
+	width:300px;
+	margin:30px auto 0 auto;
+}
+.login_btn button{
+	width:100%;
+	margin:0;
+	padding:.3em 0;
+	-webkit-border-radius:.3em;
+	-moz-border-radius: .3em;
+	border:#1263be solid 1px;
+	background-color: #29C4B5;
+	color:#FFF;
+	font-size:17px;
+	font-weight:bolder;
+	letter-spacing:1em;
+}
+.login_btn button:hover{
+	background-color: cadetblue;
+	}
+	.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 20px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding:6px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-arrowleft " href="t_banji.html"></a>
+			<h1 class="mui-title">添加班级成员</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>用户</label>
+					<input id='userid' type="text" class="mui-input-clear mui-input" placeholder="请输入用户ID">
+				</div>
+				<div class="mui-input-row">
+					<label>班级</label>
+					<input id='class' type="text" class="mui-input-clear mui-input">
+				</div>
+				<div class="mui-input-row">
+					<label>备注</label>
+					<input id='remark' type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<div class="login_btn">
+				  <button id='login' class="mui-btn mui-btn-block mui-btn-primary">添加</button>
+				</div>
+				
+			</div>
+			<div class="mui-content-padded oauth-area">
+
+			</div>
+		</div>
+</body>
+            <script>
+            	(function($,doc){
+            		//var url=127.0.0.1:8080;
+//				 var url='210.36.22.231';
+					var classid = UrlParm.parm("classid");
+					var owner=UrlParm.parm("owner");
+				    var classname=document.getElementById("class");
+				    var remark=document.getElementById("remark");
+				    var userid=document.getElementById("userid");
+				    var add = document.getElementById('login');
+//				    var classidvalue = document.getElementById("class");
+				    classname.value = classid+'';
+                    add.onclick = function() {
+				    mui.ajax('http://'+url+'/jizhibackend/servlet/addClassMemberServlet',{
+						data:
+						{
+							userid:userid.value,
+							remarkname:remark.value,
+							classid:classname.value,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'test', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							alert("添加班级成员成功！");
+							window.location.href = 't_banjichengyuan.html?classid='+classid+'&owner='+owner;
+							
+							
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				}
+					}
+            )(mui.document);
+            </script>
+</html>

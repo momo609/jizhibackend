@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<title>修改密码</title>
+		<style>
+			body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+			
+.login_btn{
+	width:300px;
+	margin:30px auto 0 auto;
+}
+.login_btn button{
+	width:100%;
+	margin:0;
+	padding:.3em 0;
+	-webkit-border-radius:.3em;
+	-moz-border-radius: .3em;
+	border:#1263be solid 1px;
+	background-color: #29C4B5;
+	color:#FFF;
+	font-size:17px;
+	font-weight:bolder;
+	letter-spacing:1em;
+}
+.login_btn button:hover{
+	background-color: cadetblue;
+	}
+	.mui-content{
+		margin-top:5%;
+	}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class="mui-icon mui-icon-left-nav mui-pull-left" href="userinfo.html"></a>
+			<h1 class="mui-title">修改密码</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>旧密码</label>
+					<input id='oldpw' type="text" class="mui-input-clear mui-input" >
+				</div>
+				<div class="mui-input-row">
+					<label>新密码</label>
+					<input id='newpw' type="text" class="mui-input-clear mui-input" >
+				</div>
+			</form>
+		</div>
+		<div class="mui-content-padded">
+				<div class="login_btn">
+				  <button id='login' class="mui-btn mui-btn-block mui-btn-primary">确认</button>
+				</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+            <script src="js/tool.js"></script>
+		<script>
+//          	var userid = UrlParm.parm("userid");
+				var userid = GetUseridCookie().get("userid");	
+            	if(userid==undefined){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+            	}
+//          	alert("userid:"userid);
+            	$(document).ready(function () {
+            		//var url=127.0.0.1:8080;
+//				 var url='210.36.22.231';
+				    var oldpw = document.getElementById("oldpw");
+				    var newpw = document.getElementById("newpw");
+				    var img=document.getElementById("img");					
+				    var btnlogin = document.getElementById('login');
+            		btnlogin.onclick = function() {
+				    mui.ajax('http://'+url+'/jizhibackend/servlet/ChangePasswordServlet',{
+						data:
+						{
+							userid:userid,
+							oldpw:oldpw.value,
+							newpw:newpw.value
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'test', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							mui.toast("修改成功，请重新登录！");
+							setTimeout("window.location.href='login.html'",1000);
+//							javascript:window.location.href="login.html"
+							
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+			}
+		     });
+            </script>
+	</body>
+</html>

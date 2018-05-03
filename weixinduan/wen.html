@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+		<title>班级文件</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+        <style>
+        	.mui-content{
+        		margin-top: 5%;
+        	}
+        	.file {
+　　position: relative;
+　　height: 40px;
+　　line-height: 40px;
+}
+.file label {
+　　display: inline-block;
+}
+.userdefined-file {
+　　position: absolute;
+　　top: 0;
+　　left: 60px;
+　　z-index: 2;
+　　width: 300px;
+　　height: 40px;
+　　line-height: 40px;
+　　font-size: 0;  /*应对子元素为 inline-block 引起的外边距*/
+}
+.userdefined-file input[type="text"] {
+　　display: inline-block;
+　　vertical-align: middle;
+　　padding-right: 14px;
+　　padding-left: 14px;
+　　width: 220px;
+　　box-sizing: border-box;
+　　border: 1px solid #ccc;
+　　height: 40px;
+　　line-height: 40px;
+　　font-size: 14px;
+　　overflow: hidden;
+　　text-overflow: ellipsis;
+　　white-space: nowrap;
+}
+.userdefined-file button {
+　　display: inline-block;
+　　vertical-align: middle;
+　　width: 80px;
+　　text-align: center;
+　　height: 40px;
+　　line-height: 40px;
+　　font-size: 14px;
+　　background-color: #f54;
+　　border: none;
+　　color: #fff;
+　　cursor: pointer;
+}
+.file {
+　　 position:absolute; 
+   top:0; right:80px; 
+   height:24px; 
+   filter:alpha(opacity:0);
+   opacity: 0;
+   width:260px ;
+}
+.mui-table-view{
+	margin-top: 5%;
+}
+#down{
+	margin-bottom: 10%;;
+}
+        </style>
+        <script >
+        	var userid = GetUseridCookie().get("userid");
+        	function download(down){
+//      		alert(down);
+        		 var classid=UrlParm.parm("classid");
+//        		 var url='127.0.0.1:8080';
+				     mui.ajax('http://'+url+'/jizhibackend/servlet/ClassFileDownload',{
+						data:
+						{
+							classid:classid,
+							filename:down,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'text', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							alert(data);
+							alert('下载成功');
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+                 
+        	}
+        	function fileload(){
+        	 	var up=document.getElementById('up');
+        	 	up.style.display='none';
+                 	var out=document.getElementById("out");
+                 	out.innerHTML='';
+				//var url='127.0.0.1:8020';
+				 var classid=UrlParm.parm("classid");
+				     mui.ajax('http://'+url+'/jizhibackend/servlet/GetClassFileList',{
+						data:
+						{
+							userid:userid,
+							classid:classid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							var out=document.getElementById('out');
+							var type='';
+							data1=data.filelist;
+							jQuery.each(data1,function(index,item){
+			if(item.name.indexOf('.doc')>=0||item.name.indexOf('.dot')>=0)
+            {
+            	type='images/word.png';
+            }
+            else if(item.name.indexOf('.txt')>=0)
+            {
+            	type='images/txt.png';
+            }
+            else if(item.name.indexOf('.pdf')>=0)
+            {
+            	type='images/pdf.png';
+            }
+            else if(item.name.indexOf('.ppt')>=0)
+            {
+            	type='images/ppt.png';
+            }
+            else if(item.name.indexOf('.mp3')>=0||item.name.indexOf('.wmv')>=0)
+            {
+            	type='images/music.png';
+            }
+             else if(item.name.indexOf('.xls')>=0||item.name.indexOf('.xlt')>=0)
+            {
+            	type='images/excel.png';
+            }
+            else 
+            {
+            	type='images/folder.png';
+            }
+						   var li = document.createElement('li');
+                 	        li.className="mui-table-view mui-table-view-striped mui-table-view-condensed"; 
+							li.innerHTML='<div class="mui-slider-cell">'+
+	                        '<div class="oa-contact-cell mui-table">'+
+							'<div class="oa-contact-avatar mui-table-cell" style="vertical-align: middle;">'+
+							'<img src='+type+' id="imagess" width="40px"/>'+
+							'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+								'<p class="oa-contact-name filename" >'+item.name+
+								'</p></div><div class="oa-contact-content mui-table-cell" style="float: right;padding:20px">'+
+								'<button onclick=download(\"'+item.name+'\") id="down">下载</button>'+
+								'</div></div></div>';
+                            out.appendChild(li);
+          });
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+                 }
+        </script>
+        </head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+         <a class="mui-icon mui-icon-left-nav mui-pull-left" id="wenjian"></a>
+			<h1 class="mui-title">班级文件</h1>
+		<span class="mui-icon mui-icon-plus mui-pull-right" id="select" onclick="select()"></span>
+	    <input type="file" class="file" id="file" > 	
+    </header>
+	<div class="mui-content" id="content">
+		<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" id="out">
+    	<!--<form name="upform" action="UploadServlet" method="POST" enctype="multipart/form-data">
+               　                              <div class="files">             	   
+                   <label for="file">文件：</label>
+                   <div class="userdefined-file">
+    　　                                             <input type="text" class="userdefinedFile" id="fname" value="未选择任何文件">
+    　　                                             <button type="button" onclick="document.getElementById('file').click()">上传</button>
+                   
+                   </div>                              
+　　                                          </div>
+    	</form>-->
+    	
+    	</ul>
+    	<div class="mui-slider-cell" id="up" >
+	                        <div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell" id="img">
+							    <img id="images" width="60px/>
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									
+								</div>
+							    <p class="oa-contact-name" id="filename">
+								</p>
+							</div>
+								<div class="oa-contact-content mui-table-cell" id="sub">
+									<div class="mui-clearfix">
+										<h4 class="oa-contact-name">&nbsp;</h4>
+									</div>
+									<button onclick="uploadFile()" style="display: none;" id="load">上传</button>
+								</div>
+	                        </div>
+    	</div>
+    </div>
+</body>
+
+
+<script src="js/mui.min.js"></script>
+ 
+ <script src="js/app.js"></script>
+       <script>
+       	document.getElementById("file").onchange = function() {
+     		var up=document.getElementById('up').style.display='';
+     		var file = document.getElementById("file").value;   
+     		var pos=file.lastIndexOf("\\");
+            document.getElementById("filename").innerHTML= file.substring(pos+1);                
+     	    if(file.indexOf('.doc')>=0||file.indexOf('.dot')>=0)
+            {
+            	document.getElementById("images").src='images/word.png';
+            }
+            else if(file.indexOf('.txt')>=0)
+            {
+            	document.getElementById("images").src='images/txt.png';
+            }
+            else if(file.indexOf('.pdf')>=0)
+            {
+            	document.getElementById("images").src='images/pdf.png';
+            }
+            else if(file.indexOf('.ppt')>=0)
+            {
+            	document.getElementById("images").src='images/ppt.png';
+            }
+            else if(file.indexOf('.mp3')>=0||file.indexOf('.wmv')>=0)
+            {
+            	document.getElementById("images").src='images/music.png';
+            }
+             else if(file.indexOf('. xls')>=0||file.indexOf('. xlt')>=0)
+            {
+            	document.getElementById("images").src='images/excel.png';
+            }
+             else 
+            {
+            	document.getElementById("images").src='images/folder.png';
+            }
+            var load=document.getElementById('load');
+            load.style.display='';
+     	}
+     	
+         mui('body').on('tap','a',function(){document.location.href=this.href;});
+UrlParm = function() { // url参数  
+  var data, index;  
+  (function init() {  
+    data = [];  
+    index = {};  
+    var u = window.location.search.substr(1);  
+    if (u != '') {  
+      var parms = decodeURIComponent(u).split('&');  
+      for (var i = 0, len = parms.length; i < len; i++) {  
+        if (parms[i] != '') {  
+          var p = parms[i].split("=");  
+          if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=  
+            data.push(['']);  
+            index[p[0]] = data.length - 1;  
+          } else if (typeof(p[0]) == 'undefined' || p[0] == '') { // =c | = 
+          } else if (typeof(index[p[0]]) == 'undefined') { // c=aaa  
+            data.push([p[1]]);  
+            index[p[0]] = data.length - 1;  
+          } else {// c=aaa  
+            data[index[p[0]]].push(p[1]);  
+          }  
+        }  
+      }  
+    }  
+  })();  
+  return {  
+    // 获得参数,类似request.getParameter()  
+    parm : function(o) { // o: 参数名或者参数次序  
+      try {  
+        return (typeof(o) == 'number' ? data[o][0] : data[index[o]][0]);  
+      } catch (e) {  
+      }  
+    },  
+    //获得参数组, 类似request.getParameterValues()  
+    parmValues : function(o) { //  o: 参数名或者参数次序  
+      try {  
+        return (typeof(o) == 'number' ? data[o] : data[index[o]]);  
+      } catch (e) {}  
+    },  
+    //是否含有parmName参数  
+    hasParm : function(parmName) {  
+      return typeof(parmName) == 'string' ? typeof(index[parmName]) != 'undefined' : false;  
+    },  
+    // 获得参数Map ,类似request.getParameterMap()  
+    parmMap : function() {  
+      var map = {};  
+      try {  
+        for (var p in index) {  map[p] = data[index[p]];  }  
+      } catch (e) {}  
+      return map;  
+    }  
+  }  
+}(); 
+               
+				 var classid=UrlParm.parm("classid");
+				 <!--alert(classid);-->
+				 document.getElementById('wenjian').href='banjixinxi.html?classid='+classid;
+				 //var url='127.0.0.1:8020';
+				     mui.ajax('http://'+url+'/jizhibackend/servlet/GetClassFileList',{
+						data:
+						{
+							userid:userid,
+							classid:classid,
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							var out=document.getElementById('out');
+							var type='';
+							data1=data.filelist;
+							jQuery.each(data1,function(index,item){
+			                    if(item.name.indexOf('.doc')>=0||item.name.indexOf('.dot')>=0)
+                            {
+            	                    type='images/word.png';
+                            }
+                                    else if(item.name.indexOf('.txt')>=0)
+                            {
+            	                    type='images/txt.png';
+                            }
+                                    else if(item.name.indexOf('.pdf')>=0)
+                            {
+            	                    type='images/pdf.png';
+                            }
+                                    else if(item.name.indexOf('.ppt')>=0)
+                            {
+            	                    type='images/ppt.png';
+                            } 
+                                    else if(item.name.indexOf('.mp3')>=0||item.name.indexOf('.wmv')>=0)
+                            {
+                                	type='images/music.png';
+                            }
+                                    else if(item.name.indexOf('. xls')>=0||item.name.indexOf('. xlt')>=0)
+                            {
+                                 	type='images/excel.png';
+                            }
+                            else 
+                            {
+                                 	type='images/folder.png';
+                            }
+						    var li = document.createElement('li');
+                 	        li.className="mui-table-view mui-table-view-striped mui-table-view-condensed"; 
+							li.innerHTML='<div class="mui-slider-cell">'+
+	                        '<div class="oa-contact-cell mui-table">'+
+							'<div class="oa-contact-avatar mui-table-cell" style="vertical-align: middle;">'+
+							'<img src='+type+' id="imagess" width="40px"/>'+
+							'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+								'<p class="oa-contact-name filename" >'+item.name+
+								'</p></div><div class="oa-contact-content mui-table-cell" style="float: right;padding:20px">'+
+								'<button onclick=download(\"'+item.name+'\") id="down">下载</button>'+
+								'</div></div></div>';
+                            out.appendChild(li);
+                         });
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(xhr);
+							console.log(type);
+							console.log(errorThrown);
+						}
+					});
+                 function select()
+            		{
+            			document.getElementById('file').click();
+            			
+            		}
+				   function uploadFile()
+                   { 
+                   	      //var url='127.0.0.1:8020';
+                   	    var classid=UrlParm.parm("classid");
+            		    var wenjian=document.getElementById("wenjian");
+            		    var fname=document.getElementById("file").files[0];;
+            		    wenjian.href='banjixinxi.html?classid='+classid;
+                   	    var formData = new FormData();
+                        formData.append("classid",classid); 
+                        formData.append("file",fname);
+                        var xhr = new XMLHttpRequest();      
+                        xhr.open("post", 'http://'+url+'/jizhibackend/servlet/UploadFile', true);      
+                        xhr.onload = function () {   
+                        alert(xhr.responseText);     
+                        };
+                      xhr.send(formData);
+                       fileload();
+				 }
+ </script>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>答题结果</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link href="css/iconfont.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/tool.js"></script>
+		<style>
+			body{
+				background-color: #F3F3F3;
+			}
+			.header{
+	 background-color:#29c4b5;
+	 
+	padding-bottom: 5px;
+	 }
+.topper
+{
+	 font-size: 20px;
+	 margin:0;
+	 padding-top: 1px;
+	 padding-bottom: 1px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+.topper_inner{
+	margin-top: 8%;
+	padding-top:5px;
+	height: 100px;
+	padding-bottom: 6px;
+}
+.score
+{
+	margin-left: 40%;
+	margin-bottom: 5%;
+}
+.timer{
+	margin-left: 37%;
+	margin-bottom: 3%;
+}
+.chart {
+				height: 200px;
+				margin: 0px;
+				padding: 0px;
+			}
+.header{
+	height: 200px;
+}
+.mui-icon mui-icon-bars{
+	margin-left: 90%;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: white;
+	border:#5E5E5E solid 1px;
+	color:#5E5E5E;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.activee{	
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.own{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #E36D6D;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.title{
+	font-size: 20px;
+	font-weight: bold;
+	color: #FFFFFF;
+	margin-top: 2.5%;
+	width:90%;
+}
+h5 {
+	margin-left:20%;
+    font-weight: bold;
+   }
+   #test
+   {
+	border:1px solid #FFFFFF;
+	color:#FFFFFF;
+	font-size:15px;
+	font-weight:bolder;
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #29c4b5;
+    text-align: center;
+    line-height:25px;
+    text-decoration: none;
+   }
+#check{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	border:1px solid #1D7DB1;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#check:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}		
+		</style>
+	</head>
+	<body>
+		<div class="header">
+	  <div class="topper"> 
+			<a href="test_done.html" style="width: 10%;height: 10%;"><img src="images/left_arrow.png" align="left" width="10%" height="10%" ></a> 
+			<p class="title">答题结果</p>
+			<!--<span class="mui-icon mui-icon-bars"></span>-->
+		</div>
+		<div class="topper_inner">
+			
+			<div class="score">
+				<h1 id="score"></h1>		 
+			</div>
+			<div class="timer">
+				 <a id="test">查看试题</a>
+			</div>
+		</div>
+		</div>
+		<div class="mui-card" style="margin: 10px;">
+	      <div id="div-space" style="width: 32%; height: 90px; background-color: #2DBFB0;padding: 10px;float:left;">
+	        	    <div style="font-size:large; margin-left: 13%; color:#B6F9FF">参考人数</div>
+	       			<div style="font-size:large ;margin-left: 40%; margin-top:10%;color:#FFFFFF;" id="countpeople">
+	       			</div>
+           </div>
+           <div style="height:90px;width: 36%;float:left;padding: 10px;">
+	        	   <div style="font-size:large; margin-left: 25%;">最高分</div>
+	       			<div style="font-size:large ;margin-left: 37%;color:#2DBFB0;margin-top:10%;" id="maxscore">
+	       			</div>
+           </div>
+	       <div style="height:90px;width:32%;float: right; padding: 15px;background-color: #2DBFB0">
+	       			<div style="font-size:large; margin-left: 30%; color: #B6F9FF;">总分</div>
+	       			<div style="font-size:large ;margin-left: 32%; margin-top:10%;color: #FFFFFF;" id="totalscore">
+	       			</div>
+	        	    <!--<span style="position: relative; float: right;color: #FFFFFF;">已结束</span>
+	        	    <div style="position:absolute; color: #FFFFFF;top: 40%;left: 13%;width: 32%;margin-left: -35px;font-size:15px;">
+	        	    	start_time+'~'+end_time
+	        	    </div>-->
+	       </div>
+		</div>
+		<div class="mui-content-padded">
+			<div class="prodetail" id="pro"></div>
+			<div class="chart" id="score_barChart">
+			</div>
+			<div class="chart" id="timeuse_barChart">
+			</div>
+			<div class="chart" id="correct_barChart">
+			</div>
+			<div class="chart" id="pieChart"></div>
+       </div>
+       <div style="margin-left:20%;">
+       	<a id="check">查看学生测试结果</a>
+       </div>
+        <script src="js/mui.min.js"></script>
+	<script>
+$(document).ready(function () {
+				 jQuery.noConflict();
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+				var testid=UrlParm.parm("testid");
+				var title=UrlParm.parm("title");
+				var avg=document.getElementById("avg");
+				var time=document.getElementById("time");
+				var pro=document.getElementById("pro");
+				var use_paperid=UrlParm.parm("use_paperid");
+				var score=document.getElementById('score');
+				var mscore=document.getElementById('maxscore');
+				var tpeople=document.getElementById('countpeople');
+				var tscore=document.getElementById('totalscore');
+				answers=[];
+				correct=[];
+				qid=[];
+				str1='';
+				str='';
+				var part_l=0;
+				var part_m=0;
+				var part_h=0;
+				correct=[];
+				document.getElementById('test').href='t_testdetail.html?paperid='+use_paperid+'&q_order=1'+'&testid='+testid+'&title='+title;
+				mui.ajax('http://'+url+'/jizhibackend/servlet/GetTestStatForTeacher',{
+						data:
+						{
+							userid:	userid ,
+							testid: testid ,
+							paperid:use_paperid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							 data1=data.TestResults;
+							 tpeople.innerHTML=''+data1.length;
+							 tscore.innerHTML=''+data.totalscore;
+							  data2 = data.TestStat;
+							 if(data1.length>0)
+							{
+								countcorrect(data1);
+							}
+							score.innerHTML=data.TestStat.avgscore+'分';
+							mscore.innerHTML=''+data.TestStat.maxscore;
+							//prodetail(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+				});
+				function countcorrect(data1){
+					 mui.ajax('http://'+url+'/jizhibackend/servlet/EnterTest',{
+						data:
+						{
+							userid:	userid ,
+						    testid:testid
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						dataType: 'json' ,//服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: 
+						function(data) {
+							data_m=data.MultipleChoiceQuestion;
+							data_s=data.SingleChoiceQuestion;
+							data_f=data.FillBlankQuestion;
+							data_j=data.JudgeQuestion;
+     					    },
+						    error: function(xhr, type, errorThrown) {
+							    console.log(errorThrown);
+						    }
+					 });
+					 var total=data_m.length+data_s.length+data_f.length+data_j.length;
+					  var str;
+					  for(var i=0;i<total;i++)
+					  {
+					  	correct[i]=0;
+					  }
+					  pp=[];
+					  var ppstr;
+					  var studentid='';
+					  jQuery.each(data1,function(index,item){
+					  	studentid=studentid+item.studentid+',';
+//					  	alert(item.studentname);
+					  	ppstr='';
+					     ppstr=item.proportion.substring(1,item.proportion.length-1);
+					     pp=ppstr.split(',');
+		    		    	part_l=part_l+parseInt(pp[0]);
+    				    	part_m=part_m+parseInt(pp[1]);
+    				    	part_h=part_h+parseInt(pp[2]);
+					  answer=[];
+					  str='';
+					  str=item.answers;
+					  answers=str.split("@@");
+					        for(var i=0;i<data_m.length;i++)
+							{
+								if(data_m[i].answer==answers[data_m[i].q_order-1])
+								{
+									correct[data_m[i].q_order-1]++;
+								}
+								//qid[data_m[i].q_order-1]=data_m[i].id;
+							}
+							for(i=0;i<data_s.length;i++)
+							{
+								if(data_s[i].answer==answers[data_s[i].q_order-1])
+								{
+									correct[data_s[i].q_order-1]++;
+								}
+								
+								//qid[data_s[i].q_order-1]=data_s[i].id;
+							}
+							for(i=0;i<data_j.length;i++)
+							{
+								if(data_j[i].answer==answers[data_j[i].q_order-1])
+								{
+									correct[data_j[i].q_order-1]++;
+								}
+								
+								//qid[data_j[i].q_order-1]=data_j[i].id;
+							}
+							for(i=0;i<data_f.length;i++)
+							{
+								if(data_f[i].answer==answers[data_f[i].q_order-1])
+								{
+									correct[data_f[i].q_order-1]++;
+								}
+								//qid[data_f[i].q_order-1]=data_f[i].id;
+							}
+					});
+					for(i=0;i<total;i++)
+					{
+							correct[i]=(correct[i]/data1.length)*100;
+					}
+					document.getElementById('check').href='t_checkstudentlist.html?testid='+testid+'&studentid='+studentid+'&use_paperid='+use_paperid+'&title='+title;
+				}
+				if(data1.length>0)
+				{   
+					score.innerHTML=data2.avgscore+'分';
+				    mscore.innerHTML=''+data2.maxscore;
+				    testresult(data2);
+				    function testresult(data){
+				    	pro=[];
+				    	time=[];
+	                    var length=data.timeused.length;
+	                    for(var i=0;i<length;i++)
+				    	{
+				    		pro[i]=""+(i+1);
+				    	}
+				    	for(var j=0;j<data.timeused.length;j++)
+				    	{
+				    		time[j]=data.timeused[j]/1000;
+				    	}
+				        var pie={
+				        	tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b}: {c} ({d}%)"
+                            },
+//                       legend: {
+//                      show:true,
+//                      orient:'horizontal',
+//                       data:['基础知识错题数','知识应用错题数','能力拓展错题数']
+//
+//					    },                          
+					        series: [{
+						type: 'pie',
+						radius: '65%',
+						center: ['50%', '50%'],
+						
+						data: [{
+							value: part_h,
+							name: '能力拓展错题数'
+						}, {
+							value: part_m,
+							name: '知识应用错题数'
+						}, {
+							value: part_l,
+							name: '基础知识错题数'
+						}],
+						itemStyle: {
+                          emphasis: {
+                          shadowBlur: 10,
+                          shadowOffsetX: 0,
+                           shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+            }
+					}]
+					};
+					var bar={
+						xAxis: [{
+						type: 'category',
+						data: ['最高分','最低分','平均分']
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+					name: '分数',
+					type: 'bar',
+					data: [data.maxscore,data.minscore,data.avgscore]
+					}]
+					}
+					var time={
+						legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                              name:'每道题所用时间',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        },]
+
+					    },
+					xAxis: [
+					{
+						type: 'category',
+						data: pro
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+						name: '每道题所用时间',
+						type: 'bar',
+						data: time
+					}],
+				};
+				var correctradio={
+						legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                              name:'每道题正确率',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        },]
+
+					    },
+					xAxis: [
+					{
+						type: 'category',
+						data: pro
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+						name: '每道题正确率',
+						type: 'bar',
+						data: correct
+					}],
+				};
+				var byId = function(id) {
+				return document.getElementById(id);
+			};
+			var barChart = echarts.init(byId('score_barChart'));
+			barChart.setOption(bar);
+			var barChart = echarts.init(byId('timeuse_barChart'));
+			barChart.setOption(time);
+			var barChart = echarts.init(byId('correct_barChart'));
+			barChart.setOption(correctradio);
+			var pieChart = echarts.init(byId('pieChart'));
+			pieChart.setOption(pie);
+			
+		}
+	}
+			});
+	</script>
+		</div>
+	</body>
+</html>

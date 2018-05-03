@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>结果列表</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+						body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+#jiaru{
+	height: 50px;
+}
+#login-form{
+	margin-top: 3%;
+}
+.oa-contact-name1{
+	font-size: 15px;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav ">
+			<a class="mui-icon mui-icon-arrowleft" id="back" ></a>
+			<h1 class="mui-title">结果列表</h1>		
+			<button id="exportButton"  class="mui-icon mui-icon-upload" style="width:21%;height:100%;background:transparent;border: none; float: right;color:#000000;font-size: 16px;" >导出</button>
+		</header>	
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="t_test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="t_tiku.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="t_banji.html">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="t_user.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+   </nav>
+		<div class="mui-content">
+			<div id="item1mobile" class="mui-control-content mui-active">
+					<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed " id="out">
+									
+		            </ul>							
+			</div>
+	  </div>
+		
+</body>
+		<script>
+			var exportButton = document.getElementById("exportButton");
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+			mui('body').on('tap','a',function(){document.location.href=this.href;});
+			$(document).ready(function () {
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+//				var studentid=UrlParm.parm("studentid");
+//				var studentname = UrlParm.parm("studentname");
+				var voteid=UrlParm.parm("voteid");
+//				var use_paperid=UrlParm.parm("use_paperid");
+				var title=UrlParm.parm("title");
+				document.getElementById('back').href='t_vote.html';
+				if(userid==undefined){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+                }
+				out=document.getElementById('out');
+//			    studentName=[];
+//			    studentName=studentname.split(',');
+//			    student=[];
+//			    student=studentid.split(',');
+                //alert(voteid);
+				mui.ajax('http://'+url+'/jizhibackend/servlet/getVoteResultForTeacher', {
+					data: {
+						votetestid:voteid,
+					},
+					xhrFields: {
+
+						withCredentials: true
+
+					},
+					crossDomain: true,
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000000, //超时时间设置为10秒；
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+					success: function(data) {
+//						alert(data.students);
+						//这里应该有学生姓名、id和最终分数
+//						{"韦富元":0,"陈育杰":79,"高若辰":0,"孟倩":0,"侯勇材":0,"时辰":0}
+//						alert(JSON.stringify(data));
+						getList(data);
+						
+						
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("获取列表失败，请刷新重新获取...");
+						console.log(type);
+						console.log(errorThrown);
+					}
+				});
+				function getList(data){
+//					var allStudentIDs = [];
+					for(var i=0;i<data.id.length;i++)
+					{
+						//var a = document.createElement('a');
+	                 	var li = document.createElement('li');
+//	                 	a.href='t_checkstudenttest.html?userid='+student[i]+'&testid='+testid+'&use_paperid='+use_paperid+'&title='+title+'&studentid='+studentid+'&studentname='+studentname;
+	                 	li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+	                 	li.innerHTML='<div class="mui-slider-cell">'+
+		                        '<div class="oa-contact-cell mui-table">'+
+								'<div class="oa-contact-avatar mui-table-cell">'+
+								'<img src="images/userhead.png" width="60px" />'+
+								'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+										'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+									'<p class="oa-contact-name1">'+data.name[i]+'('+data.score[i]+')'+
+									'</p></div></div></div>';
+									//a.appendChild(li);
+									out.appendChild(li);
+					}
+					
+					
+//					jQuery.each(result,function(index,item){
+////						allStudentIDs.push(item.student_id);
+//						
+//						
+//					});
+////					var a = [1,2,3,4,5,6,7];
+////					var b = [1,2,5];
+//					//取出两个数组间不相同的元素
+//					var c = [];
+//					var tmp = allStudentIDs.concat(student);
+//					var o = {};
+//					for (var i = 0; i < tmp.length; i ++) (tmp[i] in o) ? o[tmp[i]] ++ : o[tmp[i]] = 1;
+//					for (x in o) if (o[x] == 1) c.push(x);
+////					alert(c);
+////					alert(allStudentIDs.length);
+//					for(var i=0;i<student.length-1;i++)
+//               	{
+//	                 	var a = document.createElement('a');
+//	                 	var li = document.createElement('li');
+//	                 	a.href='t_checkstudenttest.html?userid='+student[i]+'&testid='+testid+'&use_paperid='+use_paperid+'&title='+title+'&studentid='+studentid+'&studentname='+studentname;
+//	                 	li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+//	                 	li.innerHTML='<div class="mui-slider-cell">'+
+//		                        '<div class="oa-contact-cell mui-table">'+
+//								'<div class="oa-contact-avatar mui-table-cell">'+
+//								'<img src="images/userhead.png" width="60px" />'+
+//								'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+//										'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+//									'<p class="oa-contact-name1">'+studentName[i]+
+//									'</p></div></div></div>';
+//									a.appendChild(li);
+//									out.appendChild(a);
+//          
+//               	}
+//               	
+//               	for(var i=0;i<c.length;i++)
+//               	{
+//               		var li = document.createElement('li');
+//	                 	jQuery.each(allStudents,function(index,item){
+//	                 			if (c[i]==item.student_id) {
+//	                 			li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+//	                 				li.innerHTML='<div class="mui-slider-cell">'+
+//		                        '<div class="oa-contact-cell mui-table">'+
+//								'<div class="oa-contact-avatar mui-table-cell">'+
+//								'<img src="images/userhead.png" width="60px" />'+
+//								'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+//										'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+//									'<p class="oa-contact-name1">'+item.remark_name+
+//									'<span style="color:red">(没有投票)</span></p></div></div></div>';
+//									out.appendChild(li);
+//	                 			}
+//						});
+//               	}
+                 
+			}
+				exportButton.onclick = function(){
+//					alert("到这里没");
+					var r = confirm("确认导出学生投票结果到本地？");
+					if(r){
+//							mui.toast("正在生成Excel，请稍候...");
+							mui.ajax('http://'+url+'/jizhibackend/servlet/GetVoteResultForExcel',{
+							data:
+							{
+//								total: totalScore,
+								votetestid: voteid ,
+							},
+							xhrFields: {
+	
+								withCredentials: true
+	
+							},
+							crossDomain: true,
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							 async: false,//同步
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+							beforeSend:function(){
+								mui.toast("正在生成Excel，请稍候...");
+							},
+							success: function(data) {
+								if(data.errcode==0){
+									 mui.toast("生成成功，正在下载...");
+									 downloadFile(data.path);
+								}else{
+									 mui.toast("生成Excel失败请重试");
+								}
+								 
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log(errorThrown);
+							}
+					});
+					}
+					
+			};
+				
+			function downloadFile(url){
+                var form=jQuery("<form>");//定义form表单,通过表单发送请求
+				form.attr("style","display:none");//设置为不显示
+				form.attr("target","");
+				form.attr("method","get");//设置请求类型  
+				form.attr("action",url);//设置请求路径
+				jQuery("body").append(form);//添加表单到页面(body)中
+				form.submit();//表单提交
+				mui.toast("下载成功！");
+
+			}
+				
+			});
+			
+		</script>
+</html>

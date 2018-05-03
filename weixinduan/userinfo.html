@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户信息</title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+			body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 50px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 5px;
+	 padding-bottom: 5px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+.login_topper{
+	margin-bottom: 4%;
+}
+.login{
+	margin-top:3%;
+            	padding: 15px;
+                background-color:#FFFFFF;
+                 color:#6D6D72;
+            }
+
+a { text-decoration:none; } 
+a:hover { text-decoration:underline; }  
+
+
+.login a 
+{
+	display:block; 
+    font-size:40px;
+    padding:5px;
+    color:#6D6D72;
+} 
+.login ul
+{
+width:100%;
+height:100px%;
+padding-left: 1px;
+padding-right: 1px;
+padding-bottom: 1px;
+overflow:hidden;
+border: 1px solid #6D6D72;
+}
+.login a:link,a:visited
+{
+display:block;
+font-weight:bold;
+color:#6D6D72;
+background-color:#FFFFFF;
+text-decoration:none;
+}
+.login a:hover,a:active
+{
+background-color:#AAAAAA;
+color:#FFFFFF;
+border:1px solid #6D6D72;
+}
+
+.login_btn{
+	width:300px;
+	margin-left: 23%;
+}
+.login_btn button{
+	width:500px;
+	height:80px;
+	margin-right: 40%;
+	-webkit-border-radius:.3em;
+	-moz-border-radius: .3em;
+	border:#1263be solid 1px;
+	background-color: #29C4B5;
+	color:#FFFF;
+	font-weight:bolder;
+	letter-spacing:10px;
+}
+.login_btn button:hover{
+		
+	background-color: cadetblue;
+}
+#logout{
+	font-size:40px;
+	text-align:center；
+}
+	</style>
+	</head>
+	<body>
+		<div class="topper"> 
+			<a href="user.html" id="back"><img src="images/left_arrow.png" align="left" width="10%" height="10%" ></a> 
+			<p class="title">用户信息<p>
+			<!--<span class="mui-icon mui-icon-bars"></span>-->
+		</div>
+		<div class="user_img">
+			<p id="img"><img  src="images/userhead.png" width="120px" height="120px" style="vertical-align:middle"/></p>
+		</div>
+		 <div class="login_topper">
+        <div class="login"><ul><a  id="nickname" >未设置昵称</a></ul></div>
+         <!--<div class="login"><ul><a id="username" >0000</a></ul></div>-->
+         <div class="login"><ul><a id="userid" >0000</a></ul></div>
+         <div class="login"><ul><a href="update_pwd.html">修改密码</a></ul></div>
+       </div>       
+        	<div class="login_btn">
+				  <button id='logout' >退出登录</button>
+				</div>
+            <script>
+//          	var userid = UrlParm.parm("userid");
+				var userid = GetUseridCookie().get("userid");
+				var usertype = GetUsertypeCookie().get("usertype");
+				if(usertype==2){
+					document.getElementById("back").href = "t_user.html";
+				}
+            	mui('body').on('tap','a',function(){document.location.href=this.href;});
+            	(function($,doc){
+            	var uname=UrlParm.parm('username');
+				var id=document.getElementById('userid');
+				var img=document.getElementById("img");
+				var btnlogin=document.getElementById("logout");
+					mui.ajax('http://'+url+'/jizhibackend/servlet/GetUserInfoServlet',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							nickname.innerHTML="昵称 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;"+data.nickname;
+				          //username.innerHTML="用户名 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;"+uname;
+                           id.innerHTML="ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;"+data.userid;
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+                 btnlogin.onclick = function() {
+					mui.ajax('http://'+url+'/jizhibackend/servlet/LogoutServlet', {
+						data: {
+							
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'text', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 1000000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							javascript:window.location.href="login.html"
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							console.log(account.value);
+							console.log(pwd.value);
+						}
+					});
+				}
+            }
+            )(mui.document);
+            </script>
+	</body>
+</html>

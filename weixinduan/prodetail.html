@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>题目</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>=
+	<style>
+						body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+#div2{
+	width:80px;
+	height: 30px;
+	border-radius: 90px;
+	background-color: #EEA236;
+	color:#FFFFFF;
+	align:center;
+}
+.mui-content{
+	margin-bottom: 3%;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: white;
+	border:#5E5E5E solid 1px;
+	color:#5E5E5E;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left:2%
+}
+.activee{	
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left:2%
+}
+.own{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #E36D6D;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left:2%
+}
+.fillblank{
+	margin-top: 5%;
+}
+.rect{
+	width:40px;
+	height: 40px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	font-size:10px;
+	font-weight:bolder;
+	
+}
+.wrong{
+	width:40px;
+	height: 40px;
+	background-color: #E36D6D;
+	color:#FFFFFF;
+	font-size:10px;
+	font-weight:bolder;
+	
+}
+#choices{
+	margin-bottom: 5%;;
+}
+.oa-contact-name{
+	margin-top: 6%;
+}
+.tag{
+	width: 100px;
+	height: 20px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: white;
+	border:#5E5E5E solid 1px;
+	color:#5E5E5E;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+
+.red
+{
+	width: 20px;
+	height: 20px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	border:#5E5E5E solid 1px;
+	color:#FFFFFF;
+}
+.green{
+	width: 20px;
+	height: 20px;
+	border-radius: 25px;
+	background-color: #E36D6D;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+}
+#liebiao{
+	color:#CE8483;
+	text-decoration:underline
+}
+	</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" id="back"  ></a>
+			<h1 class="mui-title">题目</h1>
+		</header>
+	<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="test.html" id="test1">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tiku.html" id="tiku">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="banji.html" id="banji">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="user.html" id="user">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+</nav>
+		<div class="mui-content">
+		<canvas id="choice" width="600" height="70"  style="border:0;"></canvas>
+		<div id="content" style="margin-bottom: 3%;">
+			
+		</div>
+		
+		<div style="margin-bottom: 3%;">
+			<div style="width:30%;height: 50px;float:left"><p class="red" style="float:left">&nbsp&nbsp&nbsp;</p>正确答案</div>
+			<div style="width: 70%;height: 50px;float:right;"><p class="green" style="float:left">&nbsp&nbsp&nbsp;</p>所选答案</div>
+			
+		</div>
+		<div id="liebiao" class="kong" >
+			题目列表
+		</div>
+		</div>
+	
+	</body>
+<script>
+mui('body').on('tap','a',function(){document.location.href=this.href;});
+gWinWidth = document.body.clientWidth;
+	var c=document.getElementById('choice'); 
+	var ctx=c.getContext("2d");
+	ctx.beginPath();
+    ctx.moveTo(0,20);
+    ctx.lineTo(0,70);
+    ctx.lineTo(50,70);
+    ctx.lineTo(70,45);
+    ctx.lineTo(50,20);  
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fillStyle="lightseagreen"
+    ctx.fill();
+    //ctx.strokeText('填空题',10,47);
+    var cty=c.getContext("2d"); 
+    cty.beginPath();
+    cty.moveTo(50,20);
+    cty.lineTo(70,45);
+    cty.lineTo(50,70);
+    cty.lineTo(gWinWidth,70);
+    cty.lineTo(gWinWidth,20);
+    cty.closePath();
+    cty.stroke();
+    cty.fillStyle="white"
+    cty.fill();
+    var usertype = GetUsertypeCookie().get("usertype");
+                if(usertype==2){
+					document.getElementById("test1").href = 't_test.html';
+					document.getElementById("tiku").href = "t_tiku.html";
+					document.getElementById("banji").href = "t_banji.html";
+					document.getElementById("user").href = "t_user.html";
+				}
+			(function($,doc){
+				 jQuery.noConflict();
+				 //var url='127.0.0.1:8080';
+//				 var url='210.36.22.231';
+                 var q_order=UrlParm.parm("q_order");
+                 var tag=document.getElementById('tag');
+                 var userid=GetUseridCookie().get("userid");
+				 var content=document.getElementById("content");
+				 var q_id=UrlParm.parm("qid");
+				 var correctanswer=UrlParm.parm("correctanswer");
+				 var ownanswer=UrlParm.parm("ownanswer");
+				 var cho=UrlParm.parm("choice");
+				 var testid=UrlParm.parm("testid");
+				 var c_str=UrlParm.parm("correct");
+				 var a=document.getElementById('back');
+				 a.href='datijieguo.html?testid='+testid;
+				 var liebiao=document.getElementById("liebiao");
+				 	var l_div=document.createElement('div');
+				   	var str1='';
+				   	c_answers=[];
+				   	o_answers=[];
+				   	o_answers=cho.split(',');
+				   	answe=o_answers[q_order-1];
+               	    qid=[];
+               	    qid=q_id.split("@@");
+               	    correct=[];
+             	    correct=c_str.split("@@");
+//             	    	for(var i=0;i<qid.length-1;i++)
+//							{
+//								if(c_answers[i]==o_answers[i])
+//								{
+//									correct[i]=0;
+//								}
+//								else
+//								{
+//									correct[i]=1;
+//								}
+//							}
+							for(i=0;i<correct.length;i++)
+							{
+								j=i+1
+								var s_cho=encodeURI(cho);
+								if(correct[i]==1)
+							    {
+								    str1=str1+
+								    '<button id="aa" class="own" onclick=javascript:window.location.href="prodetail.html?q_order='+j+'&qid='+q_id+'&choice='+s_cho+'&testid='+testid+
+								    '&correct='+c_str+'">'+j+
+								    '</button>';
+							    }
+							    else
+							    { 
+								    str1=str1+'<button id="aa" class="activee" onclick=javascript:window.location.href="prodetail.html?q_order='+j+'&qid='+q_id+'&choice='+s_cho+'&testid='+testid+
+								    '&correct='+c_str+'">'+j+
+								    '</button>';
+						        }
+							    //button.onclick=window.location.href='prodetail.html?qid='+qid[i];
+							 }
+							l_div.innerHTML=str1;
+				 mui.ajax('http://'+url+'/jizhibackend/servlet/GetOneQuestion',{
+						data:
+						{
+							qid:qid[q_order-1]
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							//alert(JSON.stringify(data));
+							cuoti(data)
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				function cuoti(data){
+					 choice=[];
+					 answer=[]
+					 var stem=document.createElement('div');
+					if(data.MultipleChoiceQuestion.length!=0)
+					{
+						str=data.MultipleChoiceQuestion[0].choices;
+						str2=data.MultipleChoiceQuestion[0].answer;
+						stem.innerHTML=data.MultipleChoiceQuestion[0].stem;
+						content.appendChild(stem);
+                        choice=str.split("@@");
+						ctx.strokeText('多选题',10,47);
+						ctx.strokeText('1/1',gWinWidth-40,47);
+						var div1 = document.createElement('div');
+//						alert()
+                 	    div1.id='choices';
+                 	    if(str2.indexOf('A')>=0)
+                 	    {       	    
+                 	       div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="activee" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	    }
+                 	    else if(answe.indexOf('A')>=0)
+                 	    {
+                 	    	div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="own" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	    }
+                 	    else 
+                 	    {
+                 	    	div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="orl" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	    }
+                 	    content.appendChild(div1);
+                 	    var div2 = document.createElement('div');
+                 	    div2.id='choices';
+                 	     if(str2.indexOf('B')>=0)
+                 	    {       	    
+                 	       div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="activee" >B</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[1]+'</div';
+                 	    }
+                 	    else if(answe.indexOf('B')>=0)
+                 	    {
+                 	    	div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="own" >B</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[1]+'</div';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="orl" >B</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[1]+'</div';
+                 	    }
+                 	    content.appendChild(div2);
+                 	    var div3 = document.createElement('div');
+                 	    div3.id='choices';
+                 	    if(str2.indexOf('C')>=0)
+                 	    { 
+                 	       div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="cc" class="activee" >C</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[2]+'</div';
+                 	    }
+                 	    else if(answe.indexOf('C')>=0)
+                 	    {
+                 	        div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="cc" class="own" >C</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[2]+'</div';
+                 	    }
+                 	    else
+                 	    {
+                 	         div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="cc" class="orl" >C</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[2]+'</div';
+                 	    }
+                 	    content.appendChild(div3);
+                 	    var div4 = document.createElement('div');
+                 	    div4.id='choices';
+                 	    if(str2.indexOf('D')>=0)
+                 	    {
+                 	       div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="dd" class="activee" >D</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[3]+'</div';
+                 	    }
+                 	    else if(answe.indexOf('D')>=0)
+                 	    {
+                 	       div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="dd" class="own" >D</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[3]+'</div';
+                 	    }
+                 	    else 
+                 	    {
+                 	        div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="dd" class="orl" >D</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[3]+'</div';
+                 	    }
+                 	    content.appendChild(div4);
+                 	    var tag=document.createElement('div');
+                 	    tag.style='margin-top:3%'
+                 	    content.appendChild(tag);
+                        tag.innerHTML="题目解析："+data.MultipleChoiceQuestion[0].answerkey;
+                        
+					}
+					if(data.SingleChoiceQuestion.length!=0)
+					{
+						str=data.SingleChoiceQuestion[0].choices;
+						str2=data.SingleChoiceQuestion[0].answer;
+						stem.innerHTML=data.SingleChoiceQuestion[0].stem;
+						content.appendChild(stem);
+                        choice=str.split("@@");
+						ctx.strokeText('单选题',10,47);
+						var div1 = document.createElement('div');
+                 	   div1.id='choices';
+                 	    if(str2=='A')
+                 	    {       	    
+                 	       div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="activee" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	    }
+                 	    else if(answe=='A')
+                 	    {
+                 	    	div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="own" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	    }
+                 	    else 
+                 	    {
+                 	    	div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="orl" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	    }
+                 	    content.appendChild(div1);
+                 	    var div2 = document.createElement('div');
+                 	    div2.id='choices';
+                 	     if(str2=='B')
+                 	    {       	    
+                 	       div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="activee" >B</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[1]+'</div';
+                 	    }
+                 	    else if(answe=='B')
+                 	    {
+                 	    	div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="own" >B</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[1]+'</div';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="orl" >B</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[1]+'</div';
+                 	    }
+                 	    content.appendChild(div2);
+                 	    var div3 = document.createElement('div');
+                 	    div3.id='choices';
+                 	   
+                 	    if(str2=='C')
+                 	    { 
+                 	       div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="cc" class="activee" >C</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[2]+'</div';
+                 	    }
+                 	    else if(answe=='C')
+                 	    {
+                 	    	
+                 	        div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="cc" class="own" >C</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[2]+'</div';
+                 	    }
+                 	    else
+                 	    {
+                 	         div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="cc" class="orl" >C</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[2]+'</div';
+                 	    }
+                 	    content.appendChild(div3);
+                 	    var div4 = document.createElement('div');
+                 	    div4.id='choices';
+                 	    if(str2=='D')
+                 	    {
+                 	       div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="dd" class="activee" >D</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[3]+'</div';
+                 	    }
+                 	    else if(answe=='D')
+                 	    {
+                 	       div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="dd" class="own" >D</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[3]+'</div';
+                 	    }
+                 	    else 
+                 	    {
+                 	        div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="dd" class="orl" >D</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[3]+'</div';
+                 	    }
+                 	    content.appendChild(div4);
+                 	    var tag=document.createElement('div');
+                 	    content.appendChild(tag);
+                        tag.innerHTML="题目解析："+data.SingleChoiceQuestion[0].answerkey;
+                        
+					}
+					
+				if(data.JudgeQuestion.length!=0)
+					{
+						str=data.JudgeQuestion[0].choices;
+						str2=data.JudgeQuestion[0].answer;
+						stem.innerHTML=data.JudgeQuestion[0].stem;
+						content.appendChild(stem);
+						ctx.strokeText('判断题',10,47);
+						var div1 = document.createElement('div');
+                 	   div1.id='choices';
+                 	    if(str2=='Y')
+                 	    {       	    
+                 	       div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="activee" >Y</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '正确'+'</div';
+                 	    }
+                 	    else if(answe=='A')
+                 	    {
+                 	    	div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="own" >Y</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '正确'+'</div';
+                 	    }
+                 	    else 
+                 	    {
+                 	    	div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="aa" class="orl" >Y</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '正确'+'</div';
+                 	    }
+                 	    content.appendChild(div1);
+                 	    var div2 = document.createElement('div');
+                 	    div2.id='choices';
+                 	     if(str2=='N')
+                 	    {       	    
+                 	       div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="activee" >N</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '错误'+'</div';
+                 	    }
+                 	    else if(answe=='N')
+                 	    {
+                 	    	div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="own" >N</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '错误'+'</div';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button id="bb" class="orl" >N</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '错误'+'</div';
+                 	    }
+                 	    content.appendChild(div2);
+                 	    var tag=document.createElement('div');
+                 	    content.appendChild(tag);
+                        tag.innerHTML="题目解析："+data.JudgeQuestion[0].answerkey;
+                        
+					}
+					if(data.FillBlankQuestion.length!=0)
+                        {
+                        	ctx.strokeText('填空题',10,47);
+						    stem.innerHTML=data.FillBlankQuestion[0].stem;
+						    content.appendChild(stem);
+						    var div1=document.createElement('div');
+						    div1.className='fillblank';
+						     div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="bb" class="rect">1</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+data.FillBlankQuestion[0].answer+
+								'</p></div>';
+						    var div2=document.createElement('div');
+						    div2.className='fillblank';
+						     div2.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="bb" class="wrong">2</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+answe+
+								'</p></div>';
+						    if(answe==data.FillBlankQuestion[0].answer)
+						    {
+						    	content.appendChild(div1);
+							}
+                            else{
+                            	content.appendChild(div1);
+                            	content.appendChild(div2);
+                            }
+                             var tag=document.createElement('div');
+                 	        content.appendChild(tag);
+                            tag.innerHTML="题目解析："+data.FillBlankQuestion[0].answerkey;
+                            
+                        }
+                    
+					
+				}
+				   
+//             	       	mui.ajax('http://'+url+'/jizhibackend/servlet/getTestResultServlet',{
+//						data:
+//						{
+//							userid:userid,
+//							testid: testid ,
+//						},
+//						xhrFields: {
+//
+//							withCredentials: true
+//
+//						},
+//						crossDomain: true,
+//						dataType: 'json', //服务器返回json格式数据
+//						type: 'post', //HTTP请求类型
+//						timeout: 10000, //超时时间设置为10秒；
+//						 async: false,//同步
+//						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+//						success: function(data) {
+////							alert(data.TestResult.answers);
+//							str=data.TestResult.answers;
+//							answers=str.split("@@");
+//		    		    	
+//						},
+//						error: function(xhr, type, errorThrown) {
+//							console.log(errorThrown);
+//						}
+//					});
+//             	       	mui.ajax('http://'+url+'/jizhibackend/servlet/EnterTest',{
+//						data:
+//						{
+//							userid:userid,
+//						    testid:testid
+//						},
+//						xhrFields: {
+//							withCredentials: true
+//						},
+//						crossDomain: true,
+//						dataType: 'json' ,//服务器返回json格式数据
+//						type: 'post', //HTTP请求类型
+//						timeout: 10000, //超时时间设置为10秒；
+//						async: false,//同步
+//						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+//						success: function(data) {
+//							data_m=data.MultipleChoiceQuestion;
+//							data_s=data.SingleChoiceQuestion;
+//							data_f=data.FillBlankQuestion;
+//							data_j=data.JudgeQuestion;
+//							for(var i=0;i<data_m.length;i++)
+//							{
+//								
+//								qid[data_m[i].q_order-1]=data_m[i].id;
+//							}
+//							for(i=0;i<data_s.length;i++)
+//							{
+//								qid[data_s[i].q_order-1]=data_s[i].id;
+//							}
+//							for(i=0;i<data_j.length;i++)
+//							{
+//								qid[data_j[i].q_order-1]=data_j[i].id;
+//							}
+//							for(i=0;i<data_f.length;i++)
+//							{
+//								qid[data_f[i].q_order-1]=data_f[i].id;
+//							}
+//							for(var j=0;j<data_m.length+data_s.length+data_f.length+data_j.length;j++)
+//							{
+//								var i=j+1;
+//								str1=str1+'<button id="aa" class="orl" onclick=javascript:window.location.href="prodetail.html?qid='+qid[j]+'&choice='+answers[j]+'&testid='+testid+'">'+i+'</button>';
+//						       
+//							 }
+//							l_div.innerHTML=str1;
+//							
+//   					    },
+//						    error: function(xhr, type, errorThrown) {
+//							    console.log(errorThrown);
+//						    }
+//					  });
+               liebiao.onclick=function(){
+               	
+               	       if(liebiao.className.indexOf('kong')>=0)
+               	       {
+//             	        alert("kong")
+               	       liebiao.appendChild(l_div);
+					  liebiao.className='dianzhong';
+					}
+               	    else{
+               	    	liebiao.innerHTML='题目列表';
+               	    	liebiao.className='kong';
+          
+               	    }
+               };
+			}(mui.document));
+		</script>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>题库</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+	<style >
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}	
+			ul{
+				list-style-type:none;
+				margin:0;
+				padding:0;
+				overflow:hidden;
+			}
+			button:link,button:visited
+			{
+				display:block;
+				width:150px;
+				font-size:30px;
+				font-weight:bold;
+				color:#29C4B5;
+				background-color:#FFFFFF;
+				text-align:center;
+				padding:20px;
+				text-decoration:none;
+				text-transform:uppercase;
+			}
+			button:hover,button:active
+			{
+				background-color:#29C4B5;
+				color:#FFFFFF;
+			}
+			.header button{
+				width:150px;
+				height: 50px;
+				-webkit-border-radius:1em;
+				-moz-border-radius: 1em;
+			    border: 1px solid #29C4B5;
+			    font-size: 30px;
+			    margin-left: 35%;
+			}
+			.header ul  input{
+				margin-left: 10%;
+				margin-right: 10%;
+				margin-bottom: 1%;
+				width:500px;
+				height: 200px;
+				padding: 5em 5em 5em 5.4em;
+				-webkit-border-radius:10em;
+				-moz-border-radius: 10em;
+			    border: 1px solid #29C4B5;
+			}
+			
+			.header
+			{
+				position: relative;
+				margin-left: 20%;
+				margin-right: 20%;
+				margin-top: 1%;
+			}
+			.nav {
+			    background: #FFFFFF;
+			    padding: 20px;
+			    width: 100%;
+			    position: fixed;
+			    left: 0;
+			    bottom: 0;
+			    margin-bottom: 1%;
+			}
+			.top
+			{
+				margin-left: 38%;
+				margin-right: 25%；
+			}
+			.inner
+			{
+				margin-left: 15%;
+				margin-right: 25%；
+			
+			}
+			.inner ul
+			{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+			overflow:hidden;
+			}
+			.inner a:link,a:visited
+			{
+			display:block;
+			width:150px;
+			font-weight:bold;
+			color:#8F8F94;
+			background-color:#FFFFFF;
+			text-align:center;
+			padding:10px;
+			text-decoration:none;
+			text-transform:uppercase;
+			}
+			.inner a:hover,a:active
+			{
+			background-color:#29C4B5;
+			}
+			
+			.search
+			{
+				margin-left: 24%;
+			}
+			.search input
+			{
+				-webkit-border-radius:1em;
+				-moz-border-radius: 1em;
+				border: 1px solid #29C4B5;
+				
+			}
+			.mui-content{
+				margin-left: 25%;
+			}
+			.search{
+				margin-top: 2%;
+			}
+</style>
+   <script>
+   	var userid = GetUseridCookie().get("userid");
+   			  function delpaper(paperid){
+//					alert("111");
+					mui.ajax('http://'+url+'/jizhibackend/servlet/DeletePaperServlet',{
+						data:
+						{
+							userid:userid,
+							paperid:paperid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							
+							if(data.errcode==0){
+//								alert('删除试卷成功');
+								mui.toast("删除试卷成功");
+								javascript:window.location.href='t_tiku.html';
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				}
+   			    function setShare(paperid,type){
+//					alert("111");
+					var isShare=0;
+					if(type==0){
+						isShare=1;
+					}else{
+						isShare=0;
+					}
+					mui.ajax('http://'+url+'/jizhibackend/servlet/ChangeShareServlet',{
+						data:
+						{
+							userid:userid,
+							paperid:paperid,
+							share:isShare,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==0){//改为私密
+//								alert('删除试卷成功');
+								if(isShare==0){
+									mui.toast("设置私密成功！");
+//									document.getElementById("isLight").className="";
+//									document.getElementById("share").className="mui-icon mui-icon-locked";
+									javascript:window.location.href='t_tiku.html';
+								}else{//改为共享
+									mui.toast("设置共享成功！");
+//									document.getElementById("isLight").className="active";
+//									document.getElementById("share").className="mui-icon mui-icon-eye";
+									javascript:window.location.href='t_tiku.html';
+								}
+								
+							}else{
+								alert("设置失败，请重试！");
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				}
+   </script>
+</head>
+<body>
+ <header class="mui-bar mui-bar-nav">
+         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">题库</h1>
+		<a href="#popover" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" ></a>
+	</header>
+
+		<div id="popover" style="position: absolute;width: 160px;" class="mui-popover">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell"><a href="importpaper.html"><img src="images/import_word.png" height="15px" /><span style="margin-left: 10px;">从word导入</span></a></li>
+                <li class="mui-table-view-cell"><a href="creatpaper.html"><img src="images/manual.png"  height="15px"/><span style="margin-left: 10px;">手动创建</span></a></li>
+            </ul>
+        </div>
+         <nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="t_test.html" id="test1">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item mui-active" href="t_tiku.html" id="tiku">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="t_banji.html" id="banji">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="t_user.html" id="user">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+          </nav>
+
+        <div class="mui-content" style="margin-left: 0px; margin-bottom: 0px;" id="content">
+        	<div >
+             <ul style="margin-left: 28%;">
+	          <li><button id="tiku" style="background: #29C4B5;float: left; color: #ffffff; border-radius: 5px;" onclick=javascript:window.location.href="t_tiku.html">我的题库</button></li>
+	          <li><button id="test_done" style="border-radius: 5px;float:left;" onclick=javascript:window.location.href="t_Onlinetiku.html">在线题库</button></li>
+             </ul>
+             </div>
+       <div id="test" style="width:100%">
+       </div>
+       <!--<div class="search">
+           <img src="images/icon_search_route_dark.png" width="15px" style="position: absolute;margin-top: 5px;margin-left: 5px;"/>
+           <input type="text" placeholder="搜索题库" name="text" style="width:200px; height: 20px;font-size: 15px;text-indent: 10px;">
+          </div>-->
+          <!--<div id="actionsheet">
+			
+          </div>
+		-->
+      </div>
+		
+</body>
+<script>
+	
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+			$(document).ready(function (){
+				 jQuery.noConflict();
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+				if(userid==undefined){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+            	}
+				var usertype = GetUsertypeCookie().get("usertype");
+				if(usertype==2){
+					document.getElementById("test1").href = "t_test.html";
+					document.getElementById("tiku").href = "t_tiku.html";
+					document.getElementById("banji").href = "t_banji.html";
+					document.getElementById("user").href = "t_user.html";
+				}
+				var tiku = document.getElementById("tiku");
+				var test_done = document.getElementById("test_done");
+				var test_before = document.getElementById("test_before");
+				var test = document.getElementById("test");
+				var actionsheet = document.getElementById("actionsheet");
+				var bookmark='';
+					mui.ajax('http://'+url+'/jizhibackend/servlet/GetPaperServlet',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) { 
+							addtest(data);	
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				   
+            
+				function addtest(data){
+//                  var system_time=data.system_time;
+                    var paperList=data.papers;
+//                  var q_order=1;
+                    jQuery.each(paperList,function(index,item){
+                	var testtime=item.end_time;
+                    var a = document.createElement('a');
+                 	var div = document.createElement('div');
+                 	var div1 = document.createElement('div');
+                 	div1.id="action"+item.id;
+                 	div1.className="mui-popover mui-popover-action mui-popover-bottom";
+                 	div.className="mui-card";
+                 	div.style="margin: 10px;";
+                 	var create_timed=new Date(item.createtime);
+                 	var create_day=create_timed.getFullYear()  + "-" + (create_timed.getMonth()+1)+"-"+create_timed.getDate()
+                 		+"&nbsp&nbsp"+create_timed.getHours()+":"+create_timed.getMinutes()+":"+create_timed.getSeconds();
+//              a.href='t_paperdetail.html?paperid='+item.id+'&p_order=1'+'&title='+item.title+'&flag=1';
+				
+				
+                a.href="#action"+item.id;
+//              document.getElementById("check").href='t_paperdetail.html?paperid='+item.id+'&p_order=1'+'&title='+item.title+'&flag=1';
+//              a.onclick='action('+item.id+','+item.title+')';
+                a.class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined";
+                
+//			if(system_time<item.end_time&&(data.errcode==0))
+//			{
+//	alert(typeof item.isShare);
+			if(item.isShare==0){
+				div.innerHTML='<div class="mui-card" style="margin: 10px;">'+
+	        	'<div id="div-space" style="width: 8px; height: 20px; background-color: #2DBFB0;padding-left: 5px;float: left;">'+
+	        	'<i class="iconfont2 icon-time1"  style="color: #FFFFFF;"></i>'+
+	        	'<span style="position: relative; float: right;color: #FFFFFF;"></span>'+
+	        	'<div style="position:absolute; color: #FFFFFF;top: 40%;left: 13%;width: 32%;margin-left: -35px;font-size:15px;">'+
+	        	'</div>'+
+                '</div>'+
+	       		'<div style="height:90px;width: 98%;padding:5px">'+
+	       			'<div style="font-size:large ;padding-left:40px;color:#7b7b7b;">'+item.title+'<span id="share" class="mui-icon mui-icon-locked"></span></div>'+
+	       			'<div style="font-size:large ;margin-top: 10px;padding-left:40px">'+
+	       				'<img src="images/time_gray.png" width="16px" />'+
+	       				'&nbsp<span style="font-size:16px;color:#7b7b7b" >'+create_day+'&nbsp&nbsp&nbsp</span>'+
+	       				'<i class="iconfont2 icon-calendar"></i>'+
+	       				'<div style="font-size:large ;margin-top: 10px;padding-left:130px"><span style="font-size:middle;color:#2DBFB0" >'+item.question_num+'</span>'+'&nbsp&nbsp<span style="font-size:small;color:#7b7b7b;">道题</span>'+
+	       			'</div></div></div></div>'
+				
+				
+				div1.innerHTML='<ul class="mui-table-view"><li class="mui-table-view-cell">'+
+				'<a  href="t_paperdetail.html?paperid='+item.id+'&p_order=1'+'&title='+item.title+'&flag=1">查看具体内容</a></li><li class="mui-table-view-cell">'+
+				'<a   href="javascript:setShare('+item.id+','+item.isShare+')">设置题库共享</a></li><li class="mui-table-view-cell">'+
+				'<a   href="javascript:delpaper('+item.id+')" style="color: red;">删除此题库</a></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="#action'+item.id+'"><b>取消</b></a></li></ul>';
+			}else{
+				
+				div.innerHTML='<div class="mui-card" style="margin: 10px;">'+
+	        	'<div id="div-space" style="width: 8px; height: 20px; background-color: #2DBFB0;padding-left: 5px;float: left;">'+
+	        	'<i class="iconfont2 icon-time1"  style="color: #FFFFFF;"></i>'+
+	        	'<span style="position: relative; float: right;color: #FFFFFF;"></span>'+
+	        	'<div style="position:absolute; color: #FFFFFF;top: 40%;left: 13%;width: 32%;margin-left: -35px;font-size:15px;">'+
+	        	'</div>'+
+                '</div>'+
+	       		'<div style="height:90px;width: 98%;padding:5px">'+
+	       			'<div style="font-size:large ;padding-left:40px;color:#7b7b7b;">'+item.title+'<a id="isLight" class="active"><span id="share" class="mui-icon mui-icon-eye"></span></a></div>'+
+	       			'<div style="font-size:large ;margin-top: 10px;padding-left:40px">'+
+	       				'<img src="images/time_gray.png" width="16px" />'+
+	       				'&nbsp<span style="font-size:16px;color:#7b7b7b" >'+create_day+'&nbsp&nbsp&nbsp</span>'+
+	       				'<i class="iconfont2 icon-calendar"></i>'+
+	       				'<div style="font-size:large ;margin-top: 10px;padding-left:130px"><span style="font-size:middle;color:#2DBFB0" >'+item.question_num+'</span>'+'&nbsp&nbsp<span style="font-size:small;color:#7b7b7b;">道题</span>'+
+	       			'</div></div></div></div>'
+				
+				div1.innerHTML='<ul class="mui-table-view"><li class="mui-table-view-cell">'+
+				'<a  href="t_paperdetail.html?paperid='+item.id+'&p_order=1'+'&title='+item.title+'&flag=1">查看具体内容</a></li><li class="mui-table-view-cell">'+
+				'<a   href="javascript:setShare('+item.id+','+item.isShare+')">设置题库私密</a></li><li class="mui-table-view-cell">'+
+				'<a   href="javascript:delpaper('+item.id+')" style="color: red;">删除此题库</a></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="#action'+item.id+'"><b>取消</b></a></li></ul>';
+			}
+			
+			test.appendChild(a);
+            a.appendChild(div);
+            document.getElementById("content").appendChild(div1);
+//          test.appendChild(div1);
+//         }
+            
+            });
+      }
+		  
+			});
+</script>
+</html>

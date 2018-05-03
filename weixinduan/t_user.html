@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+			body{
+				background-color:#DDDDDD;
+			}
+			
+.nav {
+    background: #FFFFFF;
+    padding: 30px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+
+.inner
+{
+	margin-left: 15%;
+	margin-right: 25%；
+
+}
+.inner ul
+{
+list-style-type:none;
+margin:0;
+padding:5px;
+overflow:hidden;
+}
+.inner li
+{
+float:left;
+}
+.inner a:link,a:visited
+{
+display:block;
+width:150px;
+font-weight:bold;
+color:#8F8F94;
+background-color:#FFFFFF;
+text-align:center;
+padding:10px;
+text-decoration:none;
+text-transform:uppercase;
+}
+.inner a:hover,a:active
+{
+background-color:#29C4B5;
+}
+.login_topper{
+	margin-bottom: 4%;
+}
+.login{
+            	padding: 15px;
+                background-color:#FFFFFF;
+                 color:#6D6D72;
+                 text-align: center;
+            }
+
+a { text-decoration:none; } 
+a:hover { text-decoration:underline; }  
+
+
+.login a 
+{
+	display:block; 
+    font-size:40px;
+    padding:5px;
+    color:#6D6D72;
+} 
+.login ul
+{
+width:100%;
+height:100%;
+padding-left: 1px;
+padding-right: 1px;
+padding-bottom: 1px;
+overflow:hidden;
+border: 1px solid #6D6D72;
+}
+.login a:link,a:visited
+{
+display:block;
+font-weight:bold;
+color:#6D6D72;
+background-color:#FFFFFF;
+text-align:center;
+text-decoration:none;
+text-transform:uppercase;
+}
+.login a:hover,a:active
+{
+background-color:#AAAAAA;
+color:#FFFFFF;
+border:1px solid #6D6D72;
+}
+.topper_inner
+{
+	margin-top: 0;
+	margin-left: 65%;
+}
+.topper_inner ul
+{
+	list-style-type:none;
+    overflow:hidden;
+}
+.topper_inner li
+{
+	float: left;
+}
+.topper_inner a:link,a:visited
+{
+	display:block;
+    width:80px;
+    font-weight:bold;
+    text-align:center;
+    padding:0;
+    text-decoration:none;
+    text-transform:uppercase;
+}
+.picture
+{
+	margin-left: 42%;
+}
+#name{
+	text-align: center;
+	padding: 10px,10px;
+	font-size:20px; 
+}
+		</style>
+	</head>
+	<body>
+		<div class="topper" style="background-image:url(images/user_info_bg.png);">
+      <div class="picture">
+        <img src="images/userhead.png" width="60" height="60">
+      </div>
+      <div id="name">
+     </div>
+     
+<ul class="mui-table-view mui-table-view-chevron">
+	<!--<li class="mui-table-view-cell"><a href="bookmark.html" class="mui-navigate-right">收藏的题目</a></li>-->
+	<!--<li class="mui-table-view-cell"><a href="cuotiji.html" class="mui-navigate-right">错题集</a></li>-->
+	<!--<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">个性化设置</a></li>-->
+	<!--<li class="mui-table-view-cell"><a href="dismissclass.html" class="mui-navigate-right">解散班级</a></li>-->
+<!--	<li class="mui-table-view-cell"><a href="t_message.html" class="mui-navigate-right">消息<span style="background-color:#DF6659;color:#FFFFFF" class="mui-badge" id="count"></span></a></li>-->
+	<li class="mui-table-view-cell"><a href="about.html" class="mui-navigate-right">关于</a></li>
+<!--	<li class="mui-table-view-cell"><a id="calculate" href=""class="mui-navigate-right">计算学生积分</a></li>-->
+	<li class="mui-table-view-cell"><a href="t_shop.html"class="mui-navigate-right">礼品</a></li>
+	<li class="mui-table-view-cell"><a href="messageproduct.html"class="mui-navigate-right">礼品兑换信息<span style="background-color:#DF6659;color:#FFFFFF" class="mui-badge" id="count"></span></a></li>
+	<li class="mui-table-view-cell"><a href="userinfo.html" class="mui-navigate-right">设置</a></li>
+</ul>
+<!--</div>
+        <div class="login_topper">
+        <div class="login"><ul><a href="timu.html">收藏的题目</a></ul></div>
+         <div class="login"><ul><a href="timu.html">收藏的题目</a></ul></div>
+         <div class="login"><ul><a href="self_setting.html">个性化设置</a></ul></div>
+        </div>
+        <div class="login_botton">
+        	<div class="login"><ul><a href="message.html">消息</a></div>
+        	<div class="login"><ul><a href="setting.html">设置</a></div>
+        </div>-->
+<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " id="test1" href="t_test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="t_tiku.html" id="tiku">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="t_banji.html" id="banji">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item mui-active" href="t_user.html" id="user">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+</nav>    
+            <script>
+//          	var userid = UrlParm.parm("userid");
+				var btnlogin=document.getElementById("logout");	
+				var userid = GetUseridCookie().get("userid");
+				var cal = document.getElementById("calculate");
+				if(userid==undefined){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+            }
+            	mui('body').on('tap','a',function(){document.location.href=this.href+"?userid="+userid;});
+            	(function($,doc){
+            	
+            	
+				 jQuery.noConflict();
+				 //var url=127.0.0.1:8080;
+//				 var url='210.36.22.231';
+				var name = document.getElementById("name");
+//				 mui.ajax('http://'+url+'/jizhibackend/servlet/GetApplyJoinRequest',{
+//						data:
+//						{
+//							userid:userid,
+//						},
+//						xhrFields: {
+//
+//							withCredentials: true
+//
+//						},
+//						crossDomain: true,
+//						dataType: 'text', //服务器返回json格式数据
+//						type: 'post', //HTTP请求类型
+//						timeout: 10000, //超时时间设置为10秒；
+//						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+//						success: function(data) {
+//							var count=0;
+//							jQuery.each(JSON.parse(data),function(index,item){
+//								count=count+(item.length-1);
+//							});
+//							document.getElementById("count").innerHTML=''+count;
+//						},
+//						error: function(xhr, type, errorThrown) {
+//							console.log(errorThrown);
+//						}
+//					});
+                   mui.ajax('http://'+url+'/jizhibackend/servlet/GetApplyGiftServlet',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							var count=0;
+							jQuery.each(data,function(index,item){
+								if(item.isRead==0)
+								{
+									count++;
+								}
+							});
+							document.getElementById("count").innerHTML=''+count;
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+                           
+					mui.ajax('http://'+url+'/jizhibackend/servlet/GetUserInfoServlet',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+								document.getElementById('name').innerHTML=data.nickname;
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+					}
+            	
+
+            )(mui.document);
+//          btnlogin.onclick = function() {
+//          	if(confirm("确定退出当前账号吗？")){
+//          		clearCookie();
+//          		javascript:window.location.href="login.html"
+//          	}	
+//			}
+            </script>
+	</body>
+</html>

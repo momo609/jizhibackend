@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>创建题库</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link href="css/iconfont.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/tool.js"></script>
+		<script src="js/mui.min.js"></script>
+		<style>
+			.mui-content {
+				margin-top: 25px;
+			}
+			.finish_btn{
+				margin-top: 20px;
+				text-align: center;
+			}
+			#creatPaper{
+				width:80%;
+				margin:0;
+				-webkit-border-radius:.3em;
+				-moz-border-radius: .3em;
+				border:#1263be solid 1px;
+				background-color: #29C4B5;
+				color:#FFF;
+				font-size:17px;
+				font-weight:bolder;
+				letter-spacing:1em;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">创建题库</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>标题</label>
+					<input id='title' type="text" class="mui-input-clear mui-input">
+				</div>
+				<div class="mui-input-row" style="height: 120px;">
+					<label>简介</label>
+					<textarea id="brief" rows="5" class="mui-input-clear mui-input"></textarea>
+				</div>
+			</form>
+			<div class="finish_btn">
+			  <button id='creatPaper'>完成</button>
+			</div>
+		</div>
+		
+		<script>
+			var userid = GetUseridCookie().get("userid");
+			if(userid=='undefined'){
+        		alert("登录过期，请重新登录！");
+				javascript:window.location.href="login.html"
+        	}
+			var title = document.getElementById("title");
+			var brief = document.getElementById("brief");
+			var creat = document.getElementById("creatPaper");
+			creat.onclick = function() {
+				mui.ajax('http://'+url+'/jizhibackend/servlet/CreateNewPaperServlet',{
+					data:
+					{
+						userid:userid,
+						title:title.value,
+						description:brief.value,
+					},
+					xhrFields: {
+
+						withCredentials: true
+
+					},
+					crossDomain: true,
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					 async: false,//同步
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+					success: function(data) {
+						alert("创建试卷成功！");
+						window.location.href="tiku.html";
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

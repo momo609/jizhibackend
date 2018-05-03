@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link href="css/iconfont.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/tool.js"></script>
+		<!--<script src="js/testdata.js"></script>-->
+		<link rel="prerender" href="datijieguo.html">
+		<style>
+		.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+			
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			
+			.oa-contact-content {
+				width: 100%;
+			}
+			
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			
+			.oa-contact-name,
+			oa-contact-position {
+				float: left;
+			}
+			
+			body {
+				background-color: #EFEFF4;
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			
+			li {
+				float: left;
+			}
+			
+			button:link,
+			button:visited {
+				display: block;
+				width: 150px;
+				font-size: 30px;
+				font-weight: bold;
+				color: #29C4B5;
+				background-color: #FFFFFF;
+				text-align: center;
+				padding: 20px;
+				text-decoration: none;
+				text-transform: uppercase;
+			}
+			
+			button:hover,
+			button:active {
+				background-color: #29C4B5;
+				color: #FFFFFF;
+			}
+			
+			.header button {
+				width: 150px;
+				height: 50px;
+				-webkit-border-radius: 1em;
+				-moz-border-radius: 1em;
+				border: 1px solid #29C4B5;
+				font-size: 30px;
+				margin-left: 35%;
+			}
+			
+			.header ul input {
+				margin-left: 10%;
+				margin-right: 10%;
+				margin-bottom: 1%;
+				width: 500px;
+				height: 200px;
+				padding: 5em 5em 5em 5.4em;
+				-webkit-border-radius: 10em;
+				-moz-border-radius: 10em;
+				border: 1px solid #29C4B5;
+			}
+			
+			.header {
+				position: relative;
+				margin-left: 20%;
+				margin-right: 20%;
+				margin-top: 1%;
+			}
+			
+			.nav {
+				background: #FFFFFF;
+				padding: 20px;
+				width: 100%;
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				margin-bottom: 1%;
+			}
+			
+			.top {
+				margin-left: 38%;
+				margin-right: 25%；
+			}
+			
+			.inner {
+				margin-left: 15%;
+				margin-right: 25%；
+			}
+			
+			.inner ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			
+			.inner li {
+				float: left;
+			}
+			
+			#top-segment-control {
+				background: #FFFFFF;
+				width: 70%;
+				margin: auto;
+			}
+			
+			.inner a:link,
+			a:visited {
+				display: block;
+				width: 150px;
+				font-weight: bold;
+				color: #8F8F94;
+				background-color: #FFFFFF;
+				text-align: center;
+				padding: 10px;
+				text-decoration: none;
+				text-transform: uppercase;
+			}
+			
+		
+			
+			.mui-active {
+				color: #29C4B5;
+			}
+			.mui-content
+			{
+				height: 100%;
+				margin-left: 24%;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">投票</h1>
+		<a href="#popover" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" ></a>
+		</header>
+
+		<div id="popover" style="position: absolute;width: 160px;" class="mui-popover">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell"><a href="creatpaper.html"><img src="images/manual.png"  height="15px"/><span style="margin-left: 10px;">发起新投票</span></a></li>
+                <li class="mui-table-view-cell"><a href="creatpaper.html"><img src="images/manual.png"  height="15px"/><span style="margin-left: 10px;">查看模板</span></a></li>
+            </ul>
+        </div>
+		
+        <div class="mui-content">
+        <ul>
+	          <li><button id="test_in" >进行中</button></li>
+	          <li><button id="test_done"   >已结束</button></li>
+	          <li><button id="test_before" style="background-color:#29C4B5;">未进行</button></li>
+        </ul>
+       </div>
+      <div id="test">
+      </div>
+ <nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="test.html" id="test1">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tiku.html" id="tiku">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="banji.html" id="banji">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="user.html" id="user">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+</nav>
+       
+		<script>
+			mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+			(function($,doc){
+				 jQuery.noConflict();
+				var userid = GetUseridCookie().get("userid");
+				var usertype = GetUsertypeCookie().get("usertype");
+				var vote_in = document.getElementById("vote_in");
+				var vote_done = document.getElementById("vote_done");
+				var vote_before = document.getElementById("vote_before");
+                vote_in.onclick=function(){
+					window.location.href='t_vote_in.html';
+				}
+				vote_before.onclick=function()
+				{
+					window.location.href='t_vote_before.html';
+				}
+				vote_done.onclick=function()
+				{
+					window.location.href='t_vote_done.html';
+			    }
+				var test = document.getElementById("test");
+				var useranswer='';
+				var bookmark='';
+					mui.ajax('http://'+url+'/jizhibackend/servlet/GetTestsServlet',{
+						data:
+						{
+							userid:userid,
+							type:3,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							addtest(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				
+            
+				  function addtest(data){
+                        var system_time=data.system_time;
+                        var data1=data.testList;
+                        var q_order=1;
+                        jQuery.each(data1,function(index,item){
+                 	var testtime=item.end_time;
+                    var a = document.createElement('a');
+                 	var div = document.createElement('div');
+                 	div.className="mui-card";
+                 	div.style="margin: 10px;";
+                 	timeuse=[];
+                 	var end_timed=new Date(item.end_time);
+                 	if(end_timed.getMinutes()<10)
+                 	{
+                 		var end_time=end_timed.getHours() + ":0" + end_timed.getMinutes() ;
+                 	}
+                 	else{
+                 	var end_time=end_timed.getHours() + ":" + end_timed.getMinutes() ;
+                 	}
+                 	var create_timed=new Date(item.create_time);
+                 	var start_timed=new Date(item.start_time);
+                 	if(start_timed.getMinutes()<10)
+                 	   var start_time=start_timed.getHours() + ":0" + start_timed.getMinutes() ;
+                 	else
+                 	   var start_time=start_timed.getHours() + ":" + start_timed.getMinutes() ;
+                 	var create_day=create_timed.getFullYear()  + "-" + (create_timed.getMonth()+1)+"-"+create_timed.getDate() ;
+				           div.innerHTML='<div class="mui-card" style="margin: 10px;">'+
+	        	           '<div id="div-space" style="width: 32%; height: 90px; background-color: #2DBFB0;padding: 10px;float: left;">'+
+	        	           '<i class="iconfont2 icon-time1"  style="color: #FFFFFF;"></i>'+
+	        	           '<span style="position: relative; float: right;color: #FFFFFF;">未开始</span>'+
+	        	           '<div style="position:absolute; color: #FFFFFF;top: 40%;left: 13%;width: 32%;margin-left: -35px;font-size:15px;">'+start_time+'~'+end_time+
+	        	           '</div>'+
+                           '</div>'+
+	       		           '<div style="height:90px;width: 68%;float: left; padding: 15px;">'+
+	       			       '<div style="font-size:large ;">'+item.title+'</div>'+
+	       			       '<div style="height: 15px;"></div>'+
+	       			       '<div style="font-size:large ;margin-top: 10px;">'+
+	       				   '<span class="mui-icon iconfont icon-class" ></span>'+
+	       				   '<span style="font-size:small">'+item.myclass.name+'&nbsp&nbsp&nbsp</span>'+
+	       				   '<i class="iconfont2 icon-calendar"></i>'+
+	       				   '<span style="font-size:small">'+create_day+'</span>'+
+	       			       '</div></div></div>';
+			               if(system_time<item.start_time)
+			              {
+				            
+                   	          test.appendChild(a);
+                              a.appendChild(div);
+				           
+                          }
+            
+                      });
+                }
+				if(test.children.length==0){
+				mui.toast("目前没有未开始的测试！");
+			}
+			}(mui.document));
+		</script>
+	</body>
+</html>

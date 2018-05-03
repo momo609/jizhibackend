@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>个性化测试</title>
+	<link rel="stylesheet" type="text/css" href="css/prostyle.css" />
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="css/mui.min.css">
+	<script src="js/mui.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/url.js"></script>
+    <script src="js/urlParm.js"></script>
+	<style >
+					body{
+				background-color: #F3F3F3;
+			}
+			.header{
+	 background-color:#29c4b5;
+	 
+	padding-bottom: 5px;
+	 }
+.topper
+{
+	 font-size: 20px;
+	 margin:0;
+	 padding-top: 1px;
+	 padding-bottom: 4px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+#stem{
+marker: 30%;
+}
+button{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+}
+.orl{
+	background-color: white;
+	color:#5E5E5E;
+}
+.active{
+	background-color: #29C4B5;
+	color:#FFFFFF;
+}
+#choicess{
+	margin-bottom: 10%;
+}
+#final{
+	position: fixed;
+}
+#choice{
+	width:600;
+	height:70 ;
+	border:0;
+}
+#finish{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#finish:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#pre{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+	border:1px solid #1D7DB1;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#pre:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#next{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	border:1px solid #1D7DB1;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#next:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+.oa-contact-cell{
+	margin-top: 2%;
+	margin-bottom: 3%;
+}
+/*.nav-next{
+	width: 200px;
+	height: 50px;
+	margin-top: 5%;
+	border-radius: 25px;
+	background-color: #66AFE9;
+	border:#5E5E5E solid 1px;
+	color:#FFFFFF;
+	font-size:10px;
+	font-weight:bolder;
+}
+.nav-previous{
+	width: 200px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #66AFE9;
+	border:#5E5E5E solid 1px;
+	color:#FFFFFF;
+	font-size:10px;
+	font-weight:bolder;
+}*/
+.in{
+	width: 200px;
+	height: 100px;
+}
+#list
+{
+	margin-right: 2%;
+	margin-left:2% ;
+	margin-bottom:3%;
+}
+	</style>
+	<script>
+				    	var answer=[];
+				var time_t=[];
+				for(var i=0;i<qnum;i++)
+				{
+					answer[i]='null';
+					time_t[i]=0;
+				}
+			    var timeuse=UrlParm.parm("timeuse");
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var d=new Date().getTime();
+				var s_time=d;
+				var testtime=UrlParm.parm("testtime");
+				var qnum=UrlParm.parm("qnum");
+				var testid=UrlParm.parm("testid");
+				var q_order=UrlParm.parm("porder");
+				var useranswer=UrlParm.parm("answer");
+				var bookmark=UrlParm.parm("bookmark");
+		function marks(){
+			 var mark=document.getElementById('mark');
+			 	 	if(mark.name.indexOf('nomark')>=0)
+			 	 	{
+			 	 		mark.className='mui-icon mui-icon-star-filled mui-pull-right mark';
+			 	 		mark.name='remark';
+			 	 	}
+			 	 	else
+			 	 	{
+			 	 		mark.className='mui-icon mui-icon-star mui-pull-right mark';
+			 	 		mark.name='nomark';
+			 	 	}
+			 	
+			}
+function save(i){
+				
+		    	            var flag=0;
+            	        book=bookmark.split('@');
+            	        bookmark='';
+            	        if(mark.name.indexOf('remark')>=0)
+            	        {
+            	        	book[q_order-1]=q_order;
+            	        }
+            	        else
+            	        {
+            	        	book[q_order-1]='null';
+            	        }
+            	        var d1=new Date().getTime();
+            	        t_time=timeuse.split(',');
+            	        t_time[q_order-1]=(d1-d);
+            	        timeuse='';
+            	        name='choices'+q_order;
+            	        p_answer=useranswer.split('@@');
+            	        useranswer='';
+            	    	var btns=document.getElementsByName(name);
+            	    	p_answer[q_order-1]='';
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+//                      	alert(btns[o].className);
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                            	if(type[q_order-1]!=3)
+                            	{
+                                   p_answer[q_order-1]=p_answer[q_order-1]+btns[o].innerHTML;
+                            	}
+                                flag=1;
+                            }
+                            else if(btns[o].className.indexOf('in')>=0)
+                            {
+                            	if(btns[o].value!=null)
+                            	{
+                            		p_answer[q_order-1]=btns[o].value;
+                            		flag=1;
+                            	}
+                            }
+                        }
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        	if(t_time[j]!=0)
+                        	{
+                        		time_t[j]=t_time[j];
+                        	}
+                        	
+                        }
+                        for(j=0;j<p_answer.length-1;j++)
+                        {
+                        	useranswer=useranswer+answer[j]+'@@';
+                        	timeuse=timeuse+time_t[j]+',';
+                        	bookmark=bookmark+book[j]+'@'
+                        }
+                        useranswer=useranswer+answer[p_answer.length-1];
+                        timeuse=timeuse+time_t[p_answer.length-1];
+                        bookmark=bookmark+book[p_answer.length-1];
+                        javascript:window.location.href='pro2.html?testid='+testid+'&porder='+i+'&answer='+useranswer+'&bookmark='+bookmark+'&timeuse='+timeuse+'&testtime='+testtime;
+		    }
+	</script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title" id="time">剩余时间</h1>
+			<a class="mui-icon mui-icon-star mui-pull-right" name="nomark" id="mark" onclick="marks()"></a>
+    </header>
+<!--<div class="header">
+    <div class="topper"> 
+			<a href="test_in.html"><img src="images/left_arrow.png" align="left" width="10%" height="10%" ></a> 
+			<i id="time">剩余时间</i>
+			<img id="mark" class="orgin" src="images/abc_btn_rating_star_off_mtrl_alpha.png" align="right" width="10%" height="10%"/></span>
+		</div>
+</div>-->
+<div class="mui-content">
+	<canvas id="choice" width="600" height="70"  style="border:0;"></canvas>
+	
+	<div id="content">
+		
+		<!--<div id="choices">
+			<button id="a">A</button><span>&nbsp;<i id="ca">ssss</i></span>
+		</div>
+		<div id="choices">
+			<button id="b">B</button><span>&nbsp;<i id="cb">ssss</i></span>
+		</div>
+		<div id="choices">
+			<button id="c">C</button><span>&nbsp;<i id="cc">ssss</i></span>
+		</div>
+		<div id="choices">
+			<button id="d">D</button><span>&nbsp;<i id="cd">ssss</i></span>
+		</div>-->
+	</div>
+	<div>
+		<p>&nbsp;</p>
+	</div>
+	 <div class="oa-contact-cell mui-table">
+	<div class="oa-contact-avatar mui-table-cell" style="vertical-align: middle; margin-top:3%;;" id="pree">
+		<a class="nav-show-result" id="pre">&nbsp;上一题&nbsp;</a>
+	</div>
+	<div class="oa-contact-content mui-table-cell" style="margin-top:3%;"id="nextt">
+		<a class="nav-show-result" id="next">&nbsp;下一题&nbsp;</a>
+	</div>
+	<div class="oa-contact-content mui-table-cell"  id="final">
+		<a class="nav-show-result " id="finish" >&nbsp;交&nbsp&nbsp&nbsp;卷&nbsp;</a>
+	</div>
+	</div>
+	<div id="list">
+		
+	</div>
+	<!--<div id="pree"><a class="nav-show-result" id="pre">上一题</button></div>
+	<div id="nextt"><a class="nav-show-result" id="next">下一题</button></div>
+	<div id="final" ><button class="finish" id="finish">交卷</button></div>-->
+</div>
+  <script src="js/mui.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/GetUesridCookie.js"></script>
+<script>
+	gWinWidth = document.body.clientWidth;
+	var systemtime = new Date().getTime();
+	var testtimes=UrlParm.parm("testtime")-(new Date().getTime());
+	var time=document.getElementById("time");
+	var h= parseInt((testtimes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var s = parseInt((testtimes % (1000 * 60))/1000);
+	var m = parseInt((testtimes % (1000 * 60 * 60)) / (1000 * 60));
+	function showtime(){
+//		document.getElementById('m').innerHTML = m;
+//		document.getElementById('s').innerHTML = s;
+		time.innerHTML = '剩余时间:  '+h+':'+m+':'+s;
+		s = s-1;
+		if(s<=-1){
+			m = m -1;
+			s = 59
+		}
+//		if(m==0){
+//			window.location='http://www.ewceo.com';//倒计时结束跳转到 www.ewceo.com
+//		}
+	}
+	clearInterval(settime); 
+	var settime = setInterval(function(){
+		showtime();
+	},1000);
+	var c=document.getElementById('choice'); 
+	var userid = GetUseridCookie().get("userid");
+	var ctx=c.getContext("2d");
+	var cty=c.getContext("2d");
+	cty.beginPath();
+    cty.moveTo(0,20);
+    cty.lineTo(0,70);
+    cty.lineTo(50,70);
+    cty.lineTo(70,45);
+    cty.lineTo(50,20);  
+    cty.closePath();
+    cty.stroke();
+    cty.fillStyle="lightseagreen"
+    cty.fill();
+    //cty.strokeText('填空题',10,47);
+    ctx.beginPath();
+    ctx.moveTo(50,20);
+    ctx.lineTo(70,45);
+    ctx.lineTo(50,70);
+    ctx.lineTo(gWinWidth,70);
+    ctx.lineTo(gWinWidth,20);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fillStyle="white"
+    ctx.fill();
+    //ctx.strokeText('1/1',gWinWidth-40,47);
+    
+  UrlParm = function() { // url参数  
+  var data, index;  
+  (function init() {  
+    data = [];  
+    index = {};  
+    var u = window.location.search.substr(1);  
+    if (u != '') {  
+      var parms = decodeURIComponent(u).split('&');  
+      for (var i = 0, len = parms.length; i < len; i++) {  
+        if (parms[i] != '') {  
+          var p = parms[i].split("=");  
+          if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=  
+            data.push(['']);  
+            index[p[0]] = data.length - 1;  
+          } else if (typeof(p[0]) == 'undefined' || p[0] == '') { // =c | =  
+            data[0] = [p[1]];  
+          } else if (typeof(index[p[0]]) == 'undefined') { // c=aaa  
+            data.push([p[1]]);  
+            index[p[0]] = data.length - 1;  
+          } else {// c=aaa  
+            data[index[p[0]]].push(p[1]);  
+          }  
+        }  
+      }  
+    }  
+  })();  
+  return {  
+    // 获得参数,类似request.getParameter()  
+    parm : function(o) { // o: 参数名或者参数次序  
+      try {  
+        return (typeof(o) == 'number' ? data[o][0] : data[index[o]][0]);  
+      } catch (e) {  
+      }  
+    },  
+    //获得参数组, 类似request.getParameterValues()  
+    parmValues : function(o) { //  o: 参数名或者参数次序  
+      try {  
+        return (typeof(o) == 'number' ? data[o] : data[index[o]]);  
+      } catch (e) {}  
+    },  
+    //是否含有parmName参数  
+    hasParm : function(parmName) {  
+      return typeof(parmName) == 'string' ? typeof(index[parmName]) != 'undefined' : false;  
+    },  
+    // 获得参数Map ,类似request.getParameterMap()  
+    parmMap : function() {  
+      var map = {};  
+      try {  
+        for (var p in index) {  map[p] = data[index[p]];  }  
+      } catch (e) {}  
+      return map;  
+    }  
+  }  
+}();  
+       
+     (function($,doc){
+				jQuery.noConflict();
+				var timeuse=UrlParm.parm("timeuse");
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var d=new Date().getTime();
+				var starttime=d;
+				var s_time=d;
+				var testtime=UrlParm.parm("testtime");
+				var qnum=UrlParm.parm("qnum");
+				var testid=UrlParm.parm("testid");
+				var content = document.getElementById("content");
+				var stem1=document.getElementById("stem1");
+				var q_order=UrlParm.parm("porder");
+				var finish=document.getElementById("finish");
+				var pre=document.getElementById("pre");
+				var next=document.getElementById("next");
+				var useranswer=UrlParm.parm("answer");
+				var bookmark=UrlParm.parm("bookmark");
+				var mark=document.getElementById("mark");
+				var time=document.getElementById("time");
+				var answer=[];
+				var time_t=[];
+				for(var i=0;i<qnum;i++)
+				{
+					answer[i]='null';
+					time_t[i]=0;
+				}
+//				window.onload = function(){
+//                      timer = setInterval(function(){
+//                      if(testtime== -1){
+//                            clearInterval(timer);
+//                      }else{
+//                      	time.innerHTML='';
+//                          var test_timed=new Date(testtime);
+//               	        var test_time=test_timed.getHours() + ":" + test_timed.getMinutes();
+//               	        time.innerHTML='剩余时间：'+test_time;
+//                          --testtime;
+//                      }
+//                  },1000);
+// 
+//              }
+					mui.ajax('http://'+url+'/jizhibackend/servlet/EnterTest',{
+						data:
+						{
+							userid:userid,
+							testid: testid ,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							gettest(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+
+			function gettest(data){
+						var data_m=data.MultipleChoiceQuestion;
+						var data_s= data.SingleChoiceQuestion;
+						var data_f= data.FillBlankQuestion;
+						var data_j=data.JudgeQuestion;
+						var div=new Array();
+						var total=data_m.length+data_s.length+data_f.length+data_j.length;
+						var list=document.getElementById('list');
+						var str='';
+						for(var j=0;j<total;j++)
+						{
+							i=j+1;
+						 str=str+'<button id="list" class="orl" onclick=save(\"'+i+'\")>'+i+'</button>';
+						}
+						list.innerHTML='<p>题目列表</p>'+str;
+						if(q_order==total)
+						{
+							next.style.display="none"; 
+						}
+						type=[];
+						for( var i=0;i<(data_m.length+data_s.length+data_f.length+data_j.length);i++)
+						{
+							div[i] = document.createElement('div');
+                 		    div[i].style.display="none";
+                 		    div[i].className="slid";
+                 		    if(i==q_order-1)
+                 		    {
+                 		    	div[i].style.display="";
+                 		    }
+                 		    
+                      };
+                 choice=[];
+                    	for(var j=0;j<data_m.length;j++)
+                 		{ 
+                 			(function(arg_1){
+                 			//cty.strokeText('多选题',10,47);
+                 			type[data_m[j].q_order-1]=4;
+                 			var name='choices'+data_m[j].q_order;
+                 			var Am='a'+data_m[j].q_order;
+                 		    var Bm='b'+data_m[j].q_order;
+                 		    var Cm='c'+data_m[j].q_order;
+                 		    var Dm='d'+data_m[j].q_order;
+                        	//ctx.strokeText(data_m[j].q_order+'/'+total,gWinWidth-40,47);
+                        	var div0=document.createElement('div');
+                 		    div.id="stem";
+                 		    var p=document.createElement('p');
+                 		    p.id="stem1";
+                 		    p.innerHTML=data_m[arg_1].stem;
+                        	div0.appendChild(p);                	
+                 	        div[data_m[j].q_order-1].appendChild(div0);
+                        	str=data_m[arg_1].choices;
+                        	choice=str.split("@@");
+                        	content.appendChild(div[data_m[j].q_order-1]);
+                        	var div1 = document.createElement('div');
+                 	        div1.id='choicess';
+                 	       div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Am+' class="orl" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	        var div2 = document.createElement('div');
+                 	        div2.id='choicess';
+                 	        div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Bm+' class="orl" >B</button></div><div id="cb" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         choice[1]+'</div>';
+                 	        var div3 = document.createElement('div');
+                 	        div3.id='choicess';
+                 	         div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Cm+' class="orl" >C</button></div><div id="cc" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         choice[2]+'</div>';
+                 	        var div4 = document.createElement('div');
+                 	        div4.id='choicess';
+                 	         div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Dm+' class="orl" >D</button></div><div id="cd" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         choice[3]+'</div>';
+                 	        //content.appendChild(div[arg]);
+                 	        div[data_m[j].q_order-1].appendChild(div1);
+                 	        div[data_m[j].q_order-1].appendChild(div2);
+                 	        div[data_m[j].q_order-1].appendChild(div3);
+                 	        div[data_m[j].q_order-1].appendChild(div4);
+                 	       	var a_f = document.getElementById(Am);
+                            var b_f = document.getElementById(Bm);
+                            var c_f = document.getElementById(Cm);
+                            var d_f=document.getElementById(Dm);
+                            a_f.onclick=function(){//添加点击事件\
+                                if(a_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    a_f.className ='orl';//清空class。
+                                    a_f.style.backgroundColor="#FFFFFF";
+                                    a_f.style.color="#5E5E5E";
+                                }
+                                else if(a_f.className.indexOf('orl')>=0){
+                                    a_f.className = 'active';//否则选中它，给它添加active样式
+                                    a_f.style.backgroundColor="#29C4B5";
+                                    a_f.style.color="#FFFFFF";
+                                }
+                                
+                            }
+     
+                            b_f.onclick=function(){//添加点击事件
+                                if(b_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    b_f.className='orl';
+                                    b_f.style.backgroundColor="#FFFFFF";
+                                    b_f.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(b_f.className.indexOf('orl')>=0){
+                                    b_f.className = 'active';//否则选中它，给它添加active样式
+                                    b_f.style.backgroundColor="#29C4B5";
+                                    b_f.style.color="#FFFFFF";
+                                }
+                                
+                            }
+          
+                            c_f.onclick=function(){//添加点击事件
+                                if(c_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    c_f.className='orl';
+                                    c_f.style.backgroundColor="#FFFFFF";
+                                    c_f.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(c_f.className.indexOf('orl')>=0){
+                                    c_f.className = 'active';//否则选中它，给它添加active样式
+                                    c_f.style.backgroundColor="#29C4B5";
+                                    c_f.style.color="#FFFFFF";
+                                }
+                            }
+    
+                            d_f.onclick=function(){//添加点击事件
+                                if(d_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    d_f.className='orl';
+                                    d_f.style.backgroundColor="#FFFFFF";
+                                    d.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(d_f.className.indexOf('orl')>=0){
+                                    d_f.className = 'active';//否则选中它，给它添加active样式
+                                    d_f.style.backgroundColor="#29C4B5";
+                                    d_f.style.color="#FFFFFF";
+                                }
+                           }
+                          })(j);
+                        }
+                        for(var j=0;j<data_s.length;j++)
+                        {
+                        	
+                        	(function(arg_1){
+                 			//cty.strokeText('单选题',10,47);
+                 			type[data_s[j].q_order-1]=1;
+                        	//ctx.strokeText(data_m[j].q_order+'/'+total,gWinWidth-40,47);
+                        	var div0=document.createElement('div');
+                 		    div.id="stem";
+                 		    var name='choices'+data_s[j].q_order;
+                 		    var A='a'+data_s[j].q_order;
+                 		    var B='b'+data_s[j].q_order;
+                 		    var C='c'+data_s[j].q_order;
+                 		    var D='d'+data_s[j].q_order;
+                 		    var p=document.createElement('p');
+                 		    p.id="stem1";
+                 		    p.innerHTML=data_s[arg_1].stem;
+                        	div0.appendChild(p);                	
+                 	        div[data_s[j].q_order-1].appendChild(div0);
+                        	str=data_s[arg_1].choices;
+                        	choice=str.split("@@");
+                        	content.appendChild(div[data_s[j].q_order-1]);
+                        	var div1 = document.createElement('div');
+                 	        div1.id='choicess';
+                 	        div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+A+' class="orl" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        choice[0]+'</div';
+                 	        var div2 = document.createElement('div');
+                 	        div2.id='choicess';
+                 	        div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+B+' class="orl" >B</button></div><div id="cb" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         choice[1]+'</div>';
+                 	        var div3 = document.createElement('div');
+                 	        div3.id='choicess';
+                 	         div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+C+' class="orl" >C</button></div><div id="cc" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         choice[2]+'</div>';
+                 	        var div4 = document.createElement('div');
+                 	        div4.id='choicess';
+                 	         div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+D+' class="orl" >D</button></div><div id="cd" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         choice[3]+'</div>';
+                 	        //content.appendChild(div[arg]);
+                 	        div[data_s[j].q_order-1].appendChild(div1);
+                 	        div[data_s[j].q_order-1].appendChild(div2);
+                 	        div[data_s[j].q_order-1].appendChild(div3);
+                 	        div[data_s[j].q_order-1].appendChild(div4);
+                 	       	var a_s = document.getElementById(A);
+                            var b_s = document.getElementById(B);
+                            var c_s = document.getElementById(C);
+                            var d_s = document.getElementById(D);
+                            a_s.onclick=function(){//添加点击事件
+//                          	alert('单选'+a_s.className);
+                                if(a_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    a_s.className = 'orl';//清空class。
+                                    a_s.style.backgroundColor="#FFFFFF";
+                                    a_s.style.color="#5E5E5E";
+                                   
+                                    
+                                }
+                                else if(a_s.className.indexOf('orl')>=0){
+                                    a_s.className = 'active';//否则选中它，给它添加active样式 
+                                    a_s.style.backgroundColor="#29C4B5";
+                                    a_s.style.color="#FFFFFF";
+                                    b_s.className ='orl';//清空class。\
+                                   b_s.style.backgroundColor="#FFFFFF";
+                                   b_s.style.color="#5E5E5E";
+                                   c_s.className ='orl';//清空class。\
+                                   c_s.style.backgroundColor="#FFFFFF";
+                                   c_s.style.color="#5E5E5E";
+                                   d_s.className ='orl';//清空class。\
+                                   d_s.style.backgroundColor="#FFFFFF";
+                                   d_s.style.color="#5E5E5E";
+                                }
+                            }
+     
+                            b_s.onclick=function(){//添加点击事件
+                                if(b_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    b_s.className='orl';
+                                    b_s.style.backgroundColor="#FFFFFF";
+                                    b_s.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(b_s.className.indexOf('orl')>=0){
+                                    b_s.className = 'active';//否则选中它，给它添加active样式
+                                    b_s.style.backgroundColor="#29C4B5";
+                                    b_s.style.color="#FFFFFF";
+                                   a_s.className ='orl';//清空class。\
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                   a_s.style.color="#5E5E5E";
+                                   c_s.className ='orl';//清空class。\
+                                   c_s.style.backgroundColor="#FFFFFF";
+                                   c_s.style.color="#5E5E5E";
+                                   d_s.className ='orl';//清空class。\
+                                   d_s.style.backgroundColor="#FFFFFF";
+                                   d_s.style.color="#5E5E5E";
+                                }
+                            }
+          
+                            c_s.onclick=function(){//添加点击事件
+                                if(c_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    c_s.className='orl';
+                                    c_s.style.backgroundColor="#FFFFFF";
+                                    c_s.style.color="#5E5E5E";
+                                }
+                                else if(c_s.className.indexOf('orl')>=0){
+                                    c_s.className = 'active';//否则选中它，给它添加active样式
+                                    c_s.style.backgroundColor="#29C4B5";
+                                    c_s.style.color="#FFFFFF";
+                                    a_s.className ='orl';//清空class。\
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                   a_s.style.color="#5E5E5E";
+                                   b_s.className ='orl';//清空class。\
+                                   b_s.style.backgroundColor="#FFFFFF";
+                                   b_s.style.color="#5E5E5E";
+                                   d_s.className ='orl';//清空class。\
+                                   d_s.style.backgroundColor="#FFFFFF";
+                                   d_s.style.color="#5E5E5E";
+                                }
+                            }
+    
+                            d_s.onclick=function(){//添加点击事件
+                                if(d_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    d_s.className='orl';
+                                    d_s.style.backgroundColor="#FFFFFF";
+                                    d_s.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(d_s.className.indexOf('orl')>=0){
+                                    d_s.className = 'active';//否则选中它，给它添加active样式
+                                    d_s.style.backgroundColor="#29C4B5";
+                                    d_s.style.color="#FFFFFF";
+                                    a_s.className ='orl';//清空class。\
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                   a_s.style.color="#5E5E5E";
+                                   c_s.className ='orl';//清空class。\
+                                   c_s.style.backgroundColor="#FFFFFF";
+                                   c_s.style.color="#5E5E5E";
+                                   b_s.className ='orl';//清空class。\
+                                   b_s.style.backgroundColor="#FFFFFF";
+                                   b_s.style.color="#5E5E5E";
+                                }
+                            }
+                          })(j);
+                        }
+                        for(var j=0;j<data_f.length;j++)
+                        {
+                           (function(arg_1){
+                        	type[data_f[j].q_order-1]=3;
+                        	var name='choices'+data_f[j].q_order;
+                        	//cty.strokeText('填空题',10,47);
+                        	//ctx.strokeText(data_f[j].q_order+'/'+total,gWinWidth-40,47);
+                        	var div0=document.createElement('div');
+                 		    div0.id="stem";
+                 		    var p=document.createElement('p');
+                 		    p.id="stem1";
+                 		    p.innerHTML=data_f[arg_1].stem;
+                        	div0.appendChild(p);
+                 	        div[data_f[j].q_order-1].appendChild(div0);
+                        	//stem1.innerHTML=data_f[arg_1].stem;
+                        	var div1 = document.createElement('div');
+                        	div1.innerHTML='<input type="text" name='+name+' id="in" class="in" >';
+                        	div[data_f[j].q_order-1].appendChild(div1);
+                 		    content.appendChild(div[data_f[j].q_order-1]);
+                        })(j);
+                        }
+                        
+                        for(var j=0;j<data_j.length;j++)
+                        {
+                        	(function(arg_1){
+                        	type[data_j[j].q_order-1]=2;
+                        	var name='choices'+data_j[j].q_order;
+                        	 var Aj='a'+data_j[j].q_order;
+                 		     var Bj='b'+data_j[j].q_order;
+                        	//cty.strokeText('判断题',10,47);
+                        	//ctx.strokeText(data_j[j].q_order+'/'+total,gWinWidth-40,47);
+                        	var div0=document.createElement('div');
+                 		    div.id="stem";
+                 		    var p=document.createElement('p');
+                 		    p.id="stem1";
+                 		    p.innerHTML=data_j[arg_1].stem;
+                        	div0.appendChild(p);                	
+                 	        div[data_j[j].q_order-1].appendChild(div0);
+                        	//stem1.innerHTML=data_j[arg_1].stem;
+                        	var div1 = document.createElement('div');
+                 	        div1.id='choicess';
+                 	        div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Aj+' class="orl" >Y</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                       '正确</div';
+                 	        var div2 = document.createElement('div');
+                 	        div2.id='choicess';
+                 	        div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Bj+' class="orl" >N</button></div><div id="cb" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         '错误</div>';
+                 	       
+                 	        content.appendChild(div[data_j[j].q_order-1]);
+                 	        div[data_j[j].q_order-1].appendChild(div1);
+                 	        div[data_j[j].q_order-1].appendChild(div2);
+                 	       	var a_j = document.getElementById(Aj);
+                            var b_j = document.getElementById(Bj);
+                            a_j.onclick=function(){//添加点击事件
+                                if(a_j.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    a_j.className ='orl';//清空class。\
+                                    a_j.style.backgroundColor="#FFFFFF";
+                                    a_j.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(a_j.className.indexOf('orl')>=0){
+                                   a_j.className = 'active';//否则选中它，给它添加active样式
+                                   a_j.style.backgroundColor="#29C4B5";
+                                   a_j.style.color="#FFFFFF";
+                                   b_j.className ='orl';//清空class。\
+                                   b_j.style.backgroundColor="#FFFFFF";
+                                   b_j.style.color="#5E5E5E";
+                                }
+                            }
+     
+                            b_j.onclick=function(){//添加点击事件
+                                if(b_j.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    b_j.className = 'orl';//清空class。
+                                    b_j.style.backgroundColor="#FFFFFF";
+                                    b_j.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(b_j.className.indexOf('orl')>=0){
+                                    b_j.className = 'active';//否则选中它，给它添加active样式
+                                    b_j.style.backgroundColor="#29C4B5";
+                                    b_j.style.color="#FFFFFF";
+                                    a_j.className ='orl';//清空class。\
+                                   a_j.style.backgroundColor="#FFFFFF";
+                                   a_j.style.color="#5E5E5E";
+                                }
+                            
+                            }
+                        })(j);
+                        }
+                        
+                        if(type[q_order-1]==4)
+                        {
+                        	cty.strokeText('多选题',10,47);
+                        	ctx.strokeText(q_order+'/'+total,gWinWidth-40,47);
+                        	
+                        }
+                        else if(type[q_order-1]==1)
+                        {
+                        	cty.strokeText('单选题',10,47);
+                        	ctx.strokeText(q_order+'/'+total,gWinWidth-40,47);
+                        }
+                        else if(type[q_order-1]==3)
+                        {
+                        	cty.strokeText('填空题',10,47);
+                        	ctx.strokeText(q_order+'/'+total,gWinWidth-40,47);
+                        	
+                        }
+                        else if(type[q_order-1]==2)
+                        {
+                        	cty.strokeText('判断题',10,47)
+                        	ctx.strokeText(q_order+'/'+total,gWinWidth-40,47);
+                        	
+                        }
+                        books=[];
+                        books=bookmark.split('@');
+                        
+                        if(books[q_order-1]!='null'&&books[q_order-1]!='undefined'&&books[q_order-1]!='')
+                        {
+                        	mark.className='mui-icon mui-icon-star-filled mui-pull-right';
+                        	mark.name='remark';
+                        }
+                        answers=[];
+                        answers=useranswer.split("@@");
+                        name='choices'+q_order;
+                        var sss=answers[q_order-1];
+                        var h=6;
+                        	var cc=document.getElementsByName(name);
+                        	if(answers[q_order-1].indexOf('A')>=0||answers[q_order-1].indexOf('Y')>=0)
+                        	{
+                        		h=0;
+                        	}
+                        	else if(answers[q_order-1].indexOf('B')>=0||answers[q_order-1].indexOf('N')>=0)
+                        	{
+                        		h=1;
+                        	}
+                        	else if(answers[q_order-1].indexOf('C')>=0)
+                        	{
+                        		h=2;
+                        	}
+                        	else if(answers[q_order-1].indexOf('D')>=0)
+                        	{
+                        		h=3;
+                        	}
+                        	else if(answers[q_order-1]==''||answers[q_order-1]=='undefined')
+                        	{
+                        		h=5;
+                        	}
+                        	if(h!=5)
+                           {
+                        	    if(type[q_order-1]==2||type[q_order-1]==1)
+                              {
+                               cc[h].className = 'active';//否则选中它，给它添加active样式
+                               cc[h].style.backgroundColor="#29C4B5";
+                               cc[h].style.color="#FFFFFF";
+                              }
+                                else if(type[q_order-1]==3)
+                              {
+                           	      cc[0].value=sss;
+                              }
+                           else
+                           {
+                           	   if(answers[q_order-1].indexOf('A')>=0)
+                        	  {
+                        		cc[0].className = 'active';//否则选中它，给它添加active样式
+                               cc[0].style.backgroundColor="#29C4B5";
+                               cc[0].style.color="#FFFFFF";
+                        	  }
+                        	  if(answers[q_order-1].indexOf('B')>=0)
+                        	  {
+                        		cc[1].className = 'active';//否则选中它，给它添加active样式
+                               cc[1].style.backgroundColor="#29C4B5";
+                               cc[1].style.color="#FFFFFF";
+                        	  }
+                        	 if(answers[q_order-1].indexOf('C')>=0)
+                        	  {
+                        		cc[2].className = 'active';//否则选中它，给它添加active样式
+                               cc[2].style.backgroundColor="#29C4B5";
+                               cc[2].style.color="#FFFFFF";
+                        	  }
+                        	  if(answers[q_order-1].indexOf('D')>=0)
+                        	  {
+                        		cc[3].className = 'active';//否则选中它，给它添加active样式
+                               cc[3].style.backgroundColor="#29C4B5";
+                               cc[3].style.color="#FFFFFF";
+                        	  }
+                           }
+                        }
+                 
+				p_answer=[];
+                t_time=[];
+                book=[];
+            pre.onclick=function(){
+            	        var flag=0;
+            	        book=bookmark.split('@');
+            	        bookmark='';
+            	        if(mark.name.indexOf('remark')>=0)
+            	        {
+            	        	book[q_order-1]=q_order;
+            	        }
+            	        else
+            	        {
+            	        	book[q_order-1]='null';
+            	        }
+            	        var d1=new Date().getTime();
+            	        t_time=timeuse.split(',');
+            	        t_time[q_order-1]=(d1-d);
+            	        timeuse='';
+            	        name='choices'+q_order;
+            	        p_answer=useranswer.split('@@');
+            	        useranswer='';
+            	    	var btns=document.getElementsByName(name);
+            	    	p_answer[q_order-1]='';
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+//                      	alert(btns[o].className);
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                            	if(type[q_order-1]!=3)
+                            	{
+                                   p_answer[q_order-1]=p_answer[q_order-1]+btns[o].innerHTML;
+                            	}
+                                flag=1;
+                            }
+                            else if(btns[o].className.indexOf('in')>=0)
+                            {
+                            	if(btns[o].value!=null)
+                            	{
+                            		p_answer[q_order-1]=btns[o].value;
+                            		flag=1;
+                            	}
+                            }
+                        }
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        	if(t_time[j]!=0)
+                        	{
+                        		time_t[j]=t_time[j];
+                        	}
+                        	
+                        }
+                        for(j=0;j<total-1;j++)
+                        {
+                        	useranswer=useranswer+answer[j]+'@@';
+                        	timeuse=timeuse+time_t[j]+',';
+                        	bookmark=bookmark+book[j]+'@'
+                        }
+                        useranswer=useranswer+answer[total-1];
+                        timeuse=timeuse+time_t[total-1];
+                        bookmark=bookmark+book[total-1];
+                        var pre_q=parseInt(q_order)-1;
+                        //var hre='pro2.html?testid='+testid+'&porder='+next_q+'&answer='+useranswer;
+                        var hree='pro2.html?testid='+testid+'&porder='+pre_q+'&answer='+useranswer+'&bookmark='+bookmark+'&timeuse='+timeuse+'&testtime='+testtime ;                		
+                        pre.href=hree;
+                        
+            }
+            next.onclick=function(){
+            	        var flag=0;
+            	        book=bookmark.split('@');
+            	        bookmark='';
+            	        if(mark.name.indexOf('remark')>=0)
+            	        {
+            	        	book[q_order-1]=q_order;
+            	        }
+            	        else
+            	        {
+            	        	book[q_order-1]='null';
+            	        }
+           	           var d1=new Date().getTime();
+            	        t_time=timeuse.split(',');
+            	        t_time[q_order-1]=(d1-d);
+            	        timeuse='';
+            	        name='choices'+q_order;
+            	        p_answer=useranswer.split('@@');
+            	        useranswer='';
+            	        p_answer[q_order-1]='';
+            	    	var btns=document.getElementsByName(name);
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+//                      	alert(btns[o].className);
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                            	if(type[q_order-1]!=3)
+                            	{
+                                   p_answer[q_order-1]=p_answer[q_order-1]+btns[o].innerHTML;
+                            	}
+                                flag=1;
+                            }
+                            else if(btns[o].className.indexOf('in')>=0)
+                            {
+                            	if(btns[o].value!=null)
+                            	{
+                            		p_answer[q_order-1]=btns[o].value;
+                            		flag=1;
+                            	}
+                            }
+                        }
+                        if(flag==0)
+                        {
+                        	alert('未选择答案');
+                        }
+                        else{
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        	if(t_time[j]!=0)
+                        	{
+                        		time_t[j]=t_time[j];
+                        	}
+                        	
+                        }
+                        for(j=0;j<total-1;j++)
+                        {
+                        	useranswer=useranswer+answer[j]+'@@';
+                        	timeuse=timeuse+time_t[j]+',';
+                        	bookmark=bookmark+book[j]+'@'
+                        }
+                        useranswer=useranswer+answer[total-1];
+                        timeuse=timeuse+time_t[total-1];
+                        bookmark=bookmark+book[total-1];
+                        var next_q=parseInt(q_order)+1;
+                        //var pre_q=parseInt(q_order)-1;
+                        var hre='pro2.html?testid='+testid+'&porder='+next_q+'&answer='+useranswer+'&bookmark='+bookmark+'&timeuse='+timeuse+'&testtime='+testtime;
+                        //var hree='pro2.html?testid='+testid+'&porder='+pre_q+'&answer='+useranswer;  
+                        next.href=hre; 
+                        }
+            }
+            
+            finish.onclick= function(){
+            	       var length=0;
+            	       book=bookmark.split('@');
+            	        bookmark='';
+            	        if(mark.name.indexOf('remark')>=0)
+            	        {
+            	        	book[q_order-1]=q_order;
+            	        }
+            	        else
+            	        {
+            	        	book[q_order-1]='null';
+            	        }
+            	        for(var i=0;i<total;i++)
+            	        {
+            	        	if(book[i]!='null')
+            	        	{
+            	        		book[length]=book[i];
+            	        		length++;
+            	        	}
+            	        }
+            	        for(i=0;i<length-1;i++)
+            	        {
+            	        	bookmark=bookmark+book[i]+'@';
+            	        }
+            	        bookmark=bookmark+book[length-1]
+            	        var d1=new Date().getTime();
+            	        t_time=timeuse.split(',');
+            	        t_time[q_order-1]=(d1-d);
+            	        timeuse='';
+            	        name='choices'+q_order;
+            	        p_answer=useranswer.split('@@');
+            	        useranswer='';
+            	    	var btns=document.getElementsByName(name);
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+//                      	alert(btns[o].className);
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                            	if(type[q_order-1]!=3)
+                            	{
+                                   p_answer[q_order-1]=btns[o].innerHTML;
+                            	}
+                                flag=1;
+                            }
+                            else if(btns[o].className.indexOf('in')>=0)
+                            {
+                            	if(btns[o].value!=null)
+                            	{
+                            		p_answer[q_order-1]=btns[o].value;
+                            	}
+                            }
+                        }
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        	if(t_time[j]!=0)
+                        	{
+                        		time_t[j]=t_time[j];
+                        	}
+                        	
+                        }
+                        for(j=0;j<total-1;j++)
+                        {
+                        	useranswer=useranswer+answer[j]+'@@';
+                        	timeuse=timeuse+time_t[j]+',';
+                        }
+                        useranswer=useranswer+answer[total-1];
+                        timeuse=timeuse+time_t[total-1];
+//          	alert(timeuse);
+            	time_f=[];
+            	time_f=timeuse.split(",");
+            	var totaltime=0;
+            	for(i=0;i<total;i++)
+            	{
+            		totaltime=totaltime+parseInt(time_f[i]);
+            	}
+            	mui.ajax('http://'+url+'/jizhibackend/servlet/HandUpPaperServlet', {
+						data: {
+							userid:userid,
+							testid:testid,
+							score:0,
+							answers:useranswer,
+							answertrace:time_f.toString(),
+							timeused:time_f.toString(),
+							totaltime:totaltime.toString(),
+							lookbackcount:time_f.toString(),
+							bookmark:bookmark.toString(),
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 1000000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							javascript:window.location.href="test_done.html";
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							
+						}
+					});
+                   }
+		}
+}(mui.document));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+				
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+	
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			.oa-contact-content {
+				width: 100%;
+			}
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			.oa-contact-name, oa-contact-position {
+				float: left;
+			}
+				body {
+				background-color: #EFEFF4;
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+
+	
+ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+li
+{
+float:left;
+}
+button:link,button:visited
+{
+display:block;
+width:150px;
+font-size:30px;
+font-weight:bold;
+color:#29C4B5;
+background-color:#FFFFFF;
+text-align:center;
+padding:20px;
+text-decoration:none;
+text-transform:uppercase;
+}
+button:hover,button:active
+{
+background-color:#29C4B5;
+color:#FFFFFF;
+}
+.header button{
+	width:150px;
+	height: 50px;
+	-webkit-border-radius:1em;
+	-moz-border-radius: 1em;
+    border: 1px solid #29C4B5;
+    font-size: 30px;
+    margin-left: 35%;
+}
+.header ul  input{
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 1%;
+	width:500px;
+	height: 200px;
+	padding: 5em 5em 5em 5.4em;
+	-webkit-border-radius:10em;
+	-moz-border-radius: 10em;
+    border: 1px solid #29C4B5;
+}
+
+.header
+{
+	position: relative;
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 1%;
+}
+.nav {
+    background: #FFFFFF;
+    padding: 20px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+.top
+{
+	margin-left: 38%;
+	margin-right: 25%；
+}
+.inner
+{
+	margin-left: 15%;
+	margin-right: 25%；
+
+}
+.inner ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+.inner li
+{
+float:left;
+}
+.inner a:link,a:visited
+{
+display:block;
+width:150px;
+font-weight:bold;
+color:#8F8F94;
+background-color:#FFFFFF;
+text-align:center;
+padding:10px;
+text-decoration:none;
+text-transform:uppercase;
+}
+.inner a:hover,a:active
+{
+background-color:#29C4B5;
+}
+.mui-content
+			{
+				height: 100%;
+				margin-left: 24%;
+				
+			}
+.mui-active{
+	color:#29C4B5;
+} 
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">测试</h1>
+		</header>
+        <div class="mui-content">
+        <ul>
+	          <li><button id="test_in">进行中</button></li>
+	          <li><button id="test_done">已结束</button></li>
+	          <li><button id="test_before">未进行</button></li>
+        </ul>
+       </div>
+	
+      <nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tiku.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="banji.html">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="user.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+		</nav>
+	<script>
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		var userid = GetUseridCookie().get("userid");
+		        var test_in = document.getElementById("test_in");
+				var test_done = document.getElementById("test_done");
+				var test_before = document.getElementById("test_before");
+				test_in.onclick=function(){
+					window.location.href='test_in.html';
+				}
+				test_before.onclick=function()
+				{
+					window.location.href='test_before.html';
+				}
+				test_done.onclick=function()
+				{
+					window.location.href='test_done.html';
+			     }
+	</script>
+		
+	</body>
+	
+</html>

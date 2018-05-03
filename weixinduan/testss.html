@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="js/Chart.js"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>答题结果</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link href="css/iconfont.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/tool.js"></script>
+		<style>
+			body{
+				background-color: #F3F3F3;
+			}
+			.header{
+	 background-color:#29c4b5;
+	 
+	padding-bottom: 5px;
+	 }
+.topper
+{
+	 font-size: 20px;
+	 margin:0;
+	 padding-top: 1px;
+	 padding-bottom: 1px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+.topper_inner{
+	margin-top: 8%;
+	padding-top:5px;
+	height: 100px;
+	padding-bottom: 6px;
+}
+.score
+{
+	margin-left: 40%;
+	margin-bottom: 5%;
+}
+.timer{
+	margin-left: 37%;
+	margin-bottom: 3%;
+}
+.chart {
+				height: 200px;
+				margin: 0px;
+				padding: 0px;
+			}
+.header{
+	height: 200px;
+}
+.mui-icon mui-icon-bars{
+	margin-left: 90%;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: white;
+	border:#5E5E5E solid 1px;
+	color:#5E5E5E;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.activee{	
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.own{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #E36D6D;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.title{
+	font-size: 20px;
+	font-weight: bold;
+	color: #FFFFFF;
+	margin-top: 2.5%;
+	width:90%;
+}
+h5 {
+	margin-left:20%;
+    font-weight: bold;
+   }
+   #test
+   {
+	border:1px solid #FFFFFF;
+	color:#FFFFFF;
+	font-size:15px;
+	font-weight:bolder;
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #29c4b5;
+    text-align: center;
+    line-height:25px;
+    text-decoration: none;
+   }
+#check{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	border:1px solid #1D7DB1;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#check:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}		
+#tag_check{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	border:1px solid #1D7DB1;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#tag_check:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}	
+.FF9900
+{
+	width: 20px;
+	height: 10px;
+	background-color: #FF9900;
+	border:#FF9900 solid 1px;
+	color:#FFFFFF;
+}
+.PAN{
+	width: 20px;
+	height: 10px;
+	background-color:#9ED99D;
+	color:#FFFFFF;
+	border:#9ED99D solid 1px;
+}
+.FF6699{
+	width: 20px;
+	height: 10px;
+	background-color: #FF6699;
+	color:#FFFFFF;
+	border:#FF6699 solid 1px;
+}
+.FF3300{
+	width: 20px;
+	height: 10px;
+	background-color: #FF3300;
+	color:#FFFFFF;
+	border:#FF3300 solid 1px;
+}	
+		</style>
+	</head>
+	<body>
+		<div class="header">
+	  <div class="topper"> 
+			<a href="test_done.html" style="width: 10%;height: 10%;"><img src="images/left_arrow.png" align="left" width="10%" height="10%" ></a> 
+			<div style="width:83%;float: right;" class="title">答题结果
+			<a id="exportButton"  class="mui-icon mui-icon-upload" style=" width:20%;height:10%;float: right;background-color:#29c4b5;color:#FFFFFF;font-size: 16.5px;" >导出</a>
+			</div>
+			
+	</div>
+		<div class="topper_inner">
+			
+			<div class="score">
+				<h1 id="score"></h1>		 
+			</div>
+			<div class="timer">
+				 <a id="test">查看试题</a>
+			</div>
+		</div>
+		</div>
+		<div class="mui-card" style="margin: 10px;">
+	      <div id="div-space" style="width: 32%; height: 90px; background-color: #2DBFB0;padding: 10px;float:left;">
+	        	    <div style="font-size:large; margin-left: 13%; color:#B6F9FF">参考人数</div>
+	       			<div style="font-size:large ;margin-left: 40%; margin-top:10%;color:#FFFFFF;" id="countpeople">
+	       			</div>
+           </div>
+           <div style="height:90px;width: 36%;float:left;padding: 10px;">
+	        	   <div style="font-size:large; margin-left: 25%;">最高分</div>
+	       			<div style="font-size:large ;margin-left: 37%;color:#2DBFB0;margin-top:10%;" id="maxscore">
+	       			</div>
+           </div>
+	       <div style="height:90px;width:32%;float: right; padding: 15px;background-color: #2DBFB0">
+	       			<div style="font-size:large; margin-left: 30%; color: #B6F9FF;">总分</div>
+	       			<div style="font-size:large ;margin-left: 32%; margin-top:10%;color: #FFFFFF;" id="totalscore">100
+	       			</div>
+	       </div>
+		</div>
+		<div class="mui-content"  >
+			<div class="prodetail" id="pro"></div>
+			<div class="chart" id="score_barChart">
+			</div>
+			<div style="text-align:center;margin-bottom: 3%; display: none;"id="cc">
+				<span class="FF9900" >单选</span>
+			    <span class="PAN" >判断</span>
+			    <span class="FF6699" >填空</span>
+			    <span class="FF3300">多选</span>
+			</div>
+			<div class="chart" id="timeuse_barChart">
+			</div>
+			<div class="chart" id="correct_barChart">
+			</div>
+			<div class="chart" id="pieChart"></div>
+      </div>
+       <div style="margin-left:13%; padding:15px" id="Button" >
+       	<a id="check">查看学生测试结果</a>
+       	<a id="tag_check" style="margin-top:3%">知识点错误统计</a>
+       </div>
+       <a id="down" download></a>
+        <script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/GetUesridCookie.js"></script>
+	
+	<script>
+	(function($,doc){
+				 jQuery.noConflict();
+				var userid = GetUseridCookie().get("userid");
+				var testid=UrlParm.parm("testid");
+				var title=UrlParm.parm("title");
+				var avg=document.getElementById("avg");
+				var time=document.getElementById("time");
+				var pro=document.getElementById("pro");
+				var use_paperid=UrlParm.parm("use_paperid");
+				var score=document.getElementById('score');
+				var mscore=document.getElementById('maxscore');
+				var tpeople=document.getElementById('countpeople');
+				var tscore=document.getElementById('totalscore');
+				var exportButton = document.getElementById("exportButton");
+				var d = document.getElementById("down");
+				answers=[];
+				correct=[];
+				qid=[];
+				str1='';
+				str='';
+				var part_l=0;
+				var part_m=0;
+				var part_h=0;
+				correct=[];
+				var t_total;
+				var type=[];
+				document.getElementById('test').href='t_testdetail.html?paperid='+use_paperid+'&q_order=1'+'&testid='+testid+'&title='+title;
+				mui.ajax('http://'+url+'/jizhibackend/servlet/GetTestStatForTeacher',{
+						data:
+						{
+							userid:	userid ,
+							testid: testid ,
+							paperid:use_paperid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							alert(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+				});
+				
+			}(mui.document));
+	</script>
+		</div>
+	</body>
+</html>

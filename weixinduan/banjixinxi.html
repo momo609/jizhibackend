@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   <meta charset="utf-8">
+      <title>班级信息</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+      <link rel="stylesheet" type="text/css" href="css/styles.css">
+      <link rel="stylesheet" href="css/mui.min.css">
+      <script src="js/tool.js"></script>
+       <script type="text/javascript">
+        function F_Open_dialog() 
+       { 
+            document.getElementById("btn_file").click(); 
+       } 
+
+    </script>
+    <style >
+    .body
+    {
+    	background-color: #EFEFF4;
+    }
+    	.top
+    	{
+        margin-top: 10%;
+    		margin-left: 35%;
+
+    	}
+    	.top-inner
+    	{
+    		margin-left: 30%;
+    	}
+    	.all
+    	{
+    		background-image: url("images/pic.png");
+    		margin-bottom: 5%;
+    		padding: 1px,1px,1px,1px;
+    	}
+    	.top-classname
+    	{
+    		margin-left: 3%;
+    	}
+    	.row-fluid-3
+    	{
+    		margin-top: 5%;
+    		background-color: #FFFFFF;
+    	}
+    	.row-fluid02-1
+    	{
+             position: left;
+    	}
+    	.span6-1
+    	{
+    		position: right;
+    	}
+      .demo
+      {
+        margin-left: 30%;
+      }
+      .mui-table-view{
+      	margin-top: 5%;
+      }
+    </style>
+   </head>
+   <body>
+   	<div style="margin-right: 5px;">
+   		<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #555555;margin-top: 20px;" id="back"></a>
+		<a style="color: #555555;margin-top: 20px;" href="#popover" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" ></a>
+	</div>
+   	<div id="popover" style="width: 160px;" class="mui-popover">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell"><a id="exit"><span style="margin-left: 10px;">退出班级</span></a></li>
+            </ul>
+    </div>
+  </div>
+  </div>
+   <div class="all">
+      <div class="container">
+	<div class="row-fluid-1" >
+		<div class="span12-1">
+		<div class="top" style="text-align: center;padding-right: 35%;">
+		    <input type="file" id="btn_file" style="display: none">
+			<img width="70px" height="70px" src="images/user.png" class="img-circle"  onclick="F_Open_dialog()" /> 
+			<div class="top-classname" id="classname" style="margin-top: 3%;">
+			</div>
+			<div id="classid" style="font-size:5px;">
+				
+			</div>
+		</div>
+			<div class="top-inner" id="top-inner" style="margin-top: 3%;">
+				<!--<em>班级号：10067</em>-->
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+	<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+			<a id="chengyuan"><li class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+			<div class="mui-slider-cell">
+	              <div class="oa-contact-cell mui-table">
+		                  <div class="oa-contact-avatar mui-table-cell" style="vertical-align:middle ;width:30%;float:left;top:8px;padding-left:8%;">
+							<img src="images/group8.png" width="40px" />
+							</div>
+							<div class="oa-contact-content mui-table-cell" style="text-align:center;width:70%;float:right;top:4px;padding-right:15%;">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name" id="classnumber" style="color:#000000;">&nbsp;</h4></div>
+								<p class="oa-contact-name">班级成员</p>
+							</div>
+	              </div>
+			</div>
+			</li>
+		   </a>
+			<li class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+			<div class="mui-slider-cell">
+	              <div class="oa-contact-cell mui-table">
+		                  <div class="oa-contact-avatar mui-table-cell"  style="vertical-align:middle ;width:30%;float:left;top:8px;padding-left:8%;">
+							<img src="images/time_gray.png" width="40px" />
+							</div>
+							<div class="oa-contact-content mui-table-cell" style="text-align:center;width:70%;float:right;top:4px;padding-right:15%;">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name" id="createtime">
+										
+									</h4>
+								</div>
+								<p class="oa-contact-name">创建日期</p>
+							</div>
+	              </div>
+			</div>
+			</li>
+		   <a id="wenjian"><li class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+			<div class="mui-slider-cell">
+	              <div class="oa-contact-cell mui-table">
+		                  <div class="oa-contact-avatar mui-table-cell"  style="vertical-align:middle ;width:30%;float:left;top:8px;padding-left:9%;">
+							<img src="images/file.png" width="30px" />
+							</div>
+							<div class="oa-contact-content mui-table-cell" style="text-align:center;width:70%;float:right;top:4px;padding-right:15%;">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name" >&nbsp;</h4></div>
+								<p class="oa-contact-name">班级文件</p>
+							</div>
+	              </div>
+			</div>
+			</li>
+		   </a>
+		   <a id="vote" href="vote.html"><li class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+			<div class="mui-slider-cell">
+	              <div class="oa-contact-cell mui-table">
+		                  <div class="oa-contact-avatar mui-table-cell"  style="vertical-align:middle ;width:30%;float:left;top:14px;padding-left:9%;">
+							<img src="images/vote.png" width="30px" />
+							</div>
+							<div class="oa-contact-content mui-table-cell" style="text-align:center;width:70%;float:right;top:4px;padding-right:15%;">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name" >&nbsp;</h4></div>
+								<p class="oa-contact-name">投票</p>
+							</div>
+	              </div>
+			</div>
+			</li>
+		   </a>
+		    <a id="recommend" ><li class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+			<div class="mui-slider-cell">
+	              <div class="oa-contact-cell mui-table">
+		                  <div class="oa-contact-avatar mui-table-cell"  style="vertical-align:middle ;width:30%;float:left;top:14px;padding-left:9%;">
+							<img src="images/vote.png" width="30px" />
+							</div>
+							<div class="oa-contact-content mui-table-cell" style="text-align:center;width:70%;float:right;top:4px;padding-right:15%;">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name" >&nbsp;</h4></div>
+								<p class="oa-contact-name">推荐习题</p>
+							</div>
+	              </div>
+			</div>
+			</li>
+		   </a>
+		    <a id="graph" href="studentgraph.html"><li class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+			<div class="mui-slider-cell">
+	              <div class="oa-contact-cell mui-table">
+		                  <div class="oa-contact-avatar mui-table-cell"  style="vertical-align:middle ;width:30%;float:left;top:14px;padding-left:9%;">
+							<img src="images/vote.png" width="30px" />
+							</div>
+							<div class="oa-contact-content mui-table-cell" style="text-align:center;width:70%;float:right;top:4px;padding-right:15%;">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name" >&nbsp;</h4></div>
+								<p class="oa-contact-name">个人知识图谱</p>
+							</div>
+	              </div>
+			</div>
+			</li>
+		   </a>
+	</ul>
+
+
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="js/mui.min.js"></script>
+
+
+<script>
+				var classid=UrlParm.parm("classid");
+				var userid = GetUseridCookie().get("userid");
+				document.getElementById('back').href="banji.html"
+				var usertype = GetUsertypeCookie().get("usertype");
+				if(usertype==2){
+					document.getElementById('back').href="t_banji.html";
+				}
+  (function($, doc) {
+   jQuery.noConflict();
+//				var classid=UrlParm.parm("classid");
+				var classnumber = document.getElementById("classnumber");
+				var createtime=document.getElementById("createtime");
+				var classname=document.getElementById("classname");
+				var classmember=document.getElementById("classmember");
+				var wenjian=document.getElementById("wenjian");
+				var vote = document.getElementById("vote");
+				vote.href='getclassvote.html?classid='+classid;
+			    var exitClass = document.getElementById('exit');
+				wenjian.href='new_wen.html?classid='+classid;
+				var recommend=document.getElementById("recommend");
+				recommend.href="recommend.html?classid="+classid;
+				document.getElementById('classid').innerHTML='班级号：'+classid;
+				exitClass.onclick = function(){
+					exitclass();
+				}
+//				document.getElementById('exit').href='exitbanji.html?classid='+classid;
+				//wenjian.href="wenjian.html?classid="+classid;
+				   mui.ajax('http://'+url+'/jizhibackend/servlet/GetClassInfoServlet',{
+						data:
+						{
+							classid:classid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							var create_timed=new Date(data.class.createtime);
+							createtime.innerHTML=create_timed.getFullYear()  + "-" + (create_timed.getMonth()+1)+"-"+create_timed.getDate() ;
+							classnumber.innerHTML=data.class.membernum+'人';
+							classname.innerHTML=data.class.name;
+						    document.getElementById('chengyuan').href='banjichengyuan.html?classid='+classid+'&owner='+data.class.owner;
+							
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+}(mui,document));
+				function exitclass(){
+					if(confirm("确定要退出该班级吗？")){
+				 		mui.ajax('http://'+url+'/jizhibackend/servlet/QuitClass',{
+						data:
+						{
+							userid:userid,
+							classid:classid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==102){
+								alert("您是该班创建者，无法退出班级！");
+							}else if(data.errcode==0){
+								mui.toast("退出班级成功！")
+								setTimeout("back.click();",1000);
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+			}
+		}
+</script>
+   </body>
+</html>

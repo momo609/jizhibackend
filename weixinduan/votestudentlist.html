@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>投票人员列表</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+	<style>
+						body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+#div2{
+	width:80px;
+	height: 30px;
+	border-radius: 90px;
+	background-color: #EEA236;
+	color:#FFFFFF;
+	align:center;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" id="back" ></a>
+			<h1 class="mui-title">投票人员列表</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tiku.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="banji.html">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="user.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+</nav>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" id="out">
+				
+		    </ul>
+		</div>
+		
+	</body>
+<script>
+mui('body').on('tap','a',function(){document.location.href=this.href;});
+
+				 var data1;
+			(function($,doc){
+				 jQuery.noConflict();
+				 var classid=UrlParm.parm("classid");
+				 var back=document.getElementById("back");
+				 var out=document.getElementById("out");
+				 back.href='getclassvote.html?classid='+classid;
+				 var studentid=UrlParm.parm("studentid");
+				 var studentname=UrlParm.parm("studentname");
+				 var studentidlist=studentid.split('@');
+				 var studentnamelist=studentname.split('@');
+				 var votetestid=UrlParm.parm("votetestid");
+				 var userid = GetUseridCookie().get("userid");
+				 var li=[];
+				 var a=[];
+				 var i;
+				 
+				 mui.ajax('http://'+url+'/jizhibackend/servlet/EnterVoteTest',{
+						data:
+						{
+							userid:userid,
+							votetestid: votetestid ,
+							classid:classid,
+							studentid:studentid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						async:false,
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							//alert(JSON.stringify(data));
+							list(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+					function list(data){
+//							var studentname=UrlParm.parm("studentname");
+				            var studentnamelist=data.votetest[0].studentname.split(',');
+				            var studentids = data.studentid.split(",");
+				            var d = new Date();
+				            d.setTime(d.getTime()+60*300000);//过期时间300分钟
+    	                    document.cookie = "useranswer= ; expires="+d.toGMTString();
+						 for(i=0;i<data.done.length;i++)
+		                 {
+                             
+                             if(studentids[i]!=userid)
+							{
+								var li = document.createElement('li');
+							    var a=document.createElement('a');
+
+							    if(data.done[i]==1)
+							   {
+								a.href='vote_pro.html?useranswer=null@@null@@null@@null@@null'+'&testtime='+data.votetest[0].end_time+'&studentid='+studentids[i]+'&votetestid='+votetestid+'&classid='+classid;
+							    }
+							li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+				            li.innerHTML='<div class="mui-slider-cell">'+
+	                        '<div class="oa-contact-cell mui-table" style="padding:10px">'+
+							'<div class="oa-contact-avatar mui-table-cell">'+
+							'<img src="images/userhead.png" width="60px" />'+
+							'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+								'<p class="oa-contact-name">'+studentnamelist[i]+
+								'</p></div><div class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix">'+
+								'<h4 class="oa-contact-name" >&nbsp;</h4></div></div></div></div>';
+					       a.appendChild(li)
+					       out.appendChild(a);
+					      //alert(a.href);
+					     }
+					}
+				  }
+                 
+			}(mui.document));
+		</script>
+</html>

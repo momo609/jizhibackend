@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>创建试题</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+	<script type="text/javascript" src="js/jquery-clock-timepicker.min.js"></script>
+	<script type="text/javascript" src="css/bootstrap-clockpicker.css"></script>
+<script type="text/javascript" src="js/bootstrap-clockpicker.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bootstrap-clockpicker.min.css"/>
+<script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery-clockpicker.css"/>
+<script type="text/javascript" src="js/jquery-clockpicker.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery-clockpicker.min.css"/>
+<!--<script type="text/javascript" src="jquery-clockpicker.min.js"></script>-->
+        <style>
+        	input{
+        		width:100%;
+        	}
+        	.time 
+        	{ 
+        		display:inline-block; 
+        	    font-size:26px;
+        	    padding:5px; 
+        	    text-align:center; 
+        	    width:110%; 
+        	 }
+        	.choice{
+				font-size: 15px;
+			}
+			.check{
+				vertical-align:middle;
+			}
+        </style>
+        <script >
+        var data1;//班级列表数据
+        var data2;//试卷列表数据
+	    var userid = GetUseridCookie().get("userid");
+//	    if(userid==undefined){
+//			alert("登录过期，请重新登录！");
+//			javascript:window.location.href="login.html"
+//		}
+	    var paperid;
+		function fp_ready(){
+		Flatpickr.l10n.firstDayOfWeek = 1;
+	
+		document.getElementById("flatpickr-tryme").flatpickr();
+	   }
+//		function selectpaper(){
+//			paper=[];
+//			var str='';
+//			  mui.ajax('http://'+url+'/jizhibackend/servlet/GetPaperServlet',{
+//							data:
+//							{
+//								userid:userid,
+//							},
+//							xhrFields: {
+//	
+//								withCredentials: true
+//	
+//							},
+//							crossDomain: true,
+//							dataType: 'json', //服务器返回json格式数据
+//							type: 'post', //HTTP请求类型
+//							timeout: 10000, //超时时间设置为10秒；
+//							headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+//							success: function(data) {
+//								data1=data.papers;
+//								jQuery.each(data1,function(index,item){
+//									document.getElementById('testid').options.add(new Option(item.title,item.id)); 
+//								});
+//							},
+//							error: function(xhr, type, errorThrown) {
+//								console.log(errorThrown);
+//							}
+//					});
+//		}
+		window.onload = function(){
+						  mui.ajax('http://'+url+'/jizhibackend/servlet/GetStudentClassServlet',{
+							data:
+							{
+								userid:userid,
+							},
+							xhrFields: {
+	
+								withCredentials: true
+	
+							},
+							crossDomain: true,
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+							success: function(data) {
+								data1=data.classes;
+//								alert(data1.length);
+							jQuery.each(data1,function(index,item){
+									document.getElementById('class').options.add(new Option(item.name,item.id)); 
+								});
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log(errorThrown);
+							}
+					});
+					
+					
+						mui.ajax('http://'+url+'/jizhibackend/servlet/GetPaperServlet',{
+							data:
+							{
+								userid:userid,
+							},
+							xhrFields: {
+	
+								withCredentials: true
+	
+							},
+							crossDomain: true,
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+							success: function(data) {
+								data2=data.papers;
+								jQuery.each(data2,function(index,item){
+									document.getElementById('testid').options.add(new Option(item.title,item.id)); 
+								});
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log(errorThrown);
+							}
+					});
+					
+					
+		}
+//		function selectclass(){
+//				jQuery.each(data1,function(index,item){
+//									document.getElementById('class').options.add(new Option(item.name,item.id)); 
+//								});
+//		}
+	</script>
+	<script async src="js/flatpickr.js" onload="fp_ready()"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class=" mui-icon mui-icon-left-nav mui-pull-left" href="t_test.html"></a>
+			<h1 class="mui-title">创建测试</h1>
+		</header>
+		<div class="mui-content">
+		    <form>
+		    <p></p>
+			<p><strong>&nbsp;选择日期</strong></p>
+			<p>
+				<input id="flatpickr-tryme" >
+			</p>
+			<p></p>
+			<p><strong>&nbsp;开始时间</strong></p>
+			<p>
+				<!--<input class="time" type="text" id="starttime"  value="00:00" onchange="console.log('Time changed')" />-->
+				<div class="input-group clockpicker">
+                   <input type="text" class="form-control" id="starttime" value="00:00">
+                   <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                   </span>
+               </div>
+			</p>
+			<p></p>
+			<p><strong>&nbsp;结束时间</strong></p>
+			<p>
+				<!--<input class="time" type="text" id="endtime" value="00:00" onchange="console.log('Time changed')" />-->
+				<div class="input-group clockpicker">
+                   <input type="text" class="form-control"  id="endtime" value="00:00">
+                   <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                   </span>
+               </div>
+			</p>
+			<p></p>
+			<p><strong>&nbsp;测试班级</strong></p>
+			<p>
+				<select id="class">
+					<option></option>
+				</select>
+			</p>
+			<p></p>
+			<p><strong>&nbsp;测试题目</strong></p>
+			<p>
+				<select id="testid">
+					<option></option>
+			    </select>
+			</p>
+			<p></p>
+			<p><strong>&nbsp;标题</strong></p>
+			<p>
+				<input id="title" >
+			</p>
+		
+		<!--<div class="choice">
+			<label class="label" for="remembercheck">
+ 		  		允许测试未结束时查看答题解析<input class="check" type="checkbox" name="frm_checkbox" >
+ 		  	 </label>
+ 		</div>-->
+ 		</form>
+		</div>
+ 		<div class="mui-content-padded">
+				<div class="login_btn">
+				  <button id='reg' class="mui-btn mui-btn-block mui-btn-primary">完成</button>
+				</div>
+			</div>
+		
+	</body>
+	<script src="js/mui.min.js"></script>
+    <script src="js/app.js"></script>
+	<script type="text/javascript" src="js/jquery-clock-timepicker.min.js"></script>
+	<script type="text/javascript">
+//		$(document).ready(function() {
+//			$('.time').clockTimePicker({});
+//		});
+     $(document).ready(function() {
+       $('.clockpicker').clockpicker();
+       });
+            	(function($,doc){
+            		var day = document.getElementById("flatpickr-tryme");
+				    var starttime = document.getElementById("starttime");
+				    var endtime=document.getElementById("endtime");
+				    if(starttime>=endtime)
+				    var classid = document.getElementById('class');
+				    var testid=document.getElementById("testid");
+				    var title=document.getElementById("title");
+				    var btnlogin=document.getElementById("reg");
+            		btnlogin.onclick = function() {
+            			
+            		var start_time=day.value+' '+starttime.value+':00';
+				    var end_time=day.value+' '+endtime.value+':00';
+				    start_time = start_time.replace(new RegExp("-","gm"),"/");
+                    var start_timeH = (new Date(start_time)).getTime(); //得到毫秒数
+                    end_time = end_time.replace(new RegExp("-","gm"),"/");
+                    var end_timeH = (new Date(end_time)).getTime(); //得到毫秒数
+                    if(start_timeH>=end_timeH){
+                    	alert("结束时间必须晚于开始时间！");
+                    	return;
+                    }
+				    mui.ajax('http://'+url+'/jizhibackend/servlet/CreateTestServlet',{
+						data:
+						{
+							title:title.value,
+						    start_time:start_timeH,
+						    end_time:end_timeH,
+						    paperid:testid.value,
+						    privilege:1,
+						    classes:classid.value,
+						    userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							mui.toast("创建测试成功！");
+							javascript:window.location.href="t_test.html"
+							
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+							console.log(type);
+							console.log(xhr);
+						}
+					});
+				}
+					}
+            )(mui.document);
+           
+	</script>
+</html>

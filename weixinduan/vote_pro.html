@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>投票</title>
+	<link rel="stylesheet" type="text/css" href="css/prostyle.css" />
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="css/mui.min.css">
+	<script src="js/mui.min.js"></script>
+    <script src="js/tool.js"></script>
+	<style >
+					body{
+						width: 100%;
+						height:100%;
+				background-color: #F3F3F3;
+			}
+			.header{
+	 background-color:#29c4b5;
+	 
+	padding-bottom: 5px;
+	 }
+.topper
+{
+	 font-size: 20px;
+	 margin:0;
+	 padding-top: 1px;
+	 padding-bottom: 4px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+#stem{
+marker: 30%;
+}
+button{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+}
+.orl{
+	background-color: white;
+	color:#5E5E5E;
+}
+.active{
+	background-color: #29C4B5;
+	color:#FFFFFF;
+}
+.done{
+	background-color: #33CC99;
+	color:#FFFFFF;
+}
+#choicess{
+	margin-bottom: 10%;
+}
+
+#choice{
+	width:600;
+	height:70 ;
+	border:0;
+}
+#finish{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#finish:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#pre{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+	border:1px solid #1D7DB1;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#pre:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#next{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	border:1px solid #1D7DB1;
+	color:#1D7DB1;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+#next:hover
+{
+	margin-left: 15%;
+	border:#5E5E5E solid 1px;
+	color:#F0F0F0;
+	font-size:15px;
+	font-weight:bolder;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    border:1px solid #1D7DB1;
+    border-radius: 5px;
+    background: #1D7DB1;
+    text-align: center;
+    line-height: 27px;
+    text-decoration: none;
+}
+.oa-contact-cell{
+	margin-top: 2%;
+	margin-bottom: 3%;
+}
+/*.nav-next{
+	width: 200px;
+	height: 50px;
+	margin-top: 5%;
+	border-radius: 25px;
+	background-color: #66AFE9;
+	border:#5E5E5E solid 1px;
+	color:#FFFFFF;
+	font-size:10px;
+	font-weight:bolder;
+}
+.nav-previous{
+	width: 200px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #66AFE9;
+	border:#5E5E5E solid 1px;
+	color:#FFFFFF;
+	font-size:10px;
+	font-weight:bolder;
+}*/
+.in{
+	width: 200px;
+	height: 100px;
+}
+#list
+{
+	margin-left:2% ;
+	margin-bottom:3%;
+}
+</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title" id="time">剩余时间</h1>
+			<a class="mui-icon mui-icon-star mui-pull-right" name="nomark" id="mark" onclick="marks()"></a>
+    </header>
+<!--<div class="header">
+    <div class="topper"> 
+			<a href="test_in.html"><img src="images/left_arrow.png" align="left" width="10%" height="10%" ></a> 
+			<i id="time">剩余时间</i>
+			<img id="mark" class="orgin" src="images/abc_btn_rating_star_off_mtrl_alpha.png" align="right" width="10%" height="10%"/></span>
+		</div>
+</div>-->
+<div class="mui-content">
+	<canvas id="choice" style="border:0;width:100%;height: 100%;"></canvas>
+	
+	<div id="content">
+		
+		<!--<div id="choices">
+			<button id="a">A</button><span>&nbsp;<i id="ca">ssss</i></span>
+		</div>
+		<div id="choices">
+			<button id="b">B</button><span>&nbsp;<i id="cb">ssss</i></span>
+		</div>
+		<div id="choices">
+			<button id="c">C</button><span>&nbsp;<i id="cc">ssss</i></span>
+		</div>
+		<div id="choices">
+			<button id="d">D</button><span>&nbsp;<i id="cd">ssss</i></span>
+		</div>-->
+	</div>
+	<div>
+		<p>&nbsp;</p>
+	</div>
+	 <div class="oa-contact-cell mui-table">
+	<div class="oa-contact-avatar mui-table-cell" style="vertical-align: middle; margin-top:3%;;" id="pree">
+		<a class="nav-show-result" id="pre">&nbsp;上一题&nbsp;</a>
+	</div>
+	<div class="oa-contact-content mui-table-cell" style="margin-top:3%;"id="nextt">
+		<a class="nav-show-result" id="next">&nbsp;下一题&nbsp;</a>
+	</div>
+	<div class="oa-contact-content mui-table-cell"  id="final">
+		<a class="nav-show-result " id="finish" >&nbsp;交&nbsp&nbsp&nbsp;卷&nbsp;</a>
+	</div>
+	</div>
+	<div id="list">
+		
+	</div>
+</div>
+<script>
+	jQuery.noConflict();
+	jQuery("#choice").attr("width", jQuery(window).get(0).innerWidth);  
+    jQuery("#choice").attr("height", 70);  
+	var systemtime = new Date().getTime();
+	var testtimes=UrlParm.parm("testtime")-(new Date().getTime());
+	var time=document.getElementById("time");
+	var h= parseInt((testtimes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var s = parseInt((testtimes % (1000 * 60))/1000);
+	var m = parseInt((testtimes % (1000 * 60 * 60)) / (1000 * 60));
+	function showtime(){
+//		document.getElementById('m').innerHTML = m;
+//		document.getElementById('s').innerHTML = s;
+        if(s<10)
+        {
+        	time.innerHTML = '剩余时间:  '+h+':'+m+':0'+s;
+        }
+        if(m<10)
+        {
+        	time.innerHTML = '剩余时间:  '+h+':0'+m+':'+s;
+        }
+        else{
+		time.innerHTML = '剩余时间:  '+h+':'+m+':'+s;
+		}
+		s = s-1;
+		if(s<=-1){
+			m = m -1;
+			s = 59
+		}
+//		if(m==0){
+//			window.location='http://www.ewceo.com';//倒计时结束跳转到 www.ewceo.com
+//		}
+	}
+	clearInterval(settime); 
+	var settime = setInterval(function(){
+		showtime();
+	},1000);
+	
+	var c=document.getElementById('choice'); 
+	var userid = GetUseridCookie().get("userid");
+
+    //ctx.strokeText('1/1',gWinWidth-40,47);
+				var s_time;
+				var d;
+				var testtime=UrlParm.parm("testtime");
+				var content = document.getElementById("content");
+				var stem1=document.getElementById("stem1");
+				//var q_order=UrlParm.parm("porder");
+				var finish=document.getElementById("finish");
+				var pre=document.getElementById("pre");
+				var next=document.getElementById("next");
+				//alert(getCookie('useranswer')=='');
+				if(getCookie('useranswer')=='')
+				{
+					useranswer=UrlParm.parm("useranswer");
+				}
+				else
+				{
+					useranswer=getCookie('useranswer');
+				}
+				//useranswer=UrlParm.parm("useranswer");
+				var answer=[];
+				//var data1=data2;
+				var order;
+				for(var i=0;i<5;i++)
+				{
+					answer[i]='null';
+				}
+               
+              function save(i,q_order){
+		    	        var flag=0;
+            	        name='choices'+q_order;
+            	        p_answer=useranswer.split('@@');
+            	        useranswer='';
+            	    	var btns=document.getElementsByName(name);
+            	    	//alert(q_order);
+            	    	p_answer[q_order-1]='';
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+//                      	alert(btns[o].className);
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                                p_answer[q_order-1]=btns[o].innerHTML;
+                                flag=1;
+                            }
+                            
+                        }
+                        if(flag==0)
+                        {
+                        	p_answer[q_order-1]='null';
+                        }
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	//alert("p"+p_answer[j]);
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        
+                        }
+                        for(j=0;j<p_answer.length-1;j++)
+                        {
+                        	
+                        	useranswer=useranswer+answer[j]+'@@';
+                        }
+                        useranswer=useranswer+answer[p_answer.length-1];
+                       // alert(useranswer);
+                        updateCookie("useranswer",useranswer);
+                     
+                        //javascript:window.location.href='pro2.html?testid='+testid+'&porder='+i+'&answer='+useranswer+'&bookmark='+bookmark+'&timeuse='+timeuse+'&testtime='+testtime;
+		                gettest1(i,d);   
+        }      
+        gettest1(1);
+		function gettest1(q_order){
+				d=new Date().getTime();
+				 s_time=d;
+				      next.style.display=""; 
+				        order=q_order;
+				        content.innerHTML='';
+				        var list=document.getElementById('list')
+				        list.innerHTML='';
+						var div=new Array();
+						var str='';
+						answers=[];
+                        answers=useranswer.split("@@");
+						for(var j=0;j<5;j++)
+						{
+							i=j+1;
+							if(answers[j]==''||answers[j]=='undefined'||answers[j]=='null')
+						     {
+						     	str=str+'<button id="list" class="orl" onclick=save("'+i+'","'+q_order+'","'+d+'")>'+i+'</button>';
+						     }
+						     else
+						     {
+						     	str=str+'<button id="list" class="done" onclick=save("'+i+'","'+q_order+'","'+d+'")>'+i+'</button>'
+						     }
+						 }
+						list.innerHTML='<p>题目列表</p>'+str;
+						if(q_order==5)
+						{
+							next.style.display="none"; 
+						}
+						type=[];
+						for( var i=0;i<5;i++)
+						{
+							div[i] = document.createElement('div');
+                 		    div[i].style.display="none";
+                 		    div[i].className="slid";
+                 		    if(i==q_order-1)
+                 		    {
+                 		    	div[i].style.display="";
+                 		    }
+                 		    
+                    };
+						var stem=['精神面貌','报告内容','PPT制作','演讲技巧','Wow分'];
+                    for(i=0;i<4;i++)
+                 		{
+                 			(function(arg_1){
+                 			var j=i+1;
+                 			var name='choices'+j;
+                 			var Am='a'+j;
+                 		    var Bm='b'+j;
+                 		    var Cm='c'+j;
+                 		    var Dm='d'+j;
+                 		    var Em='e'+j;
+                        	var div0=document.createElement('div');
+                 		    div.id="stem";
+                 		    var p=document.createElement('p');
+                 		    p.id="stem1";
+                 		    p.innerHTML=stem[i];
+                        	div0.appendChild(p);                	
+                 	        div[i].appendChild(div0);
+                        	content.appendChild(div[i]);
+                        	var div1 = document.createElement('div');
+                 	        div1.id='choicess';
+                 	       div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Am+' class="orl" >A</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '优秀'+'</div';
+                 	        var div2 = document.createElement('div');
+                 	        div2.id='choicess';
+                 	        div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Bm+' class="orl" >B</button></div><div id="cb" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         '良好'+'</div>';
+                 	        var div3 = document.createElement('div');
+                 	        div3.id='choicess';
+                 	         div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Cm+' class="orl" >C</button></div><div id="cc" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         '一般'+'</div>';
+                 	        var div4 = document.createElement('div');
+                 	        div4.id='choicess';
+                 	         div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Dm+' class="orl" >D</button></div><div id="cd" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '不太好'+'</div>';
+                 	        var div5 = document.createElement('div');
+                 	        div5.id='choicess';
+                 	         div5.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Em+' class="orl" >E</button></div><div id="ce" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '非常太好'+'</div>';
+                 	        div[i].appendChild(div1);
+                 	        div[i].appendChild(div2);
+                 	        div[i].appendChild(div3);
+                 	        div[i].appendChild(div4);
+                 	        div[i].appendChild(div5);
+                 	      	var a_s = document.getElementById(Am);
+                            var b_s = document.getElementById(Bm);
+                            var c_s = document.getElementById(Cm);
+                            var d_s = document.getElementById(Dm);
+                            var e_s = document.getElementById(Em);
+                            a_s.onclick=function(){//添加点击事件
+                                if(a_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    a_s.className = 'orl';//清空class。
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                    a_s.style.color="#5E5E5E";
+                                   
+                                    
+                                }
+                                else if(a_s.className.indexOf('orl')>=0){
+                                    a_s.className = 'active';//否则选中它，给它添加active样式 
+                                    a_s.style.backgroundColor="#29C4B5";
+                                    a_s.style.color="#FFFFFF";
+                                    b_s.className ='orl';//清空class。\
+                                   b_s.style.backgroundColor="#FFFFFF";
+                                   b_s.style.color="#5E5E5E";
+                                   c_s.className ='orl';//清空class。\
+                                   c_s.style.backgroundColor="#FFFFFF";
+                                   c_s.style.color="#5E5E5E";
+                                   d_s.className ='orl';//清空class。\
+                                   d_s.style.backgroundColor="#FFFFFF";
+                                   d_s.style.color="#5E5E5E";
+                                   e_s.className='orl';
+                                    e_s.style.backgroundColor="#FFFFFF";
+                                    e_s.style.color="#5E5E5E";
+                                }
+                            }
+     
+                            b_s.onclick=function(){//添加点击事件
+                                if(b_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    b_s.className='orl';
+                                    b_s.style.backgroundColor="#FFFFFF";
+                                    b_s.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(b_s.className.indexOf('orl')>=0){
+                                    b_s.className = 'active';//否则选中它，给它添加active样式
+                                    b_s.style.backgroundColor="#29C4B5";
+                                    b_s.style.color="#FFFFFF";
+                                   a_s.className ='orl';//清空class。\
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                   a_s.style.color="#5E5E5E";
+                                   c_s.className ='orl';//清空class。\
+                                   c_s.style.backgroundColor="#FFFFFF";
+                                   c_s.style.color="#5E5E5E";
+                                   d_s.className ='orl';//清空class。\
+                                   d_s.style.backgroundColor="#FFFFFF";
+                                   d_s.style.color="#5E5E5E";
+                                   e_s.className='orl';
+                                    e_s.style.backgroundColor="#FFFFFF";
+                                    e_s.style.color="#5E5E5E";
+                                }
+                            }
+          
+                            c_s.onclick=function(){//添加点击事件
+                                if(c_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    c_s.className='orl';
+                                    c_s.style.backgroundColor="#FFFFFF";
+                                    c_s.style.color="#5E5E5E";
+                                }
+                                else if(c_s.className.indexOf('orl')>=0){
+                                    c_s.className = 'active';//否则选中它，给它添加active样式
+                                    c_s.style.backgroundColor="#29C4B5";
+                                    c_s.style.color="#FFFFFF";
+                                    a_s.className ='orl';//清空class。\
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                   a_s.style.color="#5E5E5E";
+                                   b_s.className ='orl';//清空class。\
+                                   b_s.style.backgroundColor="#FFFFFF";
+                                   b_s.style.color="#5E5E5E";
+                                   d_s.className ='orl';//清空class。\
+                                   d_s.style.backgroundColor="#FFFFFF";
+                                   d_s.style.color="#5E5E5E";
+                                   e_s.className='orl';
+                                    e_s.style.backgroundColor="#FFFFFF";
+                                    e_s.style.color="#5E5E5E";
+                                }
+                            }
+    
+                            d_s.onclick=function(){//添加点击事件
+                                if(d_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    d_s.className='orl';
+                                    d_s.style.backgroundColor="#FFFFFF";
+                                    d_s.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(d_s.className.indexOf('orl')>=0){
+                                    d_s.className = 'active';//否则选中它，给它添加active样式
+                                    d_s.style.backgroundColor="#29C4B5";
+                                    d_s.style.color="#FFFFFF";
+                                    a_s.className ='orl';//清空class。\
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                   a_s.style.color="#5E5E5E";
+                                   c_s.className ='orl';//清空class。\
+                                   c_s.style.backgroundColor="#FFFFFF";
+                                   c_s.style.color="#5E5E5E";
+                                   b_s.className ='orl';//清空class。\
+                                   b_s.style.backgroundColor="#FFFFFF";
+                                   b_s.style.color="#5E5E5E";
+                                   e_s.className='orl';
+                                    e_s.style.backgroundColor="#FFFFFF";
+                                    e_s.style.color="#5E5E5E";
+                                }
+                            }
+                             e_s.onclick=function(){//添加点击事件
+                                if(e_s.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    e_s.className='orl';
+                                    e_s.style.backgroundColor="#FFFFFF";
+                                    e_s.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(e_s.className.indexOf('orl')>=0){
+                                    e_s.className = 'active';//否则选中它，给它添加active样式
+                                    e_s.style.backgroundColor="#29C4B5";
+                                    e_s.style.color="#FFFFFF";
+                                    a_s.className ='orl';//清空class。\
+                                   a_s.style.backgroundColor="#FFFFFF";
+                                   a_s.style.color="#5E5E5E";
+                                   c_s.className ='orl';//清空class。\
+                                   c_s.style.backgroundColor="#FFFFFF";
+                                   c_s.style.color="#5E5E5E";
+                                   b_s.className ='orl';//清空class。\
+                                   b_s.style.backgroundColor="#FFFFFF";
+                                   b_s.style.color="#5E5E5E";
+                                    d_s.className='orl';
+                                    d_s.style.backgroundColor="#FFFFFF";
+                                    d_s.style.color="#5E5E5E";
+                                }
+                            }
+                          })(j);
+                         }
+                            var name='choices5';
+                 			var Af='a5';
+                 		    var Bf='b5';
+                 		    var Cf='c5';
+                 		    var Df='d5';
+                 		    var Ef='e5';
+                 		    var Ff='f5';
+                        	var div0=document.createElement('div');
+                 		    div.id="stem";
+                 		    var p=document.createElement('p');
+                 		    p.id="stem1";
+                 		    p.innerHTML=stem[4];
+                        	div0.appendChild(p);                	
+                 	        div[4].appendChild(div0);
+                        	content.appendChild(div[4]);
+                        	var div1 = document.createElement('div');
+                 	        div1.id='choicess';
+                 	       div1.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Af+' class="orl" >1</button></div><div id="ca" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '0分'+'</div';
+                 	        var div2 = document.createElement('div');
+                 	        div2.id='choicess';
+                 	        div2.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Bf+' class="orl" >2</button></div><div id="cb" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         '1分'+'</div>';
+                 	        var div3 = document.createElement('div');
+                 	        div3.id='choicess';
+                 	         div3.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Cf+' class="orl" >3</button></div><div id="cc" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                         '2分'+'</div>';
+                 	        var div4 = document.createElement('div');
+                 	        div4.id='choicess';
+                 	         div4.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Df+' class="orl" >4</button></div><div id="cd" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '3分'+'</div>';
+                 	        var div5 = document.createElement('div');
+                 	        div5.id='choicess';
+                 	         div5.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Ef+' class="orl" >5</button></div><div id="ce" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '4分'+'</div>';
+                 	        var div6 = document.createElement('div');
+                 	        div6.id='choicess';
+                 	         div6.innerHTML='<div style="width: 20%; height: 60px;padding: 10px;float: left;"><button name='+name+' id='+Ff+' class="orl" >6</button></div><div id="cf" style="height:60px; width: 80%; float: left; padding: 20px;">'+
+                 	                        '5分'+'</div>';
+                 	        div[4].appendChild(div1);
+                 	        div[4].appendChild(div2);
+                 	        div[4].appendChild(div3);
+                 	        div[4].appendChild(div4);
+                 	        div[4].appendChild(div5);
+                 	        div[4].appendChild(div6);
+                 	      	var a_f = document.getElementById(Af);
+                            var b_f = document.getElementById(Bf);
+                            var c_f = document.getElementById(Cf);
+                            var d_f = document.getElementById(Df);
+                            var e_f = document.getElementById(Ef);
+                            var f_f = document.getElementById(Ff);
+                            a_f.onclick=function(){//添加点击事件
+//                          	alert('单选'+a_s.className);
+                                if(a_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    a_f.className = 'orl';//清空class。
+                                    a_f.style.backgroundColor="#FFFFFF";
+                                    a_f.style.color="#5E5E5E";
+                                   
+                                    
+                                }
+                                else if(a_f.className.indexOf('orl')>=0){
+                                    a_f.className = 'active';//否则选中它，给它添加active样式 
+                                    a_f.style.backgroundColor="#29C4B5";
+                                    a_f.style.color="#FFFFFF";
+                                    b_f.className ='orl';//清空class。\
+                                   b_f.style.backgroundColor="#FFFFFF";
+                                   b_f.style.color="#5E5E5E";
+                                   c_f.className ='orl';//清空class。\
+                                   c_f.style.backgroundColor="#FFFFFF";
+                                   c_f.style.color="#5E5E5E";
+                                   d_f.className ='orl';//清空class。\
+                                   d_f.style.backgroundColor="#FFFFFF";
+                                   d_f.style.color="#5E5E5E";
+                                   e_f.className='orl';
+                                    e_f.style.backgroundColor="#FFFFFF";
+                                    e_f.style.color="#5E5E5E";
+                                     f_f.className='orl';
+                                    f_f.style.backgroundColor="#FFFFFF";
+                                    f_f.style.color="#5E5E5E";
+                                }
+                            }
+     
+                            b_f.onclick=function(){//添加点击事件
+                                if(b_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    b_f.className='orl';
+                                    b_f.style.backgroundColor="#FFFFFF";
+                                    b_f.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(b_f.className.indexOf('orl')>=0){
+                                    b_f.className = 'active';//否则选中它，给它添加active样式 
+                                    b_f.style.backgroundColor="#29C4B5";
+                                    b_f.style.color="#FFFFFF";
+                                   a_f.className ='orl';//清空class。\
+                                   a_f.style.backgroundColor="#FFFFFF";
+                                   a_f.style.color="#5E5E5E";
+                                   c_f.className ='orl';//清空class。\
+                                   c_f.style.backgroundColor="#FFFFFF";
+                                   c_f.style.color="#5E5E5E";
+                                   d_f.className ='orl';//清空class。\
+                                   d_f.style.backgroundColor="#FFFFFF";
+                                   d_f.style.color="#5E5E5E";
+                                   e_f.className='orl';
+                                    e_f.style.backgroundColor="#FFFFFF";
+                                    e_f.style.color="#5E5E5E";
+                                     f_f.className='orl';
+                                    f_f.style.backgroundColor="#FFFFFF";
+                                    f_f.style.color="#5E5E5E";
+                                }
+                            }
+          
+                            c_f.onclick=function(){//添加点击事件
+                                if(c_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    c_f.className='orl';
+                                    c_f.style.backgroundColor="#FFFFFF";
+                                    c_f.style.color="#5E5E5E";
+                                }
+                                else if(c_f.className.indexOf('orl')>=0){
+                                    c_f.className = 'active';//否则选中它，给它添加active样式 
+                                    c_f.style.backgroundColor="#29C4B5";
+                                    c_f.style.color="#FFFFFF";
+                                    b_f.className ='orl';//清空class。\
+                                   b_f.style.backgroundColor="#FFFFFF";
+                                   b_f.style.color="#5E5E5E";
+                                   a_f.className ='orl';//清空class。\
+                                   a_f.style.backgroundColor="#FFFFFF";
+                                   a_f.style.color="#5E5E5E";
+                                   d_f.className ='orl';//清空class。\
+                                   d_f.style.backgroundColor="#FFFFFF";
+                                   d_f.style.color="#5E5E5E";
+                                   e_f.className='orl';
+                                    e_f.style.backgroundColor="#FFFFFF";
+                                    e_f.style.color="#5E5E5E";
+                                     f_f.className='orl';
+                                    f_f.style.backgroundColor="#FFFFFF";
+                                    f_f.style.color="#5E5E5E";
+                                }
+                            }
+    
+                            d_f.onclick=function(){//添加点击事件
+                                if(d_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    d_f.className ='orl';//清空class。\
+                                   d_f.style.backgroundColor="#FFFFFF";
+                                   d_f.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(d_f.className.indexOf('orl')>=0){
+                                    d_f.className = 'active';//否则选中它，给它添加active样式
+                                    d_f.style.backgroundColor="#29C4B5";
+                                    d_f.style.color="#FFFFFF";
+                                   b_f.className ='orl';//清空class。\
+                                   b_f.style.backgroundColor="#FFFFFF";
+                                   b_f.style.color="#5E5E5E";
+                                   a_f.className ='orl';//清空class。\
+                                   a_f.style.backgroundColor="#FFFFFF";
+                                   a_f.style.color="#5E5E5E";
+                                   c_f.className ='orl';//清空class。\
+                                   c_f.style.backgroundColor="#FFFFFF";
+                                   c_f.style.color="#5E5E5E";
+                                   e_f.className='orl';
+                                    e_f.style.backgroundColor="#FFFFFF";
+                                    e_f.style.color="#5E5E5E";
+                                     f_f.className='orl';
+                                    f_f.style.backgroundColor="#FFFFFF";
+                                    f_f.style.color="#5E5E5E";
+                                }
+                            }
+                             e_f.onclick=function(){//添加点击事件
+                                if(e_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    e_f.className='orl';
+                                    e_f.style.backgroundColor="#FFFFFF";
+                                    e_f.style.color="#5E5E5E";
+                                    
+                                    
+                                }
+                                else if(e_f.className.indexOf('orl')>=0){
+                                    e_f.className = 'active';//否则选中它，给它添加active样式
+                                    e_f.style.backgroundColor="#29C4B5";
+                                    e_f.style.color="#FFFFFF";
+                                    a_f.className ='orl';//清空class。\
+                                   a_f.style.backgroundColor="#FFFFFF";
+                                   a_f.style.color="#5E5E5E";
+                                   c_f.className ='orl';//清空class。\
+                                   c_f.style.backgroundColor="#FFFFFF";
+                                   c_f.style.color="#5E5E5E";
+                                   b_f.className ='orl';//清空class。\
+                                   b_f.style.backgroundColor="#FFFFFF";
+                                   b_f.style.color="#5E5E5E";
+                                    d_f.className='orl';
+                                    d_f.style.backgroundColor="#FFFFFF";
+                                    d_f.style.color="#5E5E5E";
+                                    f_f.className='orl';
+                                    f_f.style.backgroundColor="#FFFFFF";
+                                    f_f.style.color="#5E5E5E";
+                                }
+                            }
+                              f_f.onclick=function(){//添加点击事件
+                                if(f_f.className.indexOf('active')>=0){ //说明已经是选中状态
+                                    f_f.className='orl';
+                                    f_f.style.backgroundColor="#FFFFFF";
+                                    f_f.style.color="#5E5E5E";
+                                    
+                                }
+                                else if(f_f.className.indexOf('orl')>=0){
+                                    f_f.className = 'active';//否则选中它，给它添加active样式
+                                    f_f.style.backgroundColor="#29C4B5";
+                                    f_f.style.color="#FFFFFF";
+                                    a_f.className ='orl';//清空class。\
+                                   a_f.style.backgroundColor="#FFFFFF";
+                                   a_f.style.color="#5E5E5E";
+                                    c_f.className ='orl';//清空class。\
+                                   c_f.style.backgroundColor="#FFFFFF";
+                                   c_f.style.color="#5E5E5E";
+                                   b_f.className ='orl';//清空class。\
+                                   b_f.style.backgroundColor="#FFFFFF";
+                                   b_f.style.color="#5E5E5E";
+                                    d_f.className='orl';
+                                    d_f.style.backgroundColor="#FFFFFF";
+                                    d_f.style.color="#5E5E5E";
+                                    e_f.className='orl';
+                                    e_f.style.backgroundColor="#FFFFFF";
+                                    e_f.style.color="#5E5E5E";
+                                }
+                            }
+                        	gWinWidth = jQuery(window).get(0).innerWidth;
+	                        var ctx=c.getContext("2d");
+	                        var cty=c.getContext("2d");
+	                        ctx.clearRect(0,0,c.width,c.height);
+	                        cty.clearRect(0,0,c.width,c.height);
+	                       cty.beginPath();
+                           cty.moveTo(0,20);
+                           cty.lineTo(0,70);
+                           cty.lineTo(50,70);
+                           cty.lineTo(70,45);
+                           cty.lineTo(50,20);  
+                           cty.closePath();
+                           cty.stroke();
+                           cty.fillStyle='#FF3300';
+                           cty.fill();
+                          ctx.beginPath();
+                          ctx.moveTo(50,20);
+                          ctx.lineTo(70,45);
+                          ctx.lineTo(50,70);
+                          ctx.lineTo(gWinWidth,70);
+                          ctx.lineTo(gWinWidth,20);
+                          ctx.closePath();
+                          ctx.stroke();
+                          ctx.fillStyle="white"
+                          ctx.fill();
+                          cty.font = '14px 黑体';
+                          ctx.strokeText(stem[q_order-1],gWinWidth-250,50);
+                          ctx.strokeText(q_order+'/'+5,gWinWidth-40,47);
+                          cty.strokeText("投票",10,50)
+                        	
+                        answers=useranswer.split("@@");
+                        name='choices'+q_order;
+                        var sss=answers[q_order-1];
+                        var h=7;
+                        	var cc=document.getElementsByName(name);
+                        	if(answers[q_order-1].indexOf('A')>=0||answers[q_order-1].indexOf('1')>=0)
+                        	{
+                        		h=0;
+                        	}
+                        	else if(answers[q_order-1].indexOf('B')>=0||answers[q_order-1].indexOf('2')>=0)
+                        	{
+                        		h=1;
+                        	}
+                        	else if(answers[q_order-1].indexOf('C')>=0||answers[q_order-1].indexOf('3')>=0)
+                        	{
+                        		h=2;
+                        	}
+                        	else if(answers[q_order-1].indexOf('D')>=0||answers[q_order-1].indexOf('4')>=0)
+                        	{
+                        		h=3;
+                        	}
+                        	else if(answers[q_order-1].indexOf('E')>=0||answers[q_order-1].indexOf('5')>=0)
+                        	{
+                        		h=4;
+                        	}
+                        	else if(answers[q_order-1].indexOf('F')>=0||answers[q_order-1].indexOf('6')>=0)
+                        	{
+                        		h=5;
+                        	}
+                        	else if(answers[q_order-1]==''||answers[q_order-1]=='undefined'||answers[q_order-1]=='null')
+                        	{
+                        		h=6;
+                        	}
+                        	if(h!=6)
+                           {
+                               cc[h].className = 'active';//否则选中它，给它添加active样式
+                               cc[h].style.backgroundColor="#29C4B5";
+                               cc[h].style.color="#FFFFFF";
+                           }
+                 
+				p_answer=[];
+            pre.onclick=function(){
+            	      var flag=0;
+            	        name='choices'+q_order;
+            	        p_answer=useranswer.split('@@');
+            	        useranswer='';
+            	    	var btns=document.getElementsByName(name);
+            	    	//alert(q_order);
+            	    	p_answer[order-1]='';
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+//                      	alert(btns[o].className);
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                                p_answer[order-1]=btns[o].innerHTML;
+                                flag=1;
+                            }
+                            
+                        }
+                        if(flag==0)
+                        {
+                        	p_answer[order-1]='null';
+                        }
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	//alert("p"+p_answer[j]);
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        
+                        }
+                        for(j=0;j<p_answer.length-1;j++)
+                        {
+                        	
+                        	useranswer=useranswer+answer[j]+'@@';
+                        }
+                        useranswer=useranswer+answer[p_answer.length-1];
+                       // alert(useranswer);
+                        updateCookie("useranswer",useranswer);
+                        var pre_q=parseInt(order)-1;
+                        //var hre='pro2.html?testid='+testid+'&porder='+next_q+'&answer='+useranswer;
+                        //var hree='pro2.html?testid='+testid+'&porder='+pre_q+'&answer='+useranswer+'&bookmark='+bookmark+'&timeuse='+timeuse+'&testtime='+testtime ;                		
+                        //pre.href=hree;
+                        if(pre_q>=1)
+                        {
+                        	gettest1(pre_q);
+                        }
+                        else{
+                        	mui.toast("已经是第一题。")
+                        }
+                        	
+                        
+            }
+            next.onclick=function(){
+            	         var flag=0;
+            	        name='choices'+order;
+            	        p_answer=useranswer.split('@@');
+            	        useranswer='';
+            	    	var btns=document.getElementsByName(name);
+            	    	//alert(q_order);
+            	    	p_answer[order-1]='';
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+//                      	alert(btns[o].className);
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                                p_answer[order-1]=btns[o].innerHTML;
+                                flag=1;
+                            }
+                            
+                        }
+                        if(flag==0)
+                        {
+                        	p_answer[order-1]='null';
+                        }
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	//alert("p"+p_answer[j]);
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        
+                        }
+                        for(j=0;j<p_answer.length-1;j++)
+                        {
+                        	
+                        	useranswer=useranswer+answer[j]+'@@';
+                        }
+                        useranswer=useranswer+answer[p_answer.length-1];
+                        //alert(useranswer);
+                        updateCookie("useranswer",useranswer);
+                        var next_q=parseInt(order)+1;
+                        if(flag==0)
+                        {
+                        	confirm('未选择');
+                        }
+                        else{
+                        	if(next_q<=5)
+                        {
+                        	gettest1(next_q);
+                        }
+                        else{
+                        	mui.toast("已经是最后一道。")
+                        }
+                        
+                        }
+            }
+            
+            finish.onclick= function(){
+            	    	  var flag=0;
+            	        name='choices'+order;
+            	        p_answer=useranswer.split('@@');
+            	        //alert(p_answer.length-1);
+            	        useranswer='';
+            	    	var btns=document.getElementsByName(name);
+            	    	//alert(q_order);
+            	    	p_answer[order-1]='';
+            	    	for(var o=0;o<btns.length;o++)
+                        {
+                            if(btns[o].className.indexOf('active')>=0)
+                            {
+                            	//alert(btns[o].innerHTML);
+                                p_answer[order-1]=btns[o].innerHTML;
+                                flag=1;
+                            }
+                            
+                        }
+                        if(flag==0)
+                        {
+                        	p_answer[order-1]='null';
+                        }
+                        for(var j=0;j<p_answer.length;j++)
+                        {
+                        	if(p_answer[j]!='null')
+                        	{
+                        		answer[j]=p_answer[j];
+                        	}
+                        }
+                        for(j=0;j<p_answer.length-1;j++)
+                        {
+                        	//alert(answer[p_answer.length-2]);
+                        	useranswer=useranswer+answer[j]+'@@';
+                        }
+                        var as=''+(parseInt(answer[p_answer.length-1])-1);
+                        useranswer=useranswer+as;
+                        //alert(useranswer);
+                        updateCookie("useranswer",useranswer);
+                        var votetestid=UrlParm.parm("votetestid");
+                        var studentid=UrlParm.parm("studentid");
+                        var classid=UrlParm.parm("classid");
+            	if(confirm("确定要交卷吗？")){
+            	mui.ajax('http://'+url+'/jizhibackend/servlet/HandUpVoteServlet', {
+						data: {
+							userid:userid,
+							votetestid:votetestid,
+							studentid:studentid,
+							score:0,
+							answers:useranswer,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 1000000, //超时时间设置为10秒；
+						async:false,
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							mui.toast("提交成功！");
+							clearCookie("useranswer");
+							//alert(JSON.stringify(data));
+							var item=data.votetest[0];
+							//alert(item.studentname);
+							javascript:window.location.href='votestudentlist.html?votetestid='+votetestid+'&answer='+'&studentid='+item.studentid+'&studentname='+item.studentname+'&classid='+classid;
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							
+						}
+					});
+                   }
+            }
+           }
+</script>
+</body>
+</html>

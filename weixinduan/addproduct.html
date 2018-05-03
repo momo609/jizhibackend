@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加商品</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+         <script src="js/app.js"></script>
+        <style>
+        	#reg{
+        		height:50px;
+        		background-color:#0099FF;
+        	}
+        	input{
+        		width:100%;
+        	}
+        </style>
+        <script>
+        	 var userid = GetUseridCookie().get("userid");
+	    if(userid==undefined){
+			alert("登录过期，请重新登录！");
+			javascript:window.location.href="login.html"
+		}
+        	window.onload = function(){
+						  mui.ajax('http://'+url+'/jizhibackend/servlet/GetStudentClassServlet',{
+							data:
+							{
+								userid:userid,
+							},
+							xhrFields: {
+	
+								withCredentials: true
+	
+							},
+							crossDomain: true,
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+							success: function(data) {
+								data1=data.classes;
+//								alert(data1.length);
+							jQuery.each(data1,function(index,item){
+									document.getElementById('class').options.add(new Option(item.name,item.id)); 
+								});
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log(errorThrown);
+							}
+					});
+					}
+        </script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class=" mui-icon mui-icon-left-nav mui-pull-left" href="t_shop.html"></a>
+			<h1 class="mui-title">添加商品</h1>
+		</header>
+		<div class="mui-content">
+		    <form>
+		    <p></p>
+			<p><strong>&nbsp;商品图片</strong></p>
+			<p>
+				<!--<span class="mui-icon mui-icon-plus mui-pull-right" id="select" onclick="select()"></span>-->
+				<img class="preview" id="pre" style="width:150px;" src="<?=IMG_URL.$cost['cover'].'_s.jpg';?>">
+				<input type="file" name="cover" onchange="preview(this)" id="file"> 	
+			</p>
+			<p></p>
+			<p><strong>&nbsp;名字</strong></p>
+			<p>
+				<input id="name" >
+			</p>
+			<p></p>
+			<p><strong>&nbsp;所需兑换积分</strong></p>
+			<p>
+				<input id="price" name="price">
+			</p>
+			<p></p>
+			<p><strong>&nbsp;总共数量</strong></p>
+			<p>
+				<input id="number" name="number">
+			</p>
+			<p></p>
+			<p><strong>&nbsp;选择添加的班级</strong></p>
+			<p>
+				<select id="class">
+					<option></option>
+				</select>
+			</p>
+ 		</form>
+		</div>
+ 		<div class="mui-content-padded">
+				  <button id='reg' class="mui-btn mui-btn-block mui-btn-primary">完成</button>
+			</div>
+	</body>
+	<script>
+		   mui('body').on('tap','a',function(){document.location.href=this.href;});
+		function select()
+            		{
+            			document.getElementById('file').click();
+            			
+            		}
+           function preview(file){  
+         var prevDiv = document.getElementById('pre');
+          if (file.files && file.files[0]){  
+             var reader = new FileReader();  
+            reader.onload = function(evt){  
+            // prevDiv.innerHTML = '<img width="100%" height="100%" id="qw_img" src="' + evt.target.result + '" />';
+            $('.preview').attr('src' , evt.target.result);
+         }    
+              reader.readAsDataURL(file.files[0]);  
+        }else{  
+            // prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';  
+          $('.preview').attr('src' , file.value);
+        }  
+       }
+           var btnlogin=document.getElementById("reg");
+             function resizeMe(img) {
+            //压缩的大小
+            var max_width = 100; 
+            var max_height = 100; 
+
+            var canvas = document.createElement('canvas');
+            var width = img.width;
+            var height = img.height;
+//          alert(width);
+//          alert(height);
+            if(width > height) {
+                if(width > max_width) {
+                    height = Math.round(height *= max_width / width);
+                    width = max_width;
+                }
+            }else{
+                if(height > max_height) {
+                    width = Math.round(width *= max_height / height);
+                    height = max_height;
+            }
+            }
+            canvas.width = width;
+            canvas.height = height;
+//           alert(canvas.width);
+//           alert(canvas.height);
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+            //压缩率
+            return canvas.toDataURL("image/jpg",0.92)
+            }
+          function getBlob(buffer, format) {
+    try {
+      return new Blob(buffer, {type: format});
+    } catch (e) {
+      var bb = new (window.BlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder);
+      buffer.forEach(function(buf) {
+        bb.append(buf);
+      });
+      return bb.getBlob(format);
+    }
+  }
+           btnlogin.onclick = function() {
+           	 var image = new Image();
+           	 var resized ;
+                image.src = document.getElementById('pre').src;
+                var fname=document.getElementById("file").files[0];
+                var classid=document.getElementById("class").value;
+                var prices=document.getElementById('price');
+                var numbers=document.getElementById('number');
+                var giftName= document.getElementById('name');
+                
+                //判断数量、积分和名字是否规范
+                var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
+                if(giftName.value.match(regRule)){
+                	alert("名字只支持纯文字！");
+                	return; 
+                }
+                if((parseInt(prices.value))<=0)
+				{
+					alert("积分必须大于0！");
+					return;
+				}
+				if((parseInt(numbers.value))<=0)
+				{
+					alert("数量必须大于0！");
+					return;
+				}
+                
+                image.onload = function() {
+                    resized=resizeMe(image);
+                    data = resized.split(',')[1];     
+                        data = window.atob(data);     
+                        var ia = new Uint8Array(data.length);     
+                        for (var i = 0; i < data.length; i++) {     
+                            ia[i] = data.charCodeAt(i);     
+                        };     
+                        //canvas.toDataURL 返回的默认格式就是 image/png     
+                        var blob = new Blob([ia], {     
+                            type: "image/jpeg"    
+                        });     
+
+//                 	    var formData = new FormData();
+////                      formData.append("classid",classid); 
+//                      formData.append("file",blob);
+//                      var xhr = new XMLHttpRequest();      
+//                      xhr.open("post", 'http://'+url+'/jizhibackend/servlet/Uploadimg', true);      
+//                      xhr.onload = function () { 
+////                      	alert(xhr.responseText);  
+//                      };
+//                    xhr.send(formData);
+//                  alert(prices.value);
+//                  alert(numbers.value);
+				    mui.ajax('http://'+url+'/jizhibackend/servlet/AddproductServlet',{
+						data:
+						{
+//							'picture':document.getElementById('pre').src,
+							'picture':resized,
+							'name':document.getElementById('name').value,
+							'numbers':numbers.value,
+						    'classes':classid,
+						    'userid':userid,
+						    'price':prices.value,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						beforeSend:function(){
+							btnlogin.innerHTML = '提交中...';
+							btnlogin.disabled = "disabled";
+//							finish.attr("disabled",true);
+						},
+						success: function(data) {
+							if(data.errcode==0)
+							{
+								mui.toast("添加商品成功！");
+							   javascript:window.location.href="t_shop.html";
+							}
+							else{
+								mui.toast("系统错误！");
+							}
+							
+						},
+						complete:function(){
+//							finish.attr("disabled",false);
+							btnlogin.disabled = false;
+							btnlogin.innerHTML = '完成';
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+							console.log(type);
+							console.log(xhr);
+						}
+					});
+                }
+           
+	 }
+	</script>
+</html>

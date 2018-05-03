@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>推荐习题</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+	<style>
+						body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+#div2{
+	width:80px;
+	height: 30px;
+	border-radius: 90px;
+	background-color: #EEA236;
+	color:#FFFFFF;
+	align:center;
+}
+.mui-content{
+	margin-top: 0%;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: white;
+	border:#5E5E5E solid 1px;
+	color:#5E5E5E;
+	font-size:10px;
+	font-weight:bolder;
+}
+.activee{	
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+}
+.fillblank{
+	margin-top: 5%;
+}
+.rect{
+	width:40px;
+	height: 40px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	font-size:10px;
+	font-weight:bolder;
+	
+}
+#choices{
+	margin-bottom: 5%;;
+}
+.oa-contact-name{
+	margin-top: 6%;
+}
+		</style>
+	</head>
+<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+			<h1 class="mui-title">错题</h1>
+		</header>
+		<div class="mui-content">
+			<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tiku.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="banji.html">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="user.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+</nav>
+			<canvas id="choice"style="border:0;width:100%;height: 100%;"></canvas>
+		<div id="content">
+			
+		</div>
+		</div>
+		
+</body>
+<script>
+mui('body').on('tap','a',function(){document.location.href=this.href;});
+  jQuery("#choice").attr("width", jQuery(window).get(0).innerWidth);  
+    jQuery("#choice").attr("height", 70);
+	gWinWidth =jQuery(window).get(0).innerWidth;
+	var c=document.getElementById('choice'); 
+	var ctx=c.getContext("2d");
+	ctx.beginPath();
+    ctx.moveTo(0,20);
+    ctx.lineTo(0,70);
+    ctx.lineTo(50,70);
+    ctx.lineTo(70,45);
+    ctx.lineTo(50,20);  
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fillStyle="lightseagreen"
+    ctx.fill();
+    //ctx.strokeText('填空题',10,47);
+    var cty=c.getContext("2d"); 
+    cty.beginPath();
+    cty.moveTo(50,20);
+    cty.lineTo(70,45);
+    cty.lineTo(50,70);
+    cty.lineTo(gWinWidth,70);
+    cty.lineTo(gWinWidth,20);
+    cty.closePath();
+    cty.stroke();
+    cty.fillStyle="white"
+    cty.fill();
+    
+			$(document).ready(function (){
+				 jQuery.noConflict();
+				 var content=document.getElementById("content");
+				 var qid=UrlParm.parm("proid");
+				 var classid=UrlParm.parm("classid");
+				 //var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+                 var back=document.getElementById("back");
+                 back.href="recommend.html?classid="+classid;
+				 mui.ajax('http://'+url+'/jizhibackend/servlet/GetOneQuestion',{
+						data:
+						{
+							qid:qid
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							cuoti(data)
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				function cuoti(data){
+					 choice=[];
+					 answer=[]
+					 var stem=document.createElement('div');
+					if(data.MultipleChoiceQuestion.length!=0)
+					{
+						str=data.MultipleChoiceQuestion[0].choices;
+						str2=data.MultipleChoiceQuestion[0].answer;
+						stem.innerHTML=data.MultipleChoiceQuestion[0].stem;
+						content.appendChild(stem);
+                        choice=str.split("@@");
+						ctx.strokeText('多选题',10,47);
+						var div1 = document.createElement('div');
+                 	    div1.id='choices';
+                 	    if(str2.indexOf("A")>=0)
+                 	    {       	    
+                 	        div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="aa" class="activee">A</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[0]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="aa" class="orl">A</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[0]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div1);
+                 	    var div2 = document.createElement('div');
+                 	    div2.id='choices';
+                 	     if(str2.indexOf("B")>=0)
+                 	    {       	    
+                 	        div2.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="dd" class="activee">B</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[1]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div2.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="bb" class="orl">B</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[1]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div2);
+                 	    var div3 = document.createElement('div');
+                 	    div3.id='choices';
+                 	    if(str2.indexOf("C")>=0)
+                 	    { 
+                 	       div3.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="cc" class="activee">C</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[2]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	        div3.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="cc" class="orl">C</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[2]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div3);
+                 	    var div4 = document.createElement('div');
+                 	    div4.id='choices';
+                 	    if(str2.indexOf("D")>=0)
+                 	    {
+                 	       div4.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="dd" class="activee">D</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[3]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	       div4.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="dd" class="orl">D</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[3]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div4);
+					}
+					if(data.SingleChoiceQuestion.length!=0)
+					{
+						str=data.SingleChoiceQuestion[0].choices;
+						str2=data.SingleChoiceQuestion[0].answer;
+						stem.innerHTML=data.SingleChoiceQuestion[0].stem;
+						content.appendChild(stem);
+                        choice=str.split("@@");
+						ctx.strokeText('单选题',10,47);
+						var div1 = document.createElement('div');
+                 	    div1.id='choices';
+                 	    if(str2=='A')
+                 	    {       	    
+                 	        div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="aa" class="activee">A</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[0]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="aa" class="orl">A</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[0]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div1);
+                 	    var div2 = document.createElement('div');
+                 	    div2.id='choices';
+                 	     if(str2=='B')
+                 	    {       	    
+                 	        div2.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="dd" class="activee">B</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[1]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div2.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="bb" class="orl">B</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[1]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div2);
+                 	    var div3 = document.createElement('div');
+                 	    div3.id='choices';
+                 	    if(str2=='C')
+                 	    { 
+                 	       div3.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="cc" class="activee">C</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[2]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	        div3.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="cc" class="orl">C</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[2]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div3);
+                 	    var div4 = document.createElement('div');
+                 	    div4.id='choices';
+                 	    if(str2=='D')
+                 	    {
+                 	       div4.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="dd" class="activee">D</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[3]+
+								'</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	       div4.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="dd" class="orl">D</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+choice[3]+
+								'</p></div>';
+                 	    }
+                 	    content.appendChild(div4);
+					}
+					
+				if(data.JudgeQuestion.length!=0)
+					{
+						str=data.JudgeQuestion[0].choices;
+						str2=data.JudgeQuestion[0].answer;
+						stem.innerHTML=data.JudgeQuestion[0].stem;
+						content.appendChild(stem);
+						ctx.strokeText('判断题',10,47);
+						var div1 = document.createElement('div');
+                 	    div1.id='choices';
+                 	    if(str2=='Y')
+                 	    {       	    
+                 	        div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="aa" class="activee">Y</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">正确</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="aa" class="orl">y</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">正确</p></div>';
+                 	    }
+                 	    content.appendChild(div1);
+                 	    var div2 = document.createElement('div');
+                 	    div2.id='choices';
+                 	     if(str2=='N')
+                 	    {       	    
+                 	        div2.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="bb" class="activee">N</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">错误</p></div>';
+                 	    }
+                 	    else
+                 	    {
+                 	    	div2.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="bb" class="orl">N</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">错误</p></div>';
+                 	    }
+                 	    content.appendChild(div2);
+					}
+					if(data.FillBlankQuestion.length!=0)
+                        {
+                        	ctx.strokeText('填空题',10,47);
+						    stem.innerHTML=data.FillBlankQuestion[0].stem;
+						    content.appendChild(stem);
+						    var div1=document.createElement('div');
+						    div1.className='fillblank'
+						    div1.innerHTML='<div class="oa-contact-content mui-table-cell"><button id="bb" class="rect">1</button></div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+									'</div><p class="oa-contact-name">'+data.FillBlankQuestion[0].answer+
+								'</p></div>';
+                            content.appendChild(div1);
+                        }
+					
+				}
+               
+			});
+		</script>
+</html>

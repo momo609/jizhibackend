@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<title>添加题目</title>
+		<style>
+			body{
+				background-color:#F3F3F3;
+			}
+		
+.login_btn{
+	width:300px;
+	margin:30px auto 0 auto;
+}
+.login_btn button{
+	width:100%;
+	margin:0;
+	padding:.3em 0;
+	-webkit-border-radius:.3em;
+	-moz-border-radius: .3em;
+	border:#1263be solid 1px;
+	background-color: #29C4B5;
+	color:#FFF;
+	font-size:17px;
+	font-weight:bolder;
+	letter-spacing:1em;
+}
+.login_btn button:hover{
+	background-color: cadetblue;
+	}
+	.mui-content{
+		margin-top:5%;
+	}
+	.orl{
+	background-color: white;
+	color:#5E5E5E;
+}
+.active{
+	background-color: #29C4B5;
+	color:#FFFFFF;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class="mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+			<h1 class="mui-title">添加题目</h1>
+		</header>
+		<div class="mui-content">
+				<div class="mui-input-row">
+					<p style="margin-left: 3%;">题型</p>
+					<p>
+					<select id="protype" >
+<!--					<option value="4">多选题</option>-->
+					<option value="1">单选题</option>
+					<!--<option value="3">填空题</option>
+					<option value="2">判断题</option>-->
+				    </select>
+					</p>
+				</div>
+				<div class="mui-input-row">
+					<p style="margin-left: 3%;">题干</p>
+					<textarea style="height: 150px;" id="stem"></textarea>
+				</div>
+				<div class="mui-input-row" >
+					<p style="margin-left: 3%;">题目分值</p>
+					<input id="point" type="text" class="mui-input-clear mui-input" >
+				</div>
+				<div style="width: auto;height: auto;">
+					<div style="width: 42%;height:auto;float: left;" id="xuanxiang">
+						<p style="margin-left: 3%;">选项</p>
+						<input name="p_choice" type="text" class="mui-input-clear mui-input" >
+					</div>
+					<div style="width: 45%;height:auto;float: right;" id="xuanxiangWeight">
+						<p style="margin-left: 3%;">选项系数</p>
+						<input name="weight" type="text" class="mui-input-clear mui-input" >
+					</div>
+				</div>
+				<button id='choice' class="mui-btn mui-btn-block mui-btn-primary" style="height:20px;background-color:'#FFFFFF';text-align: center; line-height: 5px">+</button>;
+		</div>
+		<div class="mui-content-padded">
+				<div class="login_btn">
+				  <button id='login' class="mui-btn mui-btn-block mui-btn-primary">添加</button>
+				</div>
+				
+		</div>
+		<script src="js/mui.min.js"></script>
+            <script src="js/tool.js"></script>
+            <script>
+            	var title = UrlParm.parm("title");
+            	var voteid = UrlParm.parm("votePaperid");
+            	var qid= UrlParm.parm("qid");
+            	document.getElementById('back').href='t_VotePaperdetail.html?voteid='+voteid+'&title='+title+'&p_order=1'+'&qid='+qid;
+				var userid = GetUseridCookie().get("userid");	
+            	if(userid=='undefined'){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+            	}
+            	(function($,doc){
+				    var submit = document.getElementById('login');
+				    var addchoice = document.getElementById('choice');
+				    addchoice.onclick=function(){
+				    	var input=document.createElement('input');
+				    	input.type='text';
+				    	input.className='mui-input-clear mui-input';
+				    	input.name='p_choice';
+				    	document.getElementById('xuanxiang').appendChild(input);
+				    	
+				    	var input=document.createElement('input');
+				    	input.type='text';
+				    	input.className='mui-input-clear mui-input';
+				    	input.name='weight';
+				    	document.getElementById('xuanxiangWeight').appendChild(input);
+				    }
+//				    var protype=document.getElementById('protype');
+				    var selectbtn=document.getElementsByName('selects');
+				    var p_choicebtn=document.getElementsByName('p_choice');
+				    var weightbtn = document.getElementsByName('weight');
+				    var stem=document.getElementById('stem');
+				    var point = document.getElementById('point');
+            		submit.onclick = function() {
+				    var choices='';
+				    for(var i=0;i<p_choicebtn.length-1;i++)
+				    {
+				    	choices=choices+p_choicebtn[i].value+'@@';
+				    }
+				    choices=choices+p_choicebtn[p_choicebtn.length-1].value;
+				    var choices_weight='';
+				    for(var i=0;i<weightbtn.length-1;i++)
+				    {
+				    	choices_weight=choices_weight+weightbtn[i].value+'@@';
+				    }
+				    choices_weight=choices_weight+weightbtn[weightbtn.length-1].value;
+				    var question = {};
+                    question.choices=choices;
+                    question.choices_weight=choices_weight;
+				    alert("choiceweight:"+question.choices_weight);
+                    question.stem=stem.value;
+                    question.point=point.value;
+                    
+//                  question.type=protype.value;
+                    var data={};
+                    data.question=question;
+                    data.voteid=voteid;
+//                  data.qtype=protype.value;
+				    mui.ajax('http://'+url+'/jizhibackend/servlet/AddVoteServlet',{
+						data:JSON.stringify(data),
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'test', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							mui.toast("添加题目成功");
+							window.location.href='t_VotePaperdetail.html?voteid='+voteid+'&title='+title+'&p_order=1'+'&qid='+qid;
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				}
+					}
+            )(mui.document);
+            </script>
+	</body>
+</html>

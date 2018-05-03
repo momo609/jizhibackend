@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+        <script src="js/data.js"></script>
+        <link rel="prerender" href="test_in.html">
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+			body {
+				background-color: #EFEFF4;
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+		
+			
+.login_btn{
+	width:300px;
+	margin:30px auto 0 auto;
+}
+.login_btn button{
+	width:100%;
+	margin:0;
+	padding:.3em 0;
+	-webkit-border-radius:.3em;
+	-moz-border-radius: .3em;
+	border:#1263be solid 1px;
+	background-color: #29C4B5;
+	color:#FFF;
+	font-size:17px;
+	font-weight:bolder;
+	letter-spacing:1em;
+}
+.login_btn button:hover{
+	background-color: cadetblue;
+	}
+	.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 20px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding:6px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<div class="login_btn">
+				  <button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+				</div>
+				<div class="link-area">
+					<a id='reg' href="reg.html">注册账号</a> <span class="spliter">|</span> 
+					<a id='forgetPassword' href="forget_password.html">忘记密码</a>
+				</div>
+			</div>
+			<div class="mui-content-padded oauth-area">
+
+			</div>
+		</div>
+		
+		<script>
+			
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7',
+
+				})
+				var account = document.getElementById('account');
+				var pwd = document.getElementById('password');
+				var btnlogin = document.getElementById('login');
+				
+				btnlogin.onclick = function() {
+					if(account.value==''){
+						alert("用户名不能为空");
+					}
+					else if(pwd.value==''){
+						alert("密码不能为空");
+					}
+					else{
+						mui.ajax('http://'+url+'/jizhibackend/servlet/Login', {
+						data: {
+							'username': account.value,
+							'password': pwd.value
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode == '100') {
+								var d = new Date();
+								d.setTime(d.getTime()+60*300000);//过期时间300分钟
+								document.cookie = "userid="+data.userid+"; expires="+d.toGMTString();
+								document.cookie = "usertype="+data.usertype+"; expires="+d.toGMTString();
+								document.cookie = "lookback= ; expires="+d.toGMTString();
+								document.cookie = "useranswer= ; expires="+d.toGMTString();
+								document.cookie = "timeuse= ; expires="+d.toGMTString();
+								document.cookie = "bookmark= ; expires="+d.toGMTString();
+								document.cookie = "answertrace= ; expires="+d.toGMTString();
+//								if(data.usertype==1)
+//								{
+//									window.location.href = "test_in.html";
+//								}
+//								if(data.usertype==2)
+//								{
+//									window.location.href = "test_in.html";
+//							    }
+                              mui.toast('登录成功，正在跳转至测试界面...');
+								//alert("登录成功，正在跳转至测试界面...");
+								window.location.href = 'test_in.html';
+							} else if(data.errcode == '103'){
+								alert('用户名不存在！');
+							}
+							else {
+								alert('用户名或密码不正确');
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							mui.toast("登录异常，请重新登录！");
+							console.log(type);
+							console.log(account.value);
+							console.log(pwd.value);
+						}
+					});
+				}
+				}
+
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>退出班级</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+				
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+	
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			.oa-contact-content {
+				width: 100%;
+			}
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			.oa-contact-name, oa-contact-position {
+				float: left;
+			}
+				body {
+				background-color: #EFEFF4;
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+
+	
+ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+li
+{
+float:left;
+}
+button:link,button:visited
+{
+display:block;
+width:150px;
+font-size:30px;
+font-weight:bold;
+color:#29C4B5;
+background-color:#FFFFFF;
+text-align:center;
+padding:20px;
+text-decoration:none;
+text-transform:uppercase;
+}
+button:hover,button:active
+{
+background-color:#29C4B5;
+color:#FFFFFF;
+}
+.header button{
+	width:150px;
+	height: 50px;
+	-webkit-border-radius:1em;
+	-moz-border-radius: 1em;
+    border: 1px solid #29C4B5;
+    font-size: 30px;
+    margin-left: 35%;
+}
+.header ul  input{
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 1%;
+	width:500px;
+	height: 200px;
+	padding: 5em 5em 5em 5.4em;
+	-webkit-border-radius:10em;
+	-moz-border-radius: 10em;
+    border: 1px solid #29C4B5;
+}
+
+.header
+{
+	position: relative;
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 1%;
+}
+.nav {
+    background: #FFFFFF;
+    padding: 20px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 1%;
+}
+.top
+{
+	margin-left: 38%;
+	margin-right: 25%；
+}
+.inner
+{
+	margin-left: 15%;
+	margin-right: 25%；
+
+}
+.inner ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+.inner li
+{
+float:left;
+}
+.inner a:link,a:visited
+{
+display:block;
+width:150px;
+font-weight:bold;
+color:#8F8F94;
+background-color:#FFFFFF;
+text-align:center;
+padding:10px;
+text-decoration:none;
+text-transform:uppercase;
+}
+.inner a:hover,a:active
+{
+background-color:#29C4B5;
+}
+.mui-content{
+	margin-left: 20%;
+}
+.mui-active{
+	color:#29C4B5;
+} 
+.mui-content{
+	margin-top:20%;
+	margin-left:32%
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class="mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+			<h1 class="mui-title">测试</h1>
+		</header>
+        <div class="mui-content">
+            <img src="images/group8.png" />
+            <div class="zi">
+            	已退出该班级
+            </div>
+	      
+       </div>
+	<script>
+		var userid = GetUseridCookie().get("userid");
+			if(userid==undefined){
+	    		alert("登录过期，请重新登录！");
+				javascript:window.location.href="login.html"
+	    	}
+			document.getElementById('back').href="banji.html"
+			var usertype = GetUsertypeCookie().get("usertype");
+				if(usertype==2){
+					document.getElementById('back').href="t_banji.html";
+				}
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		$(document).ready(function (){
+				 jQuery.noConflict();
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				 var classid=UrlParm.parm("classid");
+				 if(confirm("确定要退出该班级吗？")){
+				 		mui.ajax('http://'+url+'/jizhibackend/servlet/QuitClass',{
+						data:
+						{
+							userid:userid,
+							classid:classid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==102){
+								alert("您是该班创建者，无法退出班级！");
+							}else if(data.errcode==0){
+								mui.toast("退出班级成功！")
+								setTimeout("back.click();",1000);
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				 }
+
+		});
+	</script>
+		
+	</body>
+	
+</html>

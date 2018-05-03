@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="js/echarts-all.js" ></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link href="css/iconfont.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/tool.js"></script>
+		 <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<link rel="prerender" href="test_done.html">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav ">
+			<h1 class="mui-title">知识图谱</h1>		
+		</header>
+		<div class="mui-content" style="margin-top: 5%;">
+		<div id="main" style="height:500px"></div>
+		</div>
+	</body>
+	<script>
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+		
+			$(document).ready(function (){
+				 jQuery.noConflict();
+				 var userid = GetUseridCookie().get("userid");
+				 mui.ajax('http://'+url+'/jizhibackend/servlet/GetGraphServlet',{
+						data:
+						{
+							userid:userid,
+							classid:"1056",
+							studentid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							graph(data)
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+			});
+			function graph(data){
+				var node=[];
+				
+				
+				data1=data.knowledgepoint;
+				jQuery.each(data1,function(index,item){
+					    var j={};
+                         j.category = 2;
+                         j.name = item.knowledge;
+                         j.value= item.degree;
+                         node.push(j);
+                        // alert(JSON.stringify(node));
+				});
+				
+				require.config({
+                    paths: {
+                         echarts: 'http://echarts.baidu.com/build/dist'
+                        }
+                    });
+                    require(
+                        [
+                          'echarts',
+                          'echarts/chart/force' // 使用柱状图就加载bar模块，按需加载
+                        ],
+                    function (ec) {
+                        // 基于准备好的dom，初始化echarts图表
+                    var myChart = ec.init(document.getElementById('main')); 
+		            option = {
+//                  title : {
+//                        text: '知识图谱',
+//                        x:'right',
+//                        y:'bottom'
+//                   },
+                    tooltip : {
+                          trigger: 'item',
+                          formatter: '{a} : {b}'
+                    },
+                    toolbox: {
+                          show : true,
+                          feature : {
+                                restore : {show: true},
+                                magicType: {show: true, type: ['force', 'chord']},
+                                saveAsImage : {show: true}
+                            }
+                    },
+                    legend: {
+                           x: 'left',
+                           data:['知识点：知识点越小掌握程度越低']
+                    }, 
+                    series : [
+                    {
+                          type:'force',
+                          name : "知识图谱",
+                          ribbonType: false,
+                          categories : [
+                             {
+                                name: '前置'
+                             }, 
+                             {
+                                name: '后驱',
+                                symbol: 'diamond'
+                             },
+                           ],
+                          itemStyle: {
+                               normal: {
+                                   label: {
+                                            show: true,
+                                            textStyle: {
+                                                      color: '#333'
+                                                     }
+                                          },
+                                   nodeStyle : {
+                                            brushType : 'both',
+                                            borderColor : 'rgba(255,215,0,0.4)',
+                                            borderWidth : 1
+                                            }
+                                },
+                               emphasis: {
+                                    label: {
+                                           show: false
+                                           // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+                                        },
+                                    nodeStyle : {
+                                             //r: 30
+                                        },
+                                    linkStyle : {}
+                                }
+                            },
+                          minRadius : 15,
+                          maxRadius : 25,
+                          gravity: 1.1,
+                          scaling: 1.2,
+                          draggable: false,
+                          linkSymbol: 'arrow',
+                          steps: 7,
+                          coolDown: 0.9,
+                          //preventOverlap: true,
+                          nodes:node,
+                          links : [
+                                  {source : '函数依赖', target : '部分函数依赖', weight : 1,name:''},
+                                  {source : '函数依赖', target : '传递函数依赖', weight : 1, name: ''},
+                                  {source : '部分函数依赖', target : '2NF', weight : 1, name: ''},
+                                  {source : '1NF', target : '2NF', weight : 1, name: ''},
+                                  {source : '2NF', target : '3NF', weight : 1},
+                                  {source : '3NF', target : 'BCNF', weight : 1, name: ''},
+                                  {source : '传递函数依赖', target : '3NF', weight : 1},
+                                  {source : 'BCNF', target : '决定因素', weight : 1, name: ''},
+                                  {source : '决定因素', target : '码', weight : 1, name: ''},
+                                  {source : '码', target : '主属性', weight : 1},
+                                  {source : '码', target : '非主属性', weight : 1}
+                           ]
+                      }
+                      ]
+                };
+                myChart.setOption(option); 
+                }
+        );
+        var ecConfig = require('echarts/config');
+				//bulidgraph(node);
+			}
+			function buildgraph(node){
+		            require.config({
+                    paths: {
+                         echarts: 'http://echarts.baidu.com/build/dist'
+                        }
+                    });
+                    require(
+                        [
+                          'echarts',
+                          'echarts/chart/force' // 使用柱状图就加载bar模块，按需加载
+                        ],
+                    function (ec) {
+                        // 基于准备好的dom，初始化echarts图表
+                    var myChart = ec.init(document.getElementById('main')); 
+		            option = {
+//                  title : {
+//                        text: '知识图谱',
+//                        x:'right',
+//                        y:'bottom'
+//                   },
+                    tooltip : {
+                          trigger: 'item',
+                          formatter: '{a} : {b}'
+                    },
+                    toolbox: {
+                          show : true,
+                          feature : {
+                                restore : {show: true},
+                                magicType: {show: true, type: ['force', 'chord']},
+                                saveAsImage : {show: true}
+                            }
+                    },
+                    legend: {
+                           x: 'left',
+                           data:['知识点']
+                    }, 
+                    series : [
+                    {
+                          type:'force',
+                          name : "知识图谱",
+                          ribbonType: false,
+                          categories : [
+                             {
+                                name: '前置'
+                             }, 
+                             {
+                                name: '后驱',
+                                symbol: 'diamond'
+                             },
+                           ],
+                          itemStyle: {
+                               normal: {
+                                   label: {
+                                            show: true,
+                                            textStyle: {
+                                                      color: '#333'
+                                                     }
+                                          },
+                                   nodeStyle : {
+                                            brushType : 'both',
+                                            borderColor : 'rgba(255,215,0,0.4)',
+                                            borderWidth : 1
+                                            }
+                                },
+                               emphasis: {
+                                    label: {
+                                           show: false
+                                           // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+                                        },
+                                    nodeStyle : {
+                                             //r: 30
+                                        },
+                                    linkStyle : {}
+                                }
+                            },
+                          minRadius : 15,
+                          maxRadius : 25,
+                          gravity: 1.1,
+                          scaling: 1.2,
+                          draggable: false,
+                          linkSymbol: 'arrow',
+                          steps: 7,
+                          coolDown: 0.9,
+                          //preventOverlap: true,
+                          nodes:node,
+//                        nodes:[
+//              {category:0, name: '函数依赖',value : 2},
+//              {category:0, name: '部分函数依赖',value : 2},
+//              {category:0, name: '传递函数依赖',value : 3},
+//              {category:0, name: '第二范式',value : 3},
+//              {category:0, name: '第三范式',value : 7},
+//              {category:0, name: '第一范式',value : 5},
+//              {category:0, name: 'BC范式',value : 8},
+//              {category:0, name: '独立性',value : 9},
+//              {category:0, name: '主码',value : 4},
+//              {category:0, name: '主属性',value : 4},
+//              {category:0, name: '非主属性',value : 1},
+//          ],
+                          links : [
+                                  {source : '函数依赖', target : '部分函数依赖', weight : 1,name:''},
+                                  {source : '函数依赖', target : '传递函数依赖', weight : 1, name: ''},
+                                  {source : '部分函数依赖', target : '第二范式', weight : 1, name: ''},
+                                  {source : '第一范式', target : '第二范式', weight : 1, name: ''},
+                                  {source : '第二范式', target : '第三范式', weight : 1},
+                                  {source : '第三范式', target : 'BC范式', weight : 1, name: ''},
+                                  {source : '传递函数依赖', target : '第三范式', weight : 1},
+                                  {source : 'BC范式', target : '独立性', weight : 1, name: ''},
+                                  {source : '独立性', target : '主码', weight : 1, name: ''},
+                                  {source : '主码', target : '主属性', weight : 1},
+                                  {source : '主码', target : '非主属性', weight : 1}
+                           ]
+                      }
+                      ]
+                };
+                myChart.setOption(option); 
+                }
+        );
+        var ecConfig = require('echarts/config');
+     }
+function focus(param) {
+    var data = param.data;
+    var links = option.series[0].links;
+    var nodes = option.series[0].nodes;
+    if (
+        data.source != null
+        && data.target != null
+    ) { //点击的是边
+        var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+        var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+        console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
+    } else { // 点击的是点
+        console.log("选中了" + data.name + '(' + data.value + ')');
+    }
+}
+//myChart.on(ecConfig.EVENT.CLICK, focus)
+//
+//myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+//  console.log(myChart.chart.force.getPosition());
+//});
+                    
+	</script>
+</html>

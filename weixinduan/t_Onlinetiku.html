@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>在线题库</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+	<style >
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}	
+			ul{
+				list-style-type:none;
+				margin:0;
+				padding:0;
+				overflow:hidden;
+			}
+			button:link,button:visited
+			{
+				display:block;
+				width:150px;
+				font-size:30px;
+				font-weight:bold;
+				color:#29C4B5;
+				background-color:#FFFFFF;
+				text-align:center;
+				padding:20px;
+				text-decoration:none;
+				text-transform:uppercase;
+			}
+			button:hover,button:active
+			{
+				background-color:#29C4B5;
+				color:#FFFFFF;
+			}
+			.header button{
+				width:150px;
+				height: 50px;
+				-webkit-border-radius:1em;
+				-moz-border-radius: 1em;
+			    border: 1px solid #29C4B5;
+			    font-size: 30px;
+			    margin-left: 35%;
+			}
+			.header ul  input{
+				margin-left: 10%;
+				margin-right: 10%;
+				margin-bottom: 1%;
+				width:500px;
+				height: 200px;
+				padding: 5em 5em 5em 5.4em;
+				-webkit-border-radius:10em;
+				-moz-border-radius: 10em;
+			    border: 1px solid #29C4B5;
+			}
+			
+			.header
+			{
+				position: relative;
+				margin-left: 20%;
+				margin-right: 20%;
+				margin-top: 1%;
+			}
+			.nav {
+			    background: #FFFFFF;
+			    padding: 20px;
+			    width: 100%;
+			    position: fixed;
+			    left: 0;
+			    bottom: 0;
+			    margin-bottom: 1%;
+			}
+			.top
+			{
+				margin-left: 38%;
+				margin-right: 25%；
+			}
+			.inner
+			{
+				margin-left: 15%;
+				margin-right: 25%；
+			
+			}
+			.inner ul
+			{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+			overflow:hidden;
+			}
+			.inner a:link,a:visited
+			{
+			display:block;
+			width:150px;
+			font-weight:bold;
+			color:#8F8F94;
+			background-color:#FFFFFF;
+			text-align:center;
+			padding:10px;
+			text-decoration:none;
+			text-transform:uppercase;
+			}
+			.inner a:hover,a:active
+			{
+			background-color:#29C4B5;
+			}
+			
+			.search
+			{
+				margin-left: 24%;
+			}
+			.search input
+			{
+				-webkit-border-radius:1em;
+				-moz-border-radius: 1em;
+				border: 1px solid #29C4B5;
+				
+			}
+			.mui-content{
+				margin-left: 25%;
+			}
+			.search{
+				margin-top: 2%;
+			}
+</style>
+
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">题库</h1>
+		<a href="#popover" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" ></a>
+	</header>
+		<div id="popover" style="position: absolute;width: 160px;" class="mui-popover">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell"><a href="importpaper.html"><img src="images/import_word.png" height="15px" /><span style="margin-left: 10px;">从word导入</span></a></li>
+                <li class="mui-table-view-cell"><a href="creatpaper.html"><img src="images/manual.png"  height="15px"/><span style="margin-left: 10px;">手动创建</span></a></li>
+            </ul>
+        </div>
+        <nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="t_test.html" id="test1">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item mui-active" href="t_tiku.html" id="tiku">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="t_banji.html" id="banji">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="t_user.html" id="user">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+</nav>
+     <div class="mui-content" style="margin-left: 0px; margin-bottom: 0px;">
+        	<div >
+             <ul style="margin-left: 28%;">
+	          <li><button id="tiku" style="float: left; border-radius: 5px;" onclick=javascript:window.location.href="t_tiku.html">我的题库</button></li>
+	          <li><button id="test_done" style="border-radius: 5px;float:left;background: #29C4B5; color: #ffffff;" onclick=javascript:window.location.href="t_Onlinetiku.html">在线题库</button></li>
+             </ul>
+            </div>
+       <div id="test" style="width:100%">
+        </div>
+       <!--<div class="search">
+           <img src="images/icon_search_route_dark.png" width="15px" style="position: absolute;margin-top: 5px;margin-left: 5px;"/>
+           <input type="text" placeholder="搜索题库" name="text" style="width:200px; height: 20px;font-size: 15px;text-indent: 10px;">
+          </div>-->
+      </div>
+		<script>
+			mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+			$(document).ready(function (){
+				 jQuery.noConflict();
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+				if(userid==undefined){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+            	}
+				var usertype = GetUsertypeCookie().get("usertype");
+				if(usertype==2){
+					document.getElementById("test1").href = "t_test.html";
+					document.getElementById("tiku").href = "t_tiku.html";
+					document.getElementById("banji").href = "t_banji.html";
+					document.getElementById("user").href = "t_user.html";
+				}
+				var tiku = document.getElementById("tiku");
+				var test_done = document.getElementById("test_done");
+				var test_before = document.getElementById("test_before");
+				var test = document.getElementById("test");
+				var bookmark='';
+					mui.ajax('http://'+url+'/jizhibackend/servlet/GetOnlinePaperServlet',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+//							alert(data.papers);
+							addtest(data);	
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				   
+            
+				function addtest(data){
+//                  var system_time=data.system_time;
+                    var paperList=data.papers;
+//                  var q_order=1;
+                    jQuery.each(paperList,function(index,item){
+                	var testtime=item.end_time;
+                    var a = document.createElement('a');
+                 	var div = document.createElement('div');
+                 	div.className="mui-card";
+                 	div.style="margin: 10px;";
+                 	var create_timed=new Date(item.createtime);
+                 	var create_day=create_timed.getFullYear()  + "-" + (create_timed.getMonth()+1)+"-"+create_timed.getDate()
+                 		+"&nbsp&nbsp"+create_timed.getHours()+":"+create_timed.getMinutes()+":"+create_timed.getSeconds();
+                a.href='t_paperdetail.html?paperid='+item.id+'&p_order=1'+'&title='+item.title+'&flag=0';
+                div.innerHTML='<div class="mui-card" style="margin: 10px;">'+
+	        	'<div id="div-space" style="width: 8px; height: 20px; background-color: #2DBFB0;padding-left: 5px;float: left;">'+
+	        	'<i class="iconfont2 icon-time1"  style="color: #FFFFFF;"></i>'+
+	        	'<span style="position: relative; float: right;color: #FFFFFF;"></span>'+
+	        	'<div style="position:absolute; color: #FFFFFF;top: 40%;left: 13%;width: 32%;margin-left: -35px;font-size:15px;">'+
+	        	'</div>'+
+                '</div>'+
+	       		'<div style="height:90px;width: 98%;padding:5px">'+
+	       			'<div style="font-size:large ;padding-left:40px;color:#7b7b7b;">'+item.title+'</div>'+
+	       			'<div style="font-size:large ;margin-top: 10px;padding-left:40px">'+
+	       				'<img src="images/time_gray.png" width="16px" />'+
+	       				'&nbsp<span style="font-size:16px;color:#7b7b7b" >'+create_day+'&nbsp&nbsp&nbsp</span></div>'+
+	       				'<div style="margin-top: 10px">'+
+	       				'<div style="display:inline;padding-left:40px;color:#7b7b7b;width:60%;float:left;">作者：'+item.ownerName+'</div><div style="display:inline;width:40%;float:right;text-align:center"><span style="font-size:large;color:#2DBFB0;" >'+item.question_num+'</span>'+'&nbsp&nbsp<span style="font-size:small;color:#7b7b7b;">道题</span></div></div>'
+//			if(system_time<item.end_time&&(data.errcode==0))
+//			{
+			test.appendChild(a);
+            a.appendChild(div);
+//         }
+            
+            });
+      }
+			});
+		</script>
+</body>
+<script>
+	mui('body').on('tap','a',function(){document.location.href=this.href;});
+</script>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="js/echarts-all.js" ></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>答题结果</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link href="css/iconfont.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/tool.js"></script>
+		<link rel="prerender" href="test_done.html">
+		<style>
+			body{
+				background-color: #F3F3F3;
+			}
+			.header{
+	 background-color:#29c4b5;
+	 
+	padding-bottom: 5px;
+	 }
+.topper
+{
+	 font-size: 20px;
+	 margin:0;
+	 padding-top: 1px;
+	 padding-bottom: 1px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}
+.topper_inner{
+	margin-top: 8%;
+	padding-top:5px;
+	height: 100px;
+	padding-bottom: 6px;
+}
+.score
+{
+	margin-left: 40%;
+	margin-bottom: 5%;
+}
+.timer{
+	margin-left: 33%;
+	margin-bottom: 3%;
+}
+.time{
+	margin-left: 35%;;
+}
+.chart {
+				height: 200px;
+				margin: 0px;
+				padding: 0px;
+			}
+.header{
+	height: 200px;
+}
+.mui-icon mui-icon-bars{
+	margin-left: 90%;
+}
+.orl{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: white;
+	border:#5E5E5E solid 1px;
+	color:#5E5E5E;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.activee{	
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #29C4B5;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+.own{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #E36D6D;
+	color:#FFFFFF;
+	border:#5E5E5E solid 1px;
+	font-size:10px;
+	font-weight:bolder;
+	margin-top: 3%;
+	margin-left: 5%;
+}
+
+h5 {
+	margin-left:20%;
+    font-weight: bold;
+   }
+.title{
+	font-size: 20px;
+	font-weight: bold;
+	color: #FFFFFF;
+	margin-top: 2.5%;
+	width:90%;
+}	
+.FF9900
+{
+	width: 20px;
+	height: 10px;
+	background-color: #FF9900;
+	border:#FF9900 solid 1px;
+	color:#FFFFFF;
+}
+.PAN{
+	width: 20px;
+	height: 10px;
+	background-color:#9ED99D;
+	color:#FFFFFF;
+	border:#9ED99D solid 1px;
+}
+.FF6699{
+	width: 20px;
+	height: 10px;
+	background-color: #FF6699;
+	color:#FFFFFF;
+	border:#FF6699 solid 1px;
+}
+.FF3300{
+	width: 20px;
+	height: 10px;
+	background-color: #FF3300;
+	color:#FFFFFF;
+	border:#FF3300 solid 1px;
+}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+	  <div class="topper"> 
+			<a href="test_done.html" style="width: 10%;height: 10%;"><img src="images/left_arrow.png" align="left" width="10%" height="10%" ></a> 
+			<p class="title">答题结果</p>
+			<!--<span class="mui-icon mui-icon-bars"></span>-->
+		</div>
+		<div class="topper_inner">
+			<div class="score">
+				<h1 id="score"></h1><span>			 
+			</div>
+			<div class="timer">
+				 <p id="time"></p>
+			</div>
+		</div>
+		</div>
+		<div class="mui-content">
+			<div class="prodetail" id="pro"></div>
+			<div class="chart" id="score_barChart">
+			</div>
+			<div style="text-align:center;margin-bottom: 3%;">
+				<span class="FF9900" >单选</span>
+			    <span class="PAN" >判断</span>
+			    <span class="FF6699" >填空</span>
+			    <span class="FF3300">多选</span>
+			</div>
+			<div class="chart" id="timeuse_barChart">
+			</div>
+			<div class="chart" id="lookback_barChart">
+			</div>
+			<div class="chart" id="pieChart"></div>
+       </div>
+        
+	<script>
+		function trim(str){ //删除左右两端的空格
+　　                    return str.replace(/(^\s*)|(\s*$)/g, "");
+　　     }
+        $(document).ready(function (){
+				 jQuery.noConflict();
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+				var testid=UrlParm.parm("testid");
+				var score=document.getElementById("score");
+				var time=document.getElementById("time");
+				var pro=document.getElementById("pro");
+				answers=[];
+				correct=[];
+				qid=[];
+				str1='';
+				str='';
+				var part_l;
+				var part_m;
+				var part_h;
+				times=[];
+				var length=0;
+	            pros=[];
+	            a_times=[],
+	            lookbacks=[],
+	            p_time=[];
+	            type=[];
+	            s_correct=[];
+				mui.ajax('http://'+url+'/jizhibackend/servlet/getTestResultServlet',{
+						data:
+						{
+							userid:	userid ,
+							testid: testid ,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							var h= parseInt((data.TestResult.total_time_used % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	                        var s = parseInt((data.TestResult.total_time_used % (1000 * 60))/1000);
+	                        var m = parseInt((data.TestResult.total_time_used % (1000 * 60 * 60)) / (1000 * 60));
+							score.innerHTML=data.TestResult.score+'分';
+				    	    var tts=data.TestResult.time_used.substr(1,data.TestResult.time_used.length-2);
+				    	    times=tts.split(',');
+				    	    var s_lookback=data.TestResult.look_back_times.substr(1,data.TestResult.look_back_times.length-2);
+				    	    lookbacks=s_lookback.split(',');
+				    	    length=times.length;
+	                        for(var i=0;i<length;i++)
+				    	    {
+				    		   pros[i]=""+(i+1);
+				    		   times[i]=times[i]/1000;
+				    		   p_time[i]=data.TestStat.timeused[i]/1000;
+				    	    }
+						    time.innerHTML='总用时:'+h+'时'+m+'分'+s+'秒';
+							str=data.TestResult.answers;
+							answers=str.split("@@");
+		    		    	part_l=data.proportion[0];
+    				    	part_m=data.proportion[1];
+    				    	part_h=data.proportion[2];
+     				    	testresult(data.TestStat);
+     				    	correctanswer=[];
+						    var str3=data.rightAnswer;
+						    //alert(str3);
+						    var str2=data.questionId;
+						    correctanswer=str3.split('@@');
+						    qid=str2.split('@@');
+						    var c_str='';
+						    var flag=0;
+						   for(var i=0;i<qid.length-1;i++)
+							{
+								flag=0;
+								//alert("c:"+correctanswer[i]);
+								//alert("o:"+answers[i]);
+								s_correcrt=correctanswer[i].split('**');
+								for(var j=0;j<s_correcrt.length;j++)
+								{
+									//alert(j+':'+s_correcrt[j]);
+									if(trim(s_correcrt[j].toLowerCase())==trim(answers[i].toLowerCase()))
+								     {
+									         flag=1;
+									         break;
+								     }
+								}
+								if(flag)
+								{
+									correct[i]=0;
+								}
+								else
+								{
+									correct[i]=1;
+								}
+								//alert('correct:'+correct[i]);
+								c_str=c_str+correct[i]+'@@';
+							}
+							  flag=0;
+							  s_correcrt=correctanswer[qid.length-1].split('**');
+								for(var j=0;j<s_correcrt.length;j++)
+								{
+									if(trim(s_correcrt[j].toLowerCase())==trim(answers[qid.length-1].toLowerCase()))
+								     {
+									         flag=1;
+									         break;
+								     }
+								}
+								if(flag)
+								{
+									correct[qid.length-1]=0;
+								}
+								else
+								{
+									correct[qid.length-1]=1;
+								}
+							c_str=c_str+correct[qid.length-1];
+							for(i=0;i<correct.length;i++)
+							{
+								j=i+1
+								var link='prodetail.html?q_order='+j+'&qid='+str2+'&testid='+testid+'&correct='+c_str+'&choice='+answers.toString();
+								if(correct[i]==1)
+							    {
+								    str1=str1+'<button id="aa" class="own" onclick=javascript:window.location.href="'+encodeURI(link)+'">'+j+
+								    '</button>';
+							    }
+							    else
+							    { 
+								    str1=str1+'<button id="aa" class="activee" onclick=javascript:window.location.href="'+encodeURI(link)+'">'+j+
+								    '</button>';
+						        }
+							    //button.onclick=window.location.href='prodetail.html?qid='+qid[i];
+							 }
+							pro.innerHTML=str1;
+							//prodetail(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+				});
+			    mui.ajax('http://'+url+'/jizhibackend/servlet/EnterTest',{
+						data:
+						{
+							userid:	userid ,
+						    testid:testid
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						dataType: 'json' ,//服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							data_m=data.MultipleChoiceQuestion;
+							data_s=data.SingleChoiceQuestion;
+							data_f=data.FillBlankQuestion;
+							data_j=data.JudgeQuestion;
+							for(var i=0;i<data_m.length;i++)
+							{
+								type[data_m[i].q_order-1]=4
+							}
+							for(i=0;i<data_s.length;i++)
+							{
+								type[data_s[i].q_order-1]=1
+							}
+							for(i=0;i<data_j.length;i++)
+							{
+								type[data_j[i].q_order-1]=2
+							}
+							for(i=0;i<data_f.length;i++)
+							{
+								type[data_f[i].q_order-1]=3
+							}
+							
+     					 },
+						 error: function(xhr, type, errorThrown) {
+							    console.log(errorThrown);
+						 }
+					  });
+				    function testresult(data){
+				        var pie={
+				        	tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b}: {c} ({d}%)"
+                           },              
+					        series: [{
+						type: 'pie',
+						radius: '65%',
+						center: ['50%', '50%'],
+						
+						data: [{
+							value: part_h,
+							name: '能力拓展错题数'
+						}, {
+							value: part_m,
+							name: '知识应用错题数'
+						}, {
+							value: part_l,
+							name: '基础知识错题数'
+						}],
+						itemStyle: {
+                          emphasis: {
+                          shadowBlur: 10,
+                          shadowOffsetX: 0,
+                           shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                       }
+					}]
+					};
+					var bar={
+						legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                              name:'分数统计',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        },]
+                        },
+						xAxis: [{
+						type: 'category',
+						data: ['最高分','最低分','平均分']
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+					name: '分数统计',
+					type: 'bar',
+					itemStyle: {
+                                  normal: {
+                                       label:  {
+                                          show: true,
+                                          textStyle: {
+                                                color: '#800080'
+                                                     }
+                                                }
+                                         }
+                        },
+					data: [data.maxscore,data.minscore,data.avgscore]
+					}]
+					};
+					var lookback={
+					  legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                             name:'每道题回看次数',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        }]
+					  },
+					  xAxis: [
+					  {
+						type: 'category',
+						data: pros
+					  }],
+					  yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					  }],
+					 series: [{
+						name: '每道题回看次数',
+						type: 'bar',
+						data: lookbacks,
+					   }]
+					};
+					var timee={
+						legend: {
+					    show:true,
+                        orient:'horizontal',
+                         data:[
+                        {
+                              name:'个人每道题所用时间(秒)',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        },
+                         {
+                              name:'平均每道题所用时间(秒)',
+                            textStyle:{
+                              fontSize:12,
+                             fontWeight:'bolder',
+                            color:'#df3434'
+                            },
+                        }]
+
+					    },
+					xAxis: [
+					{
+						type: 'category',
+						data: pros
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+						name: '个人每道题所用时间(秒)',
+						type: 'bar',
+						itemStyle: {
+                                  normal: {
+                                        color:function (params){
+                                        var colorList = ['#FF9900','#9ED99D','#FF6699','#FF3300'];
+                                          return colorList[type[params.dataIndex]-1];
+                                           }
+
+                                   }
+                        },
+						data: times
+					}, {
+						name: '平均每道题所用时间(秒)',
+						type: 'bar',
+							itemStyle: {
+                                  normal: {
+                                        color:function (params){
+                                        var colorList = ['#FF9900','#9ED99D','#FF6699','#FF3300'];
+                                          return colorList[type[params.dataIndex]-1];
+                                           }
+
+                                   }
+                        },
+						data: p_time,
+					}],
+				};
+				var byId = function(id) {
+				return document.getElementById(id);
+			};
+			var barChart = echarts.init(byId('score_barChart'));
+			barChart.setOption(bar);
+			var barChart = echarts.init(byId('timeuse_barChart'));
+			barChart.setOption(timee);
+			var barChart = echarts.init(byId('lookback_barChart'));
+			barChart.setOption(lookback);
+			var pieChart = echarts.init(byId('pieChart'));
+			pieChart.setOption(pie);
+			
+			
+		}
+			});
+	</script>
+		</div>
+	</body>
+</html>

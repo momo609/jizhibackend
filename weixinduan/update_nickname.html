@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<title>修改昵称</title>
+		<style>
+			body{
+				background-color:#F3F3F3;
+			}
+		
+.login_btn{
+	width:300px;
+	margin:30px auto 0 auto;
+}
+.login_btn button{
+	width:100%;
+	margin:0;
+	padding:.3em 0;
+	-webkit-border-radius:.3em;
+	-moz-border-radius: .3em;
+	border:#1263be solid 1px;
+	background-color: #29C4B5;
+	color:#FFF;
+	font-size:17px;
+	font-weight:bolder;
+	letter-spacing:1em;
+}
+.login_btn button:hover{
+	background-color: cadetblue;
+	}
+	.mui-content{
+		margin-top:5%;
+	}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+         <a class="mui-icon mui-icon-left-nav mui-pull-left" href="userinfo.html"></a>
+			<h1 class="mui-title">修改昵称</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>昵称</label>
+					<input id='nickname' type="text" class="mui-input-clear mui-input" >
+				</div>
+			</form>
+		</div>
+		<div class="mui-content-padded">
+				<div class="login_btn">
+				  <button id='login' class="mui-btn mui-btn-block mui-btn-primary">确定</button>
+				</div>
+				
+		</div>
+		<script src="js/mui.min.js"></script>
+            <script src="js/tool.js"></script>
+            <script>
+//          	var userid = UrlParm.parm("userid");
+				var userid = GetUseridCookie().get("userid");	
+            	if(userid==undefined){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+            	}
+            	(function($,doc){
+            		//var url=127.0.0.1:8080;
+//				 var url='210.36.22.231';
+            		var nickname = document.getElementById("nickname");
+				    var username = document.getElementById("username");
+				    var img=document.getElementById("img");
+				    var btnlogin = document.getElementById('login');
+            		btnlogin.onclick = function() {
+				    mui.ajax('http://'+url+'/jizhibackend/servlet/ChangeNicknameServlet',{
+						data:
+						{
+							userid:userid,
+							nickname:nickname.value
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'test', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							mui.toast("修改成功！");
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				}
+					}(mui,document));
+            </script>
+	</body>
+</html>

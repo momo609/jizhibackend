@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商城</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/mui-icon-extra.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+        <script>
+        	 var userid = GetUseridCookie().get("userid");
+        	function getgift(giftid,number){
+        		if(number<=0)
+        		{
+        			mui.toast("商品数量为0不可兑换");
+        		}
+        		else{
+        		mui.ajax('http://'+url+'/jizhibackend/servlet/ChangeGiftServlet',{
+						data:
+						{
+						    userid:userid,
+						    giftid:giftid,
+						    numbers:1,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==101)
+						    {
+						    	mui.toast("积分不足以兑换所选商品！")
+						    }
+						    else if (data.errcode==102){
+						    	mui.toast("积分扣取失败！")
+						    }
+						    else if(data.errcode==100)
+						    {
+						    	mui.toast("兑换成功！")
+						    	javascript:window.location.href="shop.html";
+						    }
+							
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+							console.log(type);
+							console.log(xhr);
+						}
+					});
+					}
+        	}
+        	function deletegift(giftid){
+        		mui.ajax('http://'+url+'/jizhibackend/servlet/DeleteGiftServlet',{
+						data:
+						{
+						    userid:userid,
+						    giftid:giftid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							show();
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+							console.log(type);
+							console.log(xhr);
+						}
+					});
+        	}
+        	function show(){
+        		 mui.ajax('http://'+url+'/jizhibackend/servlet/GetProductServelt',{
+						data:
+						{
+						    userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							//document.getElementById('content').innerHTML=JSON.stringify(data);
+							list(data);
+							
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+							console.log(type);
+							console.log(xhr);
+						}
+					});
+					function list(data){
+						var list=document.getElementById('list');
+						data1=data.gifts;
+						 jQuery.each(data1,function(index,item){
+						 jQuery.each(item,function(index,item1){
+						var li=document.createElement('li');
+						li.className='mui-table-view-cell mui-media mui-col-xs-6';
+						li.innerHTML='<img class="mui-media-object" src='+item1.dp_url+' style="width:40%;height:30%">'+
+						'<div style="margin-bottom:3%">'+item1.name+'</div>'+
+		                '<div style="height: 20px;">'+
+		                	'<div style="width:50px;height:20px;float:left;font-size:12px;　text-align: center;" >'+
+		                		'所需积分:'+item1.price+'&nbsp&nbsp&nbsp&nbsp;'+
+		                	'</div>'+
+		                	'<div style="width:50px;height:20px;float:right;font-size:12px;text-align: center;">'+
+		                		'剩余数量：'+item1.numbers+'&nbsp&nbsp&nbsp&nbsp;'+
+		                	'</div>'+
+		                '</div>'+
+		               ' <button style="width:50%;background-color: #29C4B5" onclick=getgift(\"'+item1.gift_id+'\",\"'+item.numbers+'\")>兑换</button>';
+		               list.appendChild(li);
+		           });
+					});
+						}
+        	}
+        </script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="user.html"></a>
+		    <h1 class="mui-title">积分兑换</h1>
+		    <a class="mui-pull-right" style="height: 50px;line-height: 50px;font-size: 15px;" href="shopdetail.html">积分明细</a>
+		</header>
+		<div class="mui-content" id='content'>
+			<div style="margin-top: 3%;margin-bottom:3%;padding-left:5%;background-color: #FFFFFF;padding-top: 2%;padding-bottom: 2%;">
+				<span class="mui-icon-extra mui-icon-extra-gold"></span>
+				剩余积分:<span id="coins"></span>
+			</div>
+		    <ul class="mui-table-view mui-grid-view" id="list">
+		        <!--<li class="mui-table-view-cell mui-media mui-col-xs-6">
+		                <img class="mui-media-object" src="images/abc_btn_check_to_on_mtrl_015.png">
+		                <div style="height: 20px;">
+		                	<div style="width:50px；height:20px;float:left;font-size:12px;　text-align: center;" >
+		                		所需积分：5
+		                	</div>
+		                	<div style="width:50px；height:20px;float:right;font-size:12px;text-align: center;">
+		                		剩余数量：5&nbsp&nbsp&nbsp&nbsp;
+		                	</div>
+		                </div>
+		                <button style="width:50%">兑换</button>
+		        </li><li class="mui-table-view-cell mui-media mui-col-xs-6">
+		                <img class="mui-media-object" src="images/abc_btn_check_to_on_mtrl_015.png">
+		                <div style="height: 20px;">
+		                	<div style="width:50px；height:20px;float:left;font-size:12px" >
+		                		所需积分：5
+		                	</div>
+		                	<div style="width:60px；height:20px;float:right;font-size:12px">
+		                		剩余数量：5&nbsp&nbsp&nbsp&nbsp;
+		                	</div>
+		                </div>
+		                <button style="width:50%">兑换</button>
+		        </li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+		                <img class="mui-media-object" src="images/abc_btn_check_to_on_mtrl_015.png">
+		                <div style="height: 20px;">
+		                	<div style="width:50px；height:20px;float:left;font-size:12px" >
+		                		所需积分：5
+		                	</div>
+		                	<div style="width:50px；height:20px;float:right;font-size:12px">
+		                		剩余数量：5&nbsp&nbsp&nbsp&nbsp;
+		                	</div>
+		                </div>
+		                <button style="width:50%">兑换</button>
+		        </li>-->
+		    </ul>    
+		</div>
+		
+		
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		var userid = GetUseridCookie().get("userid");
+		   mui('body').on('tap','a',function(){document.location.href=this.href;});
+		 mui.ajax('http://'+url+'/jizhibackend/servlet/GetProductServelt',{
+						data:
+						{
+						  userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							//document.getElementById('content').innerHTML=JSON.stringify(data);
+							list(data);
+							document.getElementById('coins').innerHTML=data.coins;
+							
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+							console.log(type);
+							console.log(xhr);
+						}
+					});
+					function list(data){
+						var list=document.getElementById('list');
+						data1=data.gifts;
+						 jQuery.each(data1,function(index,item){
+						 jQuery.each(item,function(index,item1){
+						var li=document.createElement('li');
+						li.className='mui-table-view-cell mui-media mui-col-xs-6';
+						li.innerHTML='<img class="mui-media-object" src='+item1.dp_url+' style="width:100px;height:100px">'+
+						'<div style="margin-bottom:3%">'+item1.name+'</div>'+
+		                '<div style="height: 20px;">'+
+		                	'<div style="height:20px;float:left;font-size:12px;　text-align: center;" >'+
+		                		'所需积分:'+item1.price+
+		                	'</div>'+
+		                	'<div style="height:20px;float:right;font-size:12px;text-align: center;">'+
+		                		'剩余数量：'+item1.numbers+
+		                	'</div>'+
+		                '</div>'+
+		               ' <button style="width:50%;background-color: #29C4B5;color:#FFF;" onclick=getgift(\"'+item1.gift_id+'\",\"'+item1.numbers+'\")>兑换</button>';
+		               list.appendChild(li);
+		           });
+					});
+						}
+	</script>
+</html>

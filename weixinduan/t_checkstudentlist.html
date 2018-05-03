@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>参考学生列表</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<link  rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+		<style>
+						body{
+				background-color:#F3F3F3;
+			}
+.topper
+{
+	 background-color:#29c4b5;
+	 font-size: 35px;
+	 margin:0;
+	 margin-bottom: 1%;
+	 padding-top: 0.3px;
+	 padding-bottom: 0.3px;
+	 text-align: center;
+	 font-weight:bold;
+     color:#FFFFFF;
+}	
+.user_img{
+	padding-left: 20px;
+	padding-top: 0.1px;
+	padding-bottom:0.1px;;
+	margin-top: 3%;
+	background-color: #FFFFFF;
+	font-size: 50px;
+}
+.img{
+	margin-top: 10%;
+	margin-left: 5%;
+}
+#jiaru{
+	height: 50px;
+}
+#login-form{
+	margin-top: 3%;
+}
+.oa-contact-name1{
+	font-size: 15px;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav ">
+			<a class="mui-icon mui-icon-arrowleft" id="back" ></a>
+			<h1 class="mui-title">参考学生列表</h1>		
+		</header>	
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item " href="t_test.html">
+				<span class="mui-icon iconfont icon-ceshi"></span>
+				<span class="mui-tab-label">测试</span>
+			</a>
+			<a class="mui-tab-item" href="t_tiku.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">题库</span>
+			</a>
+			<a class="mui-tab-item" href="t_banji.html">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">班级</span>
+			</a>
+			<a class="mui-tab-item" href="t_user.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+   </nav>
+		<div class="mui-content">
+			<div id="item1mobile" class="mui-control-content mui-active">
+					<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed " id="out">
+									
+		            </ul>							
+			</div>
+	  </div>
+		
+</body>
+		<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+			mui('body').on('tap','a',function(){document.location.href=this.href;});
+			$(document).ready(function () {
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+				var studentid=UrlParm.parm("studentid");
+				var studentname = UrlParm.parm("studentname");
+				var testid=UrlParm.parm("testid");
+				var use_paperid=UrlParm.parm("use_paperid");
+				var title=UrlParm.parm("title");
+				document.getElementById('back').href='new_t_datijiguo.html?testid='+testid+'&use_paperid='+use_paperid+'&title='+title;
+				if(userid==undefined){
+            		alert("登录过期，请重新登录！");
+					javascript:window.location.href="login.html"
+                }
+				out=document.getElementById('out');
+			    studentName=[];
+			    studentName=studentname.split(',');
+			    student=[];
+			    student=studentid.split(',');	
+				mui.ajax('http://'+url+'/jizhibackend/servlet/GetTestStudentServlet', {
+					data: {
+						testid:testid,
+					},
+					xhrFields: {
+
+						withCredentials: true
+
+					},
+					crossDomain: true,
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000000, //超时时间设置为10秒；
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+					success: function(data) {
+//						alert(data.students);
+						getList(data.students);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("获取学生列表失败，请刷新重新获取...");
+						console.log(type);
+					}
+				});
+				function getList(allStudents){
+					var allStudentIDs = [];
+					jQuery.each(allStudents,function(index,item){
+						allStudentIDs.push(item.student_id);
+					});
+//					var a = [1,2,3,4,5,6,7];
+//					var b = [1,2,5];
+					//取出两个数组间不相同的元素
+					var c = [];
+					var tmp = allStudentIDs.concat(student);
+					var o = {};
+					for (var i = 0; i < tmp.length; i ++) (tmp[i] in o) ? o[tmp[i]] ++ : o[tmp[i]] = 1;
+					for (x in o) if (o[x] == 1) c.push(x);
+//					alert(c);
+//					alert(allStudentIDs.length);
+					for(var i=0;i<student.length-1;i++)
+                 	{
+	                 	var a = document.createElement('a');
+	                 	var li = document.createElement('li');
+	                 	a.href='t_checkstudenttest.html?userid='+student[i]+'&testid='+testid+'&use_paperid='+use_paperid+'&title='+title+'&studentid='+studentid+'&studentname='+studentname;
+	                 	li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+	                 	li.innerHTML='<div class="mui-slider-cell">'+
+		                        '<div class="oa-contact-cell mui-table">'+
+								'<div class="oa-contact-avatar mui-table-cell">'+
+								'<img src="images/userhead.png" width="60px" />'+
+								'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+										'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+									'<p class="oa-contact-name1">'+studentName[i]+
+									'</p></div></div></div>';
+									a.appendChild(li);
+									out.appendChild(a);
+            
+                 	}
+                 	
+                 	for(var i=0;i<c.length;i++)
+                 	{
+                 		var li = document.createElement('li');
+	                 	jQuery.each(allStudents,function(index,item){
+	                 			if (c[i]==item.student_id) {
+	                 			li.className="mui-table-view mui-table-view-striped mui-table-view-condensed";
+	                 				li.innerHTML='<div class="mui-slider-cell">'+
+		                        '<div class="oa-contact-cell mui-table">'+
+								'<div class="oa-contact-avatar mui-table-cell">'+
+								'<img src="images/userhead.png" width="60px" />'+
+								'</div><div class="oa-contact-content mui-table-cell"><div class="mui-clearfix">'+
+										'<h4 class="oa-contact-name">&nbsp;</h4></div>'+
+									'<p class="oa-contact-name1">'+item.remark_name+
+									'<span style="color:red">(未完成测试)</span></p></div></div></div>';
+									out.appendChild(li);
+	                 			}
+						});
+                 	}
+                 
+				}
+
+			});
+		</script>
+</html>

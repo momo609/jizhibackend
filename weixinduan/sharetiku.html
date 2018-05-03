@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>设置共享题库</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+        <script src="js/tool.js"></script>
+        <style>
+        	.done{
+	           width:300px;
+	           margin:20px auto 0 auto;
+            } 
+            .done button{
+	            width:100%;
+	            margin:0;
+	            padding:.3em 0;
+	            -webkit-border-radius:.3em;
+	            -moz-border-radius: .3em;
+	            border:#29C4B5 solid 1px;
+	            background-color: #29C4B5;
+	            color:#FFF;
+	            font-size:17px;
+	            font-weight:bolder;
+	            letter-spacing:1em;
+            }
+            
+            #secret{
+            	float: right;
+            	display:inline-block ;
+            	vertical-align: middle;
+            }
+        </style>
+	 </head>
+	 <body>
+	 	<header class="mui-bar mui-bar-nav">
+	 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置题库共享</h1>
+			<button id="secret" href="" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">设为私密</button>
+	    </header>
+	    <div class="mui-content" style="margin-left: 0px; margin-top: 5px;">
+	      <div id="content">
+	      	 <div class="mui-input-row mui-checkbox">
+	      	 	<label>1234</label>
+                 <input name="checkbox1" id="c1" value='"+item.userid+"' type="checkbox"  >
+	      	 </div>
+	      	  <div class="mui-input-row mui-checkbox">
+	      	 	<label>1234</label>
+                 <input name="checkbox1" id="c1" value='"+item.userid+"' type="checkbox"  >
+	      	 </div>
+	      	  <div class="mui-input-row mui-checkbox">
+	      	 	<label>1234</label>
+                 <input name="checkbox1" id="c1" value='"+item.userid+"' type="checkbox"  >
+	      	 </div>
+                       	       	  
+	      </div>	
+	 	
+          <div class="done">
+          	<button type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary" id="finish">确认</button>
+          </div>
+      </div>
+	</body>
+	<script>
+		mui('body').on('tap','a',function(){document.location.href=this.href;});
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+			$(document).ready(function (){
+				 jQuery.noConflict();
+				//var url='127.0.0.1:8080';
+//				var url='210.36.22.231';
+				var userid = GetUseridCookie().get("userid");
+				var paperid=UrlParm.parm("paperid");
+//				if(userid==undefined){
+//          		alert("登录过期，请重新登录！");
+//					javascript:window.location.href="login.html"
+//          }
+				var paperlist;
+				var isshare='';
+				var share='';
+				var content=document.getElementById("content");
+				var finish=document.getElementById("finish");
+				finish.disabled=true;
+				var setSecret = document.getElementById("secret");
+				
+				setSecret.onclick = function(){
+					if(window.confirm("确认将该题库设置为私密？")){
+						isShare(0,0);
+					}else{
+						return;
+					}
+				};
+				
+				document.getElementById('c1').onclick = function ( ) {
+                     var check = document.getElementsByName("checkbox1");
+                     var flag=0;
+				  	 for(var i = 0; i < check.length; i++)
+				  	 {
+				  	 	if(check[i].checked==true)
+				  	 	{
+				  	 	    finish.disabled=false;	
+				  	 	    flag=1;
+				  	 	}
+				  	 }
+				  	 if(flag==0)
+				  	 {
+				  	 	 finish.disabled=true;
+				  	 }
+               }
+				function check_but(){
+				 	 var check = document.getElementsByName("checkbox1");
+				  	 for(var i = 0; i < check.length-1; i++)
+				  	 {
+				  	 	if(check[i].checked==true)
+				  	 	{
+				  	 	    finish.disabled=false;	
+				  	 	}
+				  	 	alert(share);
+				  	 }
+				 }
+				
+				finish.onclick= function()
+				  {
+				  	 var check = document.getElementsByName("checkbox1");
+				  	 //alert(check.length);
+				  	 for(var i = 0; i < check.length-1; i++)
+				  	 {
+				  	 	if(check[i].checked==true)
+				  	 	{
+				  	 	    share=share+check[i].value+',';	
+				  	 	}
+//				  	 	alert(share);
+				  	 }
+				  	 share=share.substring(0,share.length-1);
+//				  	 alert(share);
+//				  	 if(check[check.length-1].checked==true)
+//				  	 	{
+//				  	 	    share=share+check[i].value;	
+//				  	 	}
+//				  	 	else{
+//				  	 		share=share.substring(0,share.length-1);
+//				  	 	}
+				  	 	//alert(share);
+				  	 isShare(share,1);
+				  	
+				  }
+				  
+					mui.ajax('http://'+url+'/jizhibackend/servlet/GetAllTeachersServlet',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) { 
+							setshare(data);	
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				 
+				 
+				 
+				 
+				 function setshare(data1)
+				  {
+				     mui.ajax('http://'+url+'/jizhibackend/servlet/GetPaperServlet',{
+						data:
+						{
+							userid:userid,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) { 
+							paperlist=data.papers;
+							//alert(JSON.stringify(paperlist));
+							jQuery.each(paperlist,function(index,item){    
+                       	       if(item.id==paperid)
+                       	       {
+                       	       	isshare=item.isShare;
+                       	       }
+                        });
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						} 
+					   });
+				  	   var teacherList=data1.allTeachers;
+				  	   //alert(isshare);
+				  	   //alert(JSON.stringify(teacherList));
+                       jQuery.each(teacherList,function(index,item){ 
+                       	
+                       	       if(isshare.indexOf(item.nickname)>=0)
+                       	       {
+                       	       	   var div=document.createElement("div");
+                       	       	   div.className="mui-input-row mui-checkbox";
+                       	       	   div.innerHTML= "<label>"+item.nickname+"</label>"+
+                                                  "<input name='checkbox1' value='"+item.userid+"' id='c1'  type='checkbox' checked>";
+                       	       }
+                       	       else
+                       	       {
+                       	       	//alert(item.nickname)
+                       	       	   var div=document.createElement("div");
+                       	       	   div.className="mui-input-row mui-checkbox";
+                       	       	   div.innerHTML= "<label>"+item.nickname+"</label>"+
+                                                  "<input name='checkbox1' value='"+item.userid+"' id='c1' type='checkbox'>";
+                       	       }
+                       	       content.appendChild(div);
+                        });
+				  }
+				  
+				  
+				   
+				  
+				  
+				  function isShare(share,type){
+				  	mui.ajax('http://'+url+'/jizhibackend/servlet/ChangeShareServlet',{
+						data:
+						{
+							userid:userid,
+							paperid:paperid,
+							ids:share,
+							type:type,
+						},
+						xhrFields: {
+
+							withCredentials: true
+
+						},
+						crossDomain: true,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						 async: false,//同步
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+						success: function(data) {
+							if(data.errcode==0){
+							   mui.toast("设置成功");
+							   window.location.href = 't_tiku.html';
+							  }
+							else
+							  mui.toast("设置失败");
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+				  }
+				  
+			});
+	</script>
+</html>

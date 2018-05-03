@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/tool.js"></script>
+		 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	</head>
+	<body>
+		<div id="dialog-modal" title="基本的模态对话框">
+             <p>"登录成功，正在跳转至测试界面..."</p>
+          </div>
+	</body>
+	<script>
+	$(document).ready(function (){
+		 jQuery.noConflict();
+              $( "#dialog-modal" ).dialog({
+                  height: 140,
+                    modal: true
+            });
+              setTimeout(function () {
+                $.Dialog('close');
+ 
+            }, 5000);
+          });
+	</script>
+</html>
