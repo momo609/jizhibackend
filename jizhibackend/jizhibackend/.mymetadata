@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="jizhibackend"
+  id="myeclipse.1465108430132"
+  context-root="/jizhibackend"
+  j2ee-spec="6.0"
+  archive="jizhibackend.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

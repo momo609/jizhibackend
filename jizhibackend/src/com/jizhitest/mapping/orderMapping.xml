@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.orderMapping">
+    <insert id="addOrder" parameterType="com.jizhibackend.bean.Order" useGeneratedKeys="true" keyProperty="id">
+  insert into exchange_order values(#{id},#{gift_id},#{receiver},#{address},#{phone_num},NOW(),#{user_id}) 
+</insert>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.classManagerMapping">
+ <insert id="createClass"  useGeneratedKeys="true"  keyProperty="id"  parameterType="com.jizhibackend.bean.MyClass" >
+        insert into class(name,owner,createtime,member_num) values(#{name},#{owner},#{createtime},#{membernum})
+    </insert>
+    <select id="getClassManagersByid"   resultType="int" parameterType="int" >
+        SELECT  user_id FROM class_manager WHERE class_id=#{0}
+    </select>
+    <insert id="addClassManager" 
+        >
+        insert into  class_manager(user_id,class_id) values(#{userid},#{classid})
+    </insert>
+    <delete id="deleteClassManager" 
+        >
+        delete from class_manager where user_id=#{userid} and class_id=#{classid}
+    </delete>
+    <update id="updateClassName" parameterType="com.jizhibackend.bean.Question">
+        update class
+        <set>
+            <if test="classname != null">name=#{classname},</if>
+            
+           
+        </set>
+        where id=#{classid};
+</update>
+<update id="updateClassNickname">
+        update r_student_class
+        <set>
+            <if test="nickname != null">remark_name=#{nickname},</if>
+            
+           
+        </set>
+        where class_id=#{classid} and student_id=#{userid};
+</update>
+
+</mapper>

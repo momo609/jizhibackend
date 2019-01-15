@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.mytestMapping">
+    <!-- <select id="getInTestOfClass" parameterType="int"  resultType="com.jizhibackend.bean.MyTest">
+        SELECT testid,title,start_time,end_time,create_time,owner,use_paperid,privilege FROM r_class_test,test WHERE r_class_test.classid=#{0} AND <![CDATA[#(1)-test.end_time<=0]]> AND r_class_test.testid=test.id ORDER BY start_time DESC
+    </select>
+    <select id="getDoneTestOfClass" parameterType="int" 
+        resultType="com.jizhibackend.bean.MyTest">
+        SELECT testid,title,start_time,end_time,create_time,owner,use_paperid,privilege FROM r_class_test,test WHERE r_class_test.classid=#{classid} AND <![CDATA[UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(test.end_time)>0]]> AND r_class_test.testid=test.id ORDER BY start_time DESC
+    </select>-->
+    <select id="getTestOfClass" parameterType="int" 
+        resultType="com.jizhibackend.bean.MyTest">
+        SELECT testid,title,start_time,end_time,create_time,owner,use_paperid,privilege FROM r_class_test,test WHERE r_class_test.classid=#{classid} AND r_class_test.testid=test.id ORDER BY start_time DESC
+    </select>
+    <select id="getTestOfOwner" parameterType="int" 
+        resultType="com.jizhibackend.bean.MyTest">
+        SELECT * FROM r_class_test,test WHERE r_class_test.classid=#{classid}
+    </select>
+     <select id="getTestById" parameterType="int" 
+        resultType="com.jizhibackend.bean.MyTest">
+        SELECT * FROM test WHERE id=#{id}
+    </select>
+    <delete id="deleteTestById" parameterType="int" >
+    delete from test where id=#{id}
+    </delete>
+</mapper>

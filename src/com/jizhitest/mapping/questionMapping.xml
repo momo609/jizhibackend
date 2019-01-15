@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.questionMapping">
+   <select id="getSingleChoiceById" parameterType="int" 
+        resultType="com.jizhibackend.bean.SingleChoiceQuestion">
+       select * from question_single_choice WHERE id=#{id}
+    </select>
+     <select id="getFillBlankQuestionById" parameterType="int" 
+        resultType="com.jizhibackend.bean.FillBlankQuestion">
+       select * from qustion_fill_blank WHERE id=#{id}
+    </select>
+     <select id="getJudgeQuestionById" parameterType="int" 
+        resultType="com.jizhibackend.bean.JudgeQuestion">
+       select * from question_judge WHERE id=#{id}
+    </select>
+    <select id="getQuestionsByPaperId" parameterType="int" 
+        resultType="com.jizhibackend.bean.Question">
+       SELECT questionid,point,q_order,type,stem,answer,answerkey,tag,level,knowledgeid FROM r_paper_question,question WHERE r_paper_question.paperid=#{paperid} AND r_paper_question.questionid=question.id order by r_paper_question.q_order asc
+    </select>
+    <select id="getQuestionsByTestPaperId" parameterType="int" 
+        resultType="com.jizhibackend.bean.Question">
+       SELECT questionid,point,q_order,type,stem,answer,answerkey,tag,level,knowledgeid FROM r_testpaper_question,question WHERE r_testpaper_question.paperid=#{paperid} AND r_testpaper_question.questionid=question.id order by r_testpaper_question.q_order asc
+    </select>
+    
+    
+     <select id="getRpaperQuestionId" parameterType="int" 
+        resultType="com.jizhibackend.bean.RpaperQuestion">
+       SELECT paperid,questionid,point,q_order FROM r_paper_question WHERE r_paper_question.paperid=#{paperid} order by r_paper_question.id asc
+    </select>
+    
+    <insert id="insertRpaperQuestion" parameterType="com.jizhibackend.bean.RpaperQuestion" useGeneratedKeys="true" keyProperty="id">
+  insert into r_testpaper_question(paperid,questionid,point,q_order) values(#{paperid},#{questionid},#{point},#{q_order}) 
+	</insert>
+    <select id="getQuestionsByid"  parameterType="int"  resultType="com.jizhibackend.bean.Question">  
+     select   *  from question where id=#{0}
+   </select> 
+    <select id="getQuestionsByids"  parameterType="list"  resultType="com.jizhibackend.bean.Question">  
+     select   *  from question where id in  
+    <foreach collection="list" index="index" item="p" open="("
+     separator="," close=")">
+     #{p} 
+    </foreach>  
+   </select> 
+   <update id="updateQuestion" parameterType="com.jizhibackend.bean.Question">
+        update question
+        <set>
+            <if test="stem != null">stem=#{stem},</if>
+            <if test="answer != null">answer=#{answer},</if>
+            <if test="answerkey != null">answerkey=#{answerkey},</if>
+            <if test="type != null">type=#{type},</if>
+              <if test="tag != null">tag=#{tag},</if>
+            <if test="level != null">level=#{level},</if>
+           
+        </set>
+        where id=#{questionid};
+</update>
+<update id="updateQuestionPoint"  parameterType="map">
+        update r_paper_question
+        <set>
+           
+            <if test="point != null">point=#{point}</if>
+        </set>
+        where questionid=#{questionid} and paperid=#{paperid};
+</update>
+   <update id="updateChoices" parameterType="com.jizhibackend.bean.Question">
+        update choices
+        set choices=#{choices}
+        where qid=#{questionid}
+</update>
+
+</mapper>

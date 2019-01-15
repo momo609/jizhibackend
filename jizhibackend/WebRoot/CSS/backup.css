@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+ul{ 
+	margin: 0.5em 2.5em; 
+}
+#header { 
+	 height: 150px; 
+	 margin-top: 2px; 
+}
+#menu {
+	position: absolute;
+	top: 20px;
+	left: 264px;
+	height: 48px;
+}
+*ul#menu {
+	margin: 1pt;
+	left: 89px;
+	top: 4px;
+	border: 1px;
+}
+#menu li {
+	list-style-type: none;
+	float: left;
+	width: 104px;
+	margin-right: 2px;
+	font-size: xx-large;
+	padding-bottom: 2px;
+}
+#menu li > a, #menu li > strong { width: auto; }
+#menu a:hover {
+	color: rgb(149, 32, 32);
+	border: 1px;
+}
+
+
+/*基本信息*/
+body {
+	font:0px Tahoma;
+	margin:0px;
+	text-align:center;
+	background:#FFF;
+	}
+
+　　/*页面层容器*/
+.container {
+	width:100%
+	}
+
+　　/*页面头部*/
+.Header {
+	width:800px;
+	margin:0 auto;
+	height:100px;
+	background:#FFCC99
+	}
+
+　　/*页面主体*/
+.PageBody {
+	width:800px;
+	margin:0 auto;
+	height:400px;
+	background:#CCFF00
+	}
+
+　　/*页面底部*/
+.Footer {
+	width:800px;
+	margin:0 auto;
+	height:50px;
+	background:#00FFFF
+	}

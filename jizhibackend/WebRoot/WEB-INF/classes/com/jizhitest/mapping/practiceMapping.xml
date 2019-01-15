@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.practiceMapping">
+   <insert id="addPracticeResult" parameterType="com.jizhibackend.bean.PracticeResult" useGeneratedKeys="true" keyProperty="resultid">
+       insert into practice_result(paper_id,stu_id,answers,answer_trace,time_used,total_time_used,look_back_times) values(#{paper_id},#{stu_id},#{answers},#{answer_trace},#{time_used},#{total_time_used},#{look_back_times}) 
+    </insert>
+    <select id="findPracticeResult"  resultType="com.jizhibackend.bean.PracticeResult"  parameterType="com.jizhibackend.bean.TestResult" >
+    select * from practice_result where paper_id=#{paper_id} and stu_id=#{stu_id}
+    </select>
+    <select id="findPracticeById"  resultType="com.jizhibackend.bean.PracticeResult"  parameterType="int" >
+    select * from practice_result where paper_id=#{paper_id}
+    </select>
+   
+</mapper>

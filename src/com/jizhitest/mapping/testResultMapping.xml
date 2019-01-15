@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.testResultMapping">
+   <insert id="addTestResult" parameterType="com.jizhibackend.bean.TestResult" useGeneratedKeys="true" keyProperty="resultid">
+       insert into test_result(testid,studentid,answers,score,answer_trace,time_used,total_time_used,look_back_times,proportion,tagproportion) values(#{testid},#{studentid},#{answers},#{score},#{answer_trace},#{time_used},#{total_time_used},#{look_back_times},#{proportion},#{tagproportion}) 
+    </insert>
+    <select id="findTestResult"  resultType="com.jizhibackend.bean.TestResult"  parameterType="com.jizhibackend.bean.TestResult" >
+    select * from test_result where testid=#{testid} and studentid=#{studentid} limit 1
+    </select>
+    <select id="findTestResultById"  resultType="com.jizhibackend.bean.TestResult"  parameterType="int" >
+    select * from test_result where testid=#{testid} order by studentid asc
+    </select>
+    <select id="findTestAndNameResultById"  resultType="com.jizhibackend.bean.TestResult"  parameterType="int" >
+    select resultid,testid,studentid,answers,answer_trace,time_used,total_time_used,look_back_times,nickname,score,proportion,tagproportion from test_result,user where testid=#{testid} and test_result.studentid=user.user_id order by studentid asc
+    </select>
+     <select id="getAvgTimeuseOfEachQuestionByTestid"  resultType="int"  parameterType="int" >
+   SELECT avg(r_result_timeuse.time_used) FROM
+	r_result_timeuse ,
+	test_result 
+	WHERE r_result_timeuse.resultid=test_result.resultid and testid=#{testid}
+	GROUP BY q_order
+    </select>
+    <select parameterType="int" id="getAvgLookbacktimeOfEachQuestionByTestid" resultType="String"> 
+    SELECT test_result.look_back_times FROM test_result WHERE testid=#{testid} 
+    </select>
+    <insert id="addTimeuseOfResult" parameterType="com.jizhibackend.bean.R_Result_Timeuse" useGeneratedKeys="true" keyProperty="id">
+       insert into r_result_timeuse(resultid,q_order,time_used) values(#{resultid},#{q_order},#{time_used}) 
+    </insert>
+   
+</mapper>

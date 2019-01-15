@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.giftMapping">
+	<insert id="addGift" parameterType="com.jizhibackend.bean.Gift" useGeneratedKeys="true" keyProperty="id">
+  	insert into gift(gift_id,name,price,numbers,dp_url,class_id,description) values(#{gift_id},#{name},#{createtime},#{price},#{numbers},#{dp_url},#{class_id},#{description}) 
+	</insert>
+    <select id="getGift" 
+        resultType="com.jizhibackend.bean.Gift">
+        SELECT * FROM gift
+    </select>
+    <select id="getGiftByID" 
+        resultType="com.jizhibackend.bean.Gift" parameterType="int" >
+        SELECT * FROM gift WHERE gift_id=#{giftid}
+    </select>
+</mapper>

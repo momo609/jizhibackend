@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jizhitest.mapping.paperMapping">
+   <insert id="createPaper" parameterType="com.jizhibackend.bean.Paper" useGeneratedKeys="true" keyProperty="id">
+  insert into paper(id,title,createtime,owner,question_num) values(#{id},#{title},#{createtime},#{owner},#{question_num}) 
+</insert>
+<insert id="createTestPaper" parameterType="com.jizhibackend.bean.Paper" useGeneratedKeys="true" keyProperty="id">
+  insert into test_paper(title,createtime,owner,question_num) values(#{title},#{createtime},#{owner},#{question_num}) 
+</insert>
+<insert id="addSCQ" parameterType="com.jizhibackend.bean.SingleChoiceQuestion" useGeneratedKeys="true" keyProperty="id">
+  insert into question_single_choice(id,paperid,stem,choices,answer,answerkey,question_order,point) values(#{id},#{paperid},#{stem},#{choices},#{answer},#{answerkey},#{question_order},#{point}) 
+</insert>
+<insert id="addSCQ2" parameterType="com.jizhibackend.bean.SingleChoiceQuestion" useGeneratedKeys="false" keyProperty="id">
+  insert into question_single_choice(id,stem,choices,answer,answerkey) values(#{id},#{stem},#{choices},#{answer},#{answerkey}) 
+</insert>
+<insert id="addQ" parameterType="com.jizhibackend.bean.Question" useGeneratedKeys="true" keyProperty="id">
+  insert into question(id,type,stem,answer,answerkey,tag,level) values(#{id},#{type},#{stem},#{answer},#{answerkey},#{tag},#{level}) 
+</insert>
+<insert id="addChoices" parameterType="hashmap">
+  insert into choices(qid,choices) values(#{qid},#{choices}) 
+</insert>
+<delete id="delQ"  parameterType="hashmap">
+ delete from r_paper_question where paperid=#{paperId} and questionid=#{qId}
+</delete>
+<insert id="addQtoP" parameterType="com.jizhibackend.bean.RpaperQuestion" useGeneratedKeys="true" keyProperty="id">
+  insert into r_paper_question(id,paperid,questionid,point,q_order) values(#{id},#{paperid},#{questionid},#{point},#{q_order}) 
+</insert>
+<delete id="deletePaper"  parameterType="int">
+delete from paper where id=#{id}
+</delete>
+<select id="searchPaper"  parameterType="hashmap" resultType="com.jizhibackend.bean.Paper">
+       select * from paper WHERE title like CONCAT('%',#{keyword},'%' ) and owner!=#{userid}
+ </select>
+ <select id="getpaperbyids"  parameterType="list"  resultType="com.jizhibackend.bean.Paper">  
+  select   *  from paper where id in  
+<foreach collection="list" index="index" item="p" open="("
+    separator="," close=")">
+   #{p} 
+ </foreach>  
+   </select> 
+    <select id="getpaperbyid"  parameterType="int"  resultType="com.jizhibackend.bean.Paper">  
+  select   *  from paper where id=#{0} 
+   </select> 
+
+    <select id="gettestpaperbyid"  parameterType="int"  resultType="com.jizhibackend.bean.Paper">  
+  select   *  from test_paper where id=#{0} 
+   </select> 
+</mapper>
